@@ -5,9 +5,7 @@ const prismaClientSingleton = () => {
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
-/*
-// eslint-disable-next-line
-*/
+
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClientSingleton | undefined;
 };
