@@ -53,6 +53,9 @@ export async function GET() {
 
   const sites = await prisma.site.findMany({
     where: { userId: user.id },
+    include: {
+        _count: { select: { visits: true } },
+      },
     orderBy: { createdAt: "desc" },
   });
 

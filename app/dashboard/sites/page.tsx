@@ -2,9 +2,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+interface Site {
+  id: string;
+  name: string;
+  domain: string;
+  _count: {
+    visits: number;
+  };
+}
+
 export default function SitesPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [sites, setSites] = useState<any[]>([]);
+  const [sites, setSites] = useState<Site[]>([]);
   const [name, setName] = useState("");
   const [domain, setDomain] = useState("");
 
@@ -26,7 +34,7 @@ export default function SitesPage() {
 
     try {
       const res = await axios.post("/api/sites", { name, domain });
-      const newSite = res.data;
+      const newSite: Site = res.data;
       setSites([newSite, ...sites]);
       setName("");
       setDomain("");
@@ -71,7 +79,8 @@ export default function SitesPage() {
             <div key={site.id} className="p-4 border rounded space-y-2">
               <h2 className="text-xl font-semibold">{site.name}</h2>
               <p className="text-gray-600">{site.domain}</p>
-              <div className="bg-gray-100 p-2 rounded text-sm">
+              <p>Visits: {site._count.visits}</p>
+              <div className="bg-gray-100 p-2 rounded text-sm overflow-x-auto whitespace-nowrap">
                 {`<script src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${site.id}"></script>`}
               </div>
             </div>
