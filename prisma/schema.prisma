@@ -19,7 +19,28 @@ model User {
   image     String
   email     String   @unique
   createdAt DateTime @default(now())
+  site      Site[]
   provider  Provider
+}
+
+model Site {
+  id        String   @id @default(uuid())
+  name      String
+  domain    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  visits    Visit[]
+}
+
+model Visit {
+  id        String   @id @default(uuid())
+  siteId    String
+  pathname  String
+  referrer  String
+  userAgent String
+  createdAt DateTime @default(now())
+  site      Site     @relation(fields: [siteId], references: [id])
 }
 
 enum Provider {
