@@ -10,6 +10,8 @@ interface Visit {
   userAgent: string;
   device: string;
   country: string;
+  os: string;
+  browser: string;
   createdAt: string;
 }
 
@@ -42,9 +44,10 @@ export default function SiteVisitsPage() {
             <div key={visit.id} className="p-4 border rounded space-y-2">
               <p><strong>Path:</strong> {visit.pathname}</p>
               <p><strong>Referrer:</strong> {visit.referrer || "Direct"}</p>
-              <p><strong>User Agent:</strong> {visit.userAgent}</p>
               <p><strong>Device:</strong> {visit.device}</p>
               <p><strong>Country:</strong> {visit.country}</p>
+              <p><strong>OS:</strong> {visit.os}</p>
+              <p><strong>Browser:</strong> {visit.browser}</p>
               <p className="text-gray-600 text-sm">
                 {new Date(visit.createdAt).toLocaleString()}
               </p>

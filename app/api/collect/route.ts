@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import { parseUserAgent } from "@/lib/parseuseragent";
 
 export async function OPTIONS() {
   return NextResponse.json({}, {
@@ -15,6 +16,27 @@ export async function OPTIONS() {
 export async function POST(req: NextRequest) {
   try {
     const { siteId, pathname, referrer, userAgent, screenWidth } = await req.json();
+
+    if (!siteId || !pathname || !userAgent) {
+      return NextResponse.json({ error: "Missing fields" }, {
+        status: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+
+    const ua = userAgent.toLowerCase();
+    if (ua.includes("bot") || ua.includes("crawler") || ua.includes("spider")) {
+      return NextResponse.json({ skipped: true }, {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+
+    const { os, browser } = parseUserAgent(userAgent);
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     console.log("IP Detected:", ip);
 
@@ -59,10 +81,13 @@ export async function POST(req: NextRequest) {
         pathname,
         referrer: referrer || "",
         userAgent,
-        device: isMobile ? "mobile" : "desktop",
+        device: isMobile ? "Mobile" : "Desktop",
         country,
+        os,
+        browser,
       },
     });
+
 
     return NextResponse.json({ success: true }, {
       status: 200,
