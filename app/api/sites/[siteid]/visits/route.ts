@@ -2,27 +2,27 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
 interface Params {
-  params: Promise<{ siteid: string }>;
+  params: Promise<{ siteId: string }>;
 }
 
 export async function GET(req: NextRequest, { params }: Params) {
   try {
-    const { siteid } = await params;
+    const { siteId } = await params;
 
-    if (!siteid) {
-      return NextResponse.json({ error: "Missing siteid in URL" }, { status: 400 });
+    if (!siteId) {
+      return NextResponse.json({ error: "Missing siteId in URL" }, { status: 400 });
     }
 
     const site = await prisma.site.findUnique({
-      where: { id: siteid },
+      where: { id: siteId },
     });
 
     if (!site) {
-      return NextResponse.json({ error: "Invalid siteid" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid siteId" }, { status: 400 });
     }
 
     const visits = await prisma.visit.findMany({
-      where: { siteId: siteid },
+      where: { siteId },
       orderBy: { createdAt: "desc" },
     });
 
