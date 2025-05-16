@@ -14,7 +14,9 @@ export async function OPTIONS() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { siteId, pathname, referrer, userAgent } = await req.json();
+    const { siteId, pathname, referrer, userAgent, screenWidth } = await req.json();
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    console.log("IP Detected:", ip);
 
     if (!siteId || !pathname || !userAgent) {
       return NextResponse.json({ error: "Missing fields" }, {
@@ -38,12 +40,27 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const isMobile = screenWidth && screenWidth < 768;
+    let country = "India";
+
+    try {
+      const geoRes = await fetch(`https://ipwho.is/${ip}`);
+      const geo = await geoRes.json();
+      if (geo && geo.success !== false && geo.country) {
+        country = geo.country;
+      }
+    } catch (err) {
+      console.warn("Geolocation failed, using default country: India", err);
+    }
+
     await prisma.visit.create({
       data: {
         siteId,
         pathname,
         referrer: referrer || "",
         userAgent,
+        device: isMobile ? "mobile" : "desktop",
+        country,
       },
     });
 

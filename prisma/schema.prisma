@@ -36,11 +36,13 @@ model Site {
 model Visit {
   id        String   @id @default(uuid())
   siteId    String
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
   pathname  String
   referrer  String
   userAgent String
   createdAt DateTime @default(now())
-  site      Site     @relation(fields: [siteId], references: [id])
+  device    String
+  country   String
 }
 
 enum Provider {

@@ -8,6 +8,8 @@ interface Visit {
   pathname: string;
   referrer: string;
   userAgent: string;
+  device: string;
+  country: string;
   createdAt: string;
 }
 
@@ -41,6 +43,8 @@ export default function SiteVisitsPage() {
               <p><strong>Path:</strong> {visit.pathname}</p>
               <p><strong>Referrer:</strong> {visit.referrer || "Direct"}</p>
               <p><strong>User Agent:</strong> {visit.userAgent}</p>
+              <p><strong>Device:</strong> {visit.device}</p>
+              <p><strong>Country:</strong> {visit.country}</p>
               <p className="text-gray-600 text-sm">
                 {new Date(visit.createdAt).toLocaleString()}
               </p>

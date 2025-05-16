@@ -14,6 +14,7 @@
         pathname: window.location.pathname,
         referrer: document.referrer || null,
         userAgent: navigator.userAgent,
+        screenWidth: window.innerWidth,
       };
 
       console.log("Sending visit payload:", payload);
