@@ -22,7 +22,7 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
     <section className="mb-8">
       <div className="bg-black rounded-lg overflow-hidden shadow border border-zinc-800">
         <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
-          <h2 className="text-sm font-semibold text-white">Pages</h2>
+          <h2 className="text-sm font-semibold text-white">pages</h2>
           <span className="text-sm text-zinc-400">VISITORS</span>
         </div>
         <ul>
@@ -38,21 +38,30 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
               </div>
             </li>
           ))}
+          {Array.from({ length: 6 - pages.slice(0, 6).length }).map((_, idx) => (
+            <li key={`empty-${idx}`} className="relative h-8 flex items-center my-2 mx-2 opacity-0 pointer-events-none">
+              <div className="w-full h-full" />
+            </li>
+          ))}
 
-          {pages.length > 6 && (
-            <li className="flex items-center justify-between px-4 py-3 mt-4 border-t border-zinc-800 text-sm text-zinc-400">
+          <li className="flex items-center justify-between px-4 py-3 mt-4 border-t border-zinc-800 text-sm text-zinc-400">
+            {pages.length > 6 ? (
               <div className="flex items-center space-x-2">
                 <button className="flex items-center space-x-1" onClick={() => setIsModalOpen(true)}>
                   <span>View All</span>
                   <Maximize2 className="h-4 w-4" />
                 </button>
               </div>
-              <button>
-                <MoreHorizontal className="h-5 w-5 text-zinc-500" />
-              </button>
-            </li>
-          )}
+            ) : (
+              <div className="h-[20px]" />
+            )}
+            <button>
+              <MoreHorizontal className="h-5 w-5 text-zinc-500" />
+            </button>
+          </li>
+
         </ul>
+
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -60,7 +69,7 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
           <DialogHeader>
             <DialogTitle></DialogTitle>
             <div className="flex items-center justify-between pl-2 pr-4 py-3 border-b border-zinc-800 sticky top-0 bg-black">
-              <h2 className="text-[1rem] font-semibold text-white">Pages</h2>
+              <h2 className="text-[1rem] font-semibold text-white">pages</h2>
               <span className="text-xs font-semibold text-zinc-400">VISITORS</span>
             </div>
           </DialogHeader>

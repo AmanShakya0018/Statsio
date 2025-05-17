@@ -76,7 +76,7 @@ export default function SiteVisitsPage() {
   }, [siteId]);
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-7xl mx-auto p-4 ">
       <h1 className="text-2xl font-bold mb-6">Analytics for Site ID: {siteId}</h1>
 
       {/* <section className="mb-10">
@@ -101,13 +101,28 @@ export default function SiteVisitsPage() {
           </div>
         )}
       </section> */}
+      <div className="flex flex-col lg:flex-row w-full gap-4">
+        <div className="w-full lg:w-1/2">
+          <PagesAnalytics pages={pages} />
+        </div>
+        <div className="w-full lg:w-1/2">
+          <ReferrersAnalytics referrers={referrers} />
+        </div>
+      </div>
 
-      <PagesAnalytics pages={pages} />
-      <ReferrersAnalytics referrers={referrers} />
-      <CountrysAnalytics countries={countries} />
+      <div className="flex flex-col lg:flex-row w-full gap-4">
+        <div className="w-full lg:w-1/3">
+          <CountrysAnalytics countries={countries} />
+        </div>
+        <div className="w-full lg:w-1/3">
+          <OssAnalytics oses={oses} />
+        </div>
+        <div className="w-full lg:w-1/3">
+          <BrowsersAnalytics browsers={browser} />
+        </div>
+      </div>
+
       <DevicesAnalytics devices={devices} />
-      <OssAnalytics oses={oses} />
-      <BrowsersAnalytics browsers={browser} />
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-1">Time Series</h2>
         <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(timeseries, null, 2)}</pre>
