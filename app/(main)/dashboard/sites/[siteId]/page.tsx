@@ -5,6 +5,9 @@ import { useParams } from "next/navigation";
 import PagesAnalytics from "@/components/globals/page-analytics";
 import ReferrersAnalytics from "@/components/globals/referrers-analytics";
 import CountrysAnalytics from "@/components/globals/country-analytics";
+import DevicesAnalytics from "@/components/globals/device-analytics";
+import OssAnalytics from "@/components/globals/os-analytics";
+import BrowsersAnalytics from "@/components/globals/browser-analytics";
 
 interface Visit {
   id: string;
@@ -102,21 +105,9 @@ export default function SiteVisitsPage() {
       <PagesAnalytics pages={pages} />
       <ReferrersAnalytics referrers={referrers} />
       <CountrysAnalytics countries={countries} />
-
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-1">Devices</h2>
-        <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(devices, null, 2)}</pre>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-1">OS</h2>
-        <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(oses, null, 2)}</pre>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-1">Browser</h2>
-        <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(browser, null, 2)}</pre>
-      </section>
+      <DevicesAnalytics devices={devices} />
+      <OssAnalytics oses={oses} />
+      <BrowsersAnalytics browsers={browser} />
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-1">Time Series</h2>
         <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(timeseries, null, 2)}</pre>
