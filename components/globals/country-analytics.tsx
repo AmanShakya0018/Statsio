@@ -17,16 +17,17 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const maxCount = Math.max(...countries.map((page) => page.count))
+  const totalCount = countries.reduce((acc, curr) => acc + curr.count, 0)
 
   return (
-    <section className="mb-8">
+    <section className="mb-3">
       <div className="bg-black rounded-lg overflow-hidden shadow border border-zinc-800">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+        <div className="flex items-center justify-between px-4 py-6 border-b border-zinc-800">
           <h2 className="text-sm font-semibold text-white">Countries</h2>
           <span className="text-sm text-zinc-400">VISITORS</span>
         </div>
         <ul>
-          {countries.slice(0, 6).map((page) => (
+          {countries.slice(0, 4).map((page) => (
             <li key={page.country} className="relative h-8 flex items-center my-2 mx-2">
               <div
                 className="absolute left-0 top-0 h-full bg-zinc-900 rounded-md"
@@ -34,34 +35,33 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
               />
               <div className="flex items-center justify-between w-full px-4 relative z-10">
                 <div className="truncate text-sm text-white">{page.country}</div>
-                <div className="text-sm text-white">{page.count}</div>
+                <div className="text-sm text-white">{((page.count / totalCount) * 100).toFixed(1)}%</div>
               </div>
             </li>
           ))}
-          {Array.from({ length: 6 - countries.slice(0, 6).length }).map((_, idx) => (
+          {Array.from({ length: 4 - countries.slice(0, 4).length }).map((_, idx) => (
             <li key={`empty-${idx}`} className="relative h-8 flex items-center my-2 mx-2 opacity-0 pointer-events-none">
               <div className="w-full h-full" />
             </li>
           ))}
 
-          <li className="flex items-center justify-between px-4 py-3 mt-4 border-t border-zinc-800 text-sm text-zinc-400">
-            {countries.length > 6 ? (
+          {countries.length > 4 ? (
+            <li className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 text-sm text-zinc-400">
               <div className="flex items-center space-x-2">
                 <button className="flex items-center space-x-1" onClick={() => setIsModalOpen(true)}>
                   <span>View All</span>
                   <Maximize2 className="h-4 w-4" />
                 </button>
               </div>
-            ) : (
-              <div className="h-[20px]" />
-            )}
-            <button>
-              <MoreHorizontal className="h-5 w-5 text-zinc-500" />
-            </button>
-          </li>
+              <button>
+                <MoreHorizontal className="h-5 w-5 text-zinc-500" />
+              </button>
+            </li>
+          ) : (
+            <div className="h-[2.8rem]" />
+          )}
 
         </ul>
-
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -83,7 +83,7 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
                   />
                   <div className="flex items-center justify-between w-full px-4 relative z-10">
                     <div className="truncate text-sm text-white">{page.country}</div>
-                    <div className="text-sm text-white">{page.count}</div>
+                    <div className="text-sm text-white">{((page.count / totalCount) * 100).toFixed(0)}%</div>
                   </div>
                 </li>
               ))}

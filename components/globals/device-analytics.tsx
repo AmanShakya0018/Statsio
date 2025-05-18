@@ -44,24 +44,23 @@ export default function DevicesAnalytics({ devices }: DevicesAnalyticsProps) {
             </li>
           ))}
 
-          <li className="flex items-center justify-between px-4 py-3 mt-4 border-t border-zinc-800 text-sm text-zinc-400">
-            {devices.length > 6 ? (
+          {devices.length > 6 ? (
+            <li className="flex items-center justify-between px-4 py-3 mt-4 border-t border-zinc-800 text-sm text-zinc-400">
               <div className="flex items-center space-x-2">
                 <button className="flex items-center space-x-1" onClick={() => setIsModalOpen(true)}>
                   <span>View All</span>
                   <Maximize2 className="h-4 w-4" />
                 </button>
               </div>
-            ) : (
-              <div className="h-[20px]" />
-            )}
-            <button>
-              <MoreHorizontal className="h-5 w-5 text-zinc-500" />
-            </button>
-          </li>
+              <button>
+                <MoreHorizontal className="h-5 w-5 text-zinc-500" />
+              </button>
+            </li>
+          ) : (
+            <div className="h-[3.3rem]" />
+          )}
 
         </ul>
-
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

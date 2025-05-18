@@ -101,7 +101,7 @@ export default function SiteVisitsPage() {
           </div>
         )}
       </section> */}
-      <div className="flex flex-col lg:flex-row w-full gap-4">
+      <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/2">
           <PagesAnalytics pages={pages} />
         </div>
@@ -110,7 +110,7 @@ export default function SiteVisitsPage() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row w-full gap-4">
+      <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/3">
           <CountrysAnalytics countries={countries} />
         </div>
