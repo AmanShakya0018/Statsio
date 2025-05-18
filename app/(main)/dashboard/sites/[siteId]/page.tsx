@@ -7,6 +7,7 @@ import ReferrersAnalytics from "@/components/globals/referrers-analytics";
 import CountrysAnalytics from "@/components/globals/country-analytics";
 import OssAnalytics from "@/components/globals/os-analytics";
 import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-analytics";
+import AnalyticsChart from "@/components/globals/analytics-chart";
 
 interface Visit {
   id: string;
@@ -35,7 +36,7 @@ export default function SiteVisitsPage() {
   const [countries, setCountries] = useState([]);
   const [devices, setDevices] = useState([]);
   const [oses, setOses] = useState([]);
-  const [timeseries, setTimeseries] = useState([]);
+  const [, setTimeseries] = useState([]);
   const [browser, setBrowser] = useState([]);
 
   useEffect(() => {
@@ -100,6 +101,10 @@ export default function SiteVisitsPage() {
           </div>
         )}
       </section> */}
+      {siteId &&
+        <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId} />
+      }
+
       <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/2">
           <PagesAnalytics pages={pages} />
@@ -120,11 +125,11 @@ export default function SiteVisitsPage() {
           <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
         </div>
       </div>
-
+      {/* 
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-1">Time Series</h2>
         <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(timeseries, null, 2)}</pre>
-      </section>
+      </section> */}
     </div>
   );
 }
