@@ -5,9 +5,8 @@ import { useParams } from "next/navigation";
 import PagesAnalytics from "@/components/globals/page-analytics";
 import ReferrersAnalytics from "@/components/globals/referrers-analytics";
 import CountrysAnalytics from "@/components/globals/country-analytics";
-import DevicesAnalytics from "@/components/globals/device-analytics";
 import OssAnalytics from "@/components/globals/os-analytics";
-import BrowsersAnalytics from "@/components/globals/browser-analytics";
+import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-analytics";
 
 interface Visit {
   id: string;
@@ -118,11 +117,10 @@ export default function SiteVisitsPage() {
           <OssAnalytics oses={oses} />
         </div>
         <div className="w-full lg:w-1/3">
-          <BrowsersAnalytics browsers={browser} />
+          <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
         </div>
       </div>
 
-      <DevicesAnalytics devices={devices} />
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-1">Time Series</h2>
         <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(timeseries, null, 2)}</pre>
