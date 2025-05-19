@@ -11,18 +11,6 @@ import AnalyticsChart from "@/components/globals/analytics-chart";
 import { Themetoggle } from "@/components/shared/ThemeToggle";
 import SiteHeader from "@/components/globals/site-header";
 
-interface Visit {
-  id: string;
-  pathname: string;
-  referrer: string;
-  userAgent: string;
-  device: string;
-  country: string;
-  os: string;
-  browser: string;
-  createdAt: string;
-}
-
 interface Page {
   pathname: string;
   count: number;
@@ -39,30 +27,22 @@ export default function SiteVisitsPage() {
   const { siteId } = useParams();
 
   const [sites, setSites] = useState<Site>();
-  const [, setVisits] = useState<Visit[]>([]);
-  const [uniqueVisitors, setUniqueVisitors] = useState(0);
   const [pages, setPages] = useState<Page[]>([]);
   const [referrers, setReferrers] = useState([]);
   const [countries, setCountries] = useState([]);
   const [devices, setDevices] = useState([]);
   const [oses, setOses] = useState([]);
-  const [, setTimeseries] = useState([]);
   const [browser, setBrowser] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!siteId) return;
 
     const fetchData = async () => {
       try {
-
+        // setLoading(true);
         const sites = await axios.get(`/api/sites/${siteId}/data`);
         setSites(sites.data);
-
-        const visits = await axios.get(`/api/sites/${siteId}/visits`);
-        setVisits(visits.data);
-
-        const uniqueVisitors = await axios.get(`/api/sites/${siteId}/uniques`);
-        setUniqueVisitors(uniqueVisitors.data.uniqueVisitors);
 
         const pages = await axios.get(`/api/sites/${siteId}/analytics/pages`);
         setPages(pages.data);
@@ -79,30 +59,28 @@ export default function SiteVisitsPage() {
         const oses = await axios.get(`/api/sites/${siteId}/analytics/os`);
         setOses(oses.data);
 
-        const timeseries = await axios.get(`/api/sites/${siteId}/analytics/timeseries`);
-        setTimeseries(timeseries.data);
-
         const browser = await axios.get(`/api/sites/${siteId}/analytics/browser`);
         setBrowser(browser.data);
       } catch (error) {
         console.error("Error fetching analytics:", error);
       }
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     fetchData();
   }, [siteId]);
 
+
   return (
     <div className="flex flex-col gap-3 max-w-7xl mx-auto p-4">
       <Themetoggle />
-      {sites && <SiteHeader name={sites.name} domain={sites.domain} />}
-      {siteId &&
-        <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId} />
-      }
-      <div>
-        <span className="font-semibold text-black dark:text-white">Visitors</span>
-        <div>{uniqueVisitors}</div>
-      </div>
+      <SiteHeader
+        name={sites?.name ?? "Loading site..."}
+        domain={sites?.domain ?? "Fetching domain..."}
+      />
+      <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
       <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/2">
           <PagesAnalytics pages={pages} />
@@ -111,7 +89,6 @@ export default function SiteVisitsPage() {
           <ReferrersAnalytics referrers={referrers} />
         </div>
       </div>
-
       <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/3">
           <CountrysAnalytics countries={countries} />

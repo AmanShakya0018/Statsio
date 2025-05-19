@@ -19,7 +19,7 @@ import { useState } from "react"
 export default function AnalyticsChart({ siteId }: { siteId: string }) {
   const { data: pageViewsData, total: pageViewsTotal } = usePageViews(siteId)
   const { data: visitorsData, total: visitorsTotal } = useUniqueVisitors(siteId)
-  const [activeMetric, setActiveMetric] = useState<"pageviews" | "visitors">("visitors")
+  const [activeMetric, setActiveMetric] = useState<"pageviews" | "visitors">("pageviews")
 
   const activeData = activeMetric === "pageviews" ? pageViewsData : visitorsData
 
@@ -35,19 +35,33 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
   }
 
   const renderArrow = () => {
-    if (!hasEnoughData) return null
-    const isUp = current7Sum > previous7Sum
-    const isZero = previous7Sum === 0 && current7Sum > 0
+    if (hasEnoughData) {
+      if (current7Sum > previous7Sum) {
+        return (
+          <span className="flex items-center text-green-500 bg-green-200 dark:bg-green-950 rounded px-2 py-1">
+            <ArrowUp className="w-4 h-4" />
+          </span>
+        )
+      } else if (current7Sum < previous7Sum) {
+        return (
+          <span className="flex items-center text-red-500 bg-red-200 dark:bg-red-950 rounded px-2 py-1">
+            <ArrowDown className="w-4 h-4" />
+          </span>
+        )
+      }
+    }
 
-    return (
-      <span
-        className={`flex items-center ${isUp || isZero ? "text-green-500 bg-green-200 dark:bg-green-950" : "text-red-500 bg-red-200 dark:bg-red-950"
-          } rounded px-2 py-1`}
-      >
-        {isUp || isZero ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
-      </span>
-    )
+    if (activeData.length >= 7 && previous7Sum === 0 && current7Sum > 0) {
+      return (
+        <span className="flex items-center text-green-500 bg-green-200 dark:bg-green-950 rounded px-2 py-1">
+          <ArrowUp className="w-4 h-4" />
+        </span>
+      )
+    }
+
+    return null
   }
+
 
   const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
     if (active && payload && payload.length) {
@@ -70,34 +84,40 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
   return (
     <div className="w-full rounded-xl bg-white dark:bg-black border border-neutral-200 dark:border-zinc-800 overflow-hidden">
       <div className="grid grid-cols-1 divide-y divide-neutral-200 dark:divide-zinc-800">
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-6">
-              {["visitors", "pageviews"].map((metric) => (
+        <div className="flex items-center justify-between">
+          <div className="flex">
+            {["pageviews", "visitors"].map((metric) => (
+              <div
+                key={metric}
+                className="border-r pt-6 border-neutral-200 dark:border-zinc-800"
+              >
                 <button
-                  key={metric}
                   onClick={() => setActiveMetric(metric as "visitors" | "pageviews")}
-                  className={`flex flex-col items-start ${activeMetric === metric ? "border-b-2 border-white dark:border-zinc-300" : ""
+                  className={`w-48 flex flex-col items-start border-b-2 ${activeMetric === metric
+                    ? "border-zinc-800 dark:border-zinc-300"
+                    : "border-transparent"
                     }`}
                 >
-                  <p className="text-zinc-500 font-semibold dark:text-zinc-400 text-sm capitalize">
-                    {metric === "visitors" ? "Visitors" : "Page Views"}
-                  </p>
-                  <div className="flex items-center space-x-4 mt-1">
-                    <p className="text-4xl font-semibold text-black dark:text-white">
-                      {metric === "visitors" ? visitorsTotal : pageViewsTotal}
+                  <div className={`transition-opacity ml-4 pb-3 duration-200 ${activeMetric === metric ? "opacity-100" : "opacity-70"}`}>
+                    <p className="text-zinc-500 flex font-semibold dark:text-zinc-400 text-sm capitalize">
+                      {metric === "visitors" ? "Visitors" : "Page Views"}
                     </p>
-                    {activeMetric === metric && renderArrow()}
+                    <div className="flex items-center space-x-4 mt-1">
+                      <p className="text-4xl font-semibold text-black dark:text-white">
+                        {metric === "visitors" ? visitorsTotal : pageViewsTotal}
+                      </p>
+                      {renderArrow()}
+                    </div>
                   </div>
                 </button>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="h-[300px] w-full p-4">
+        <div className="h-[400px] w-full p-4">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={activeData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+            <LineChart data={activeData} margin={{ top: 40, right: 20, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" className="dark:stroke-[#2a2a2a]" />
 
               <defs>
@@ -124,7 +144,13 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
 
               <Tooltip content={<CustomTooltip />} />
 
-              <Area type="monotone" dataKey="count" stroke="none" fill="url(#colorPv)" fillOpacity={1} />
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="none"
+                fill="url(#colorPv)"
+                fillOpacity={0.8}
+              />
               <Line
                 type="linear"
                 dataKey="count"
@@ -133,6 +159,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
                 dot={false}
                 activeDot={{ r: 6, fill: "#5b98ff", stroke: "#fff", strokeWidth: 2 }}
               />
+
             </LineChart>
           </ResponsiveContainer>
         </div>
