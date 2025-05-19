@@ -9,6 +9,7 @@ import OssAnalytics from "@/components/globals/os-analytics";
 import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-analytics";
 import AnalyticsChart from "@/components/globals/analytics-chart";
 import { Themetoggle } from "@/components/shared/ThemeToggle";
+import SiteHeader from "@/components/globals/site-header";
 
 interface Visit {
   id: string;
@@ -27,10 +28,17 @@ interface Page {
   count: number;
 }
 
+interface Site {
+  id: string;
+  name: string;
+  domain: string;
+}
+
 
 export default function SiteVisitsPage() {
   const { siteId } = useParams();
 
+  const [sites, setSites] = useState<Site>();
   const [, setVisits] = useState<Visit[]>([]);
   const [pages, setPages] = useState<Page[]>([]);
   const [referrers, setReferrers] = useState([]);
@@ -45,6 +53,10 @@ export default function SiteVisitsPage() {
 
     const fetchData = async () => {
       try {
+
+        const sites = await axios.get(`/api/sites/${siteId}/data`);
+        setSites(sites.data);
+
         const visits = await axios.get(`/api/sites/${siteId}/visits`);
         setVisits(visits.data);
 
@@ -79,7 +91,7 @@ export default function SiteVisitsPage() {
   return (
     <div className="flex flex-col gap-3 max-w-7xl mx-auto p-4">
       <Themetoggle />
-      <h1 className="text-2xl font-bold mb-6">Analytics for Site ID: {siteId}</h1>
+      {sites && <SiteHeader name={sites.name} domain={sites.domain} />}
       {siteId &&
         <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId} />
       }
