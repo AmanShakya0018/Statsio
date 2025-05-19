@@ -85,6 +85,7 @@ export async function POST(req: NextRequest) {
         country,
         os,
         browser,
+        ip,
       },
     });
 

@@ -44,6 +44,7 @@ model Visit {
   country   String
   os        String
   browser   String
+  ip        String
   createdAt DateTime @default(now())
 }
 

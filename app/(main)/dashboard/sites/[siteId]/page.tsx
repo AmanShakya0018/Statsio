@@ -40,6 +40,7 @@ export default function SiteVisitsPage() {
 
   const [sites, setSites] = useState<Site>();
   const [, setVisits] = useState<Visit[]>([]);
+  const [uniqueVisitors, setUniqueVisitors] = useState(0);
   const [pages, setPages] = useState<Page[]>([]);
   const [referrers, setReferrers] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -59,6 +60,9 @@ export default function SiteVisitsPage() {
 
         const visits = await axios.get(`/api/sites/${siteId}/visits`);
         setVisits(visits.data);
+
+        const uniqueVisitors = await axios.get(`/api/sites/${siteId}/uniques`);
+        setUniqueVisitors(uniqueVisitors.data.uniqueVisitors);
 
         const pages = await axios.get(`/api/sites/${siteId}/analytics/pages`);
         setPages(pages.data);
@@ -95,6 +99,10 @@ export default function SiteVisitsPage() {
       {siteId &&
         <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId} />
       }
+      <div>
+        <span className="font-semibold text-black dark:text-white">Visitors</span>
+        <div>{uniqueVisitors}</div>
+      </div>
       <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/2">
           <PagesAnalytics pages={pages} />
