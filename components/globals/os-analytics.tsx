@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Maximize2, MoreHorizontal } from "lucide-react"
+import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
 
 interface Os {
@@ -35,7 +35,7 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
             <p className="text-sm text-zinc-400 dark:text-zinc-500">No data found for selected period.</p>
           </div>
         ) : (
-          <>
+          <div className="relative">
             <ul>
               {oses.slice(0, 4).map((page) => (
                 <li key={page.os} className="relative h-8 flex items-center my-2 mx-2">
@@ -59,22 +59,22 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
               ))}
 
               {oses.length > 4 ? (
-                <li className="flex items-center justify-between px-4 py-3 border-t border-zinc-300 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
-                  <div className="flex items-center space-x-2">
-                    <button className="flex items-center space-x-1" onClick={() => setIsModalOpen(true)}>
-                      <span>View All</span>
-                      <Maximize2 className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <button>
-                    <MoreHorizontal className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
+                <>
+                  <div className="absolute bottom-11 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10 rounded-b-lg" />
+                  <button onClick={() => setIsModalOpen(true)} className="flex w-full items-center justify-center px-4 py-3 mt-4 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1" >
+                        <span>View All</span>
+                        <Maximize2 className="h-4 w-4" />
+                      </div>
+                    </div>
                   </button>
-                </li>
+                </>
               ) : (
                 <div className="h-[2.8rem]" />
               )}
             </ul>
-          </>
+          </div>
         )}
       </div>
 

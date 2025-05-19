@@ -10,6 +10,7 @@ import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-ana
 import AnalyticsChart from "@/components/globals/analytics-chart";
 import { Themetoggle } from "@/components/shared/ThemeToggle";
 import SiteHeader from "@/components/globals/site-header";
+import useRequireAuth from "@/hooks/useRequireAuth";
 
 interface Page {
   pathname: string;
@@ -24,8 +25,8 @@ interface Site {
 
 
 export default function SiteVisitsPage() {
+  useRequireAuth();
   const { siteId } = useParams();
-
   const [sites, setSites] = useState<Site>();
   const [pages, setPages] = useState<Page[]>([]);
   const [referrers, setReferrers] = useState([]);
@@ -33,14 +34,12 @@ export default function SiteVisitsPage() {
   const [devices, setDevices] = useState([]);
   const [oses, setOses] = useState([]);
   const [browser, setBrowser] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!siteId) return;
 
     const fetchData = async () => {
       try {
-        // setLoading(true);
         const sites = await axios.get(`/api/sites/${siteId}/data`);
         setSites(sites.data);
 
@@ -64,9 +63,6 @@ export default function SiteVisitsPage() {
       } catch (error) {
         console.error("Error fetching analytics:", error);
       }
-      // finally {
-      //   setLoading(false);
-      // }
     };
 
     fetchData();
