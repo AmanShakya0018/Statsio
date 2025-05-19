@@ -20,11 +20,11 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
   const totalCount = countries.reduce((acc, curr) => acc + curr.count, 0)
 
   return (
-    <section className="mb-3">
+    <section>
       <div className="bg-black rounded-lg overflow-hidden shadow border border-zinc-800">
         <div className="flex items-center justify-between px-4 py-6 border-b border-zinc-800">
           <h2 className="text-sm font-semibold text-white">Countries</h2>
-          <span className="text-sm text-zinc-400">VISITORS</span>
+          <span className="text-xs font-semibold text-zinc-400">PAGE VIEWS</span>
         </div>
         <ul>
           {countries.slice(0, 4).map((page) => (
@@ -35,7 +35,7 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
               />
               <div className="flex items-center justify-between w-full px-4 relative z-10">
                 <div className="truncate text-sm text-white">{page.country}</div>
-                <div className="text-sm text-white">{((page.count / totalCount) * 100).toFixed(1)}%</div>
+                <div className="text-sm text-white">{((page.count / totalCount) * 100).toFixed(0)}%</div>
               </div>
             </li>
           ))}
@@ -70,7 +70,7 @@ export default function CountrysAnalytics({ countries }: CountrysAnalyticsProps)
             <DialogTitle></DialogTitle>
             <div className="flex items-center justify-between pl-2 pr-4 py-3 border-b border-zinc-800 sticky top-0 bg-black">
               <h2 className="text-[1rem] font-semibold text-white">Countries</h2>
-              <span className="text-xs font-semibold text-zinc-400">VISITORS</span>
+              <span className="text-xs font-semibold text-zinc-400">PAGE VIEWS</span>
             </div>
           </DialogHeader>
           <div className="max-h-[60vh] overflow-y-auto">

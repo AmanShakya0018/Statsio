@@ -34,7 +34,7 @@ export default function BrowsersAndDevicesAnalytics({ browsers, devices }: Brows
   const totalCount = activeTab === "browsers" ? browserTotalCount : deviceTotalCount
 
   return (
-    <section className="mb-3">
+    <section>
       <div className="bg-black rounded-lg overflow-hidden shadow border border-zinc-800">
         <div className="flex items-center justify-between px-4 py-5 border-b border-zinc-800">
           <div className="flex items-center space-x-2">
@@ -53,7 +53,7 @@ export default function BrowsersAndDevicesAnalytics({ browsers, devices }: Brows
               Devices
             </button>
           </div>
-          <span className="text-sm text-zinc-400">VISITORS</span>
+          <span className="text-xs font-semibold text-zinc-400">PAGE VIEWS</span>
         </div>
         <ul>
           {currentData.slice(0, 4).map((item) => (
@@ -118,7 +118,7 @@ export default function BrowsersAndDevicesAnalytics({ browsers, devices }: Brows
                   Devices
                 </button>
               </div>
-              <span className="text-xs font-semibold text-zinc-400 pr-4">VISITORS</span>
+              <span className="text-xs font-semibold text-zinc-400 pr-4">PAGE VIEWS</span>
             </div>
           </DialogHeader>
           <div className="max-h-[60vh] overflow-y-auto">

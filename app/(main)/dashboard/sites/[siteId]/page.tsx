@@ -8,6 +8,7 @@ import CountrysAnalytics from "@/components/globals/country-analytics";
 import OssAnalytics from "@/components/globals/os-analytics";
 import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-analytics";
 import AnalyticsChart from "@/components/globals/analytics-chart";
+import { Themetoggle } from "@/components/shared/ThemeToggle";
 
 interface Visit {
   id: string;
@@ -76,35 +77,12 @@ export default function SiteVisitsPage() {
   }, [siteId]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 ">
+    <div className="flex flex-col gap-3 max-w-7xl mx-auto p-4">
+      <Themetoggle />
       <h1 className="text-2xl font-bold mb-6">Analytics for Site ID: {siteId}</h1>
-
-      {/* <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-2">Visits</h2>
-        {visits.length === 0 ? (
-          <p>No visits yet.</p>
-        ) : (
-          <div className="space-y-4">
-            {visits.map((visit) => (
-              <div key={visit.id} className="p-4 border rounded space-y-1">
-                <p><strong>Path:</strong> {visit.pathname}</p>
-                <p><strong>Referrer:</strong> {visit.referrer || "Direct"}</p>
-                <p><strong>Device:</strong> {visit.device}</p>
-                <p><strong>Country:</strong> {visit.country}</p>
-                <p><strong>OS:</strong> {visit.os}</p>
-                <p><strong>Browser:</strong> {visit.browser}</p>
-                <p className="text-gray-600 text-sm">
-                  {new Date(visit.createdAt).toLocaleString()}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </section> */}
       {siteId &&
         <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId} />
       }
-
       <div className="flex flex-col lg:flex-row w-full gap-3">
         <div className="w-full lg:w-1/2">
           <PagesAnalytics pages={pages} />
@@ -125,11 +103,6 @@ export default function SiteVisitsPage() {
           <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
         </div>
       </div>
-      {/* 
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-1">Time Series</h2>
-        <pre className="bg-gray-100 p-2 rounded text-sm">{JSON.stringify(timeseries, null, 2)}</pre>
-      </section> */}
     </div>
   );
 }

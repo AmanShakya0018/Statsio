@@ -19,11 +19,11 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
   const maxCount = Math.max(...pages.map((page) => page.count))
 
   return (
-    <section className="mb-3">
+    <section>
       <div className="bg-black rounded-lg overflow-hidden shadow border border-zinc-800">
         <div className="flex items-center justify-between px-4 py-6 border-b border-zinc-800">
           <h2 className="text-sm font-semibold text-white">Pages</h2>
-          <span className="text-sm text-zinc-400">VISITORS</span>
+          <span className="text-xs font-semibold text-zinc-400">PAGE VIEWS</span>
         </div>
         <ul>
           {pages.slice(0, 6).map((page) => (
@@ -69,7 +69,7 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
             <DialogTitle></DialogTitle>
             <div className="flex items-center justify-between pl-2 pr-4 py-3 border-b border-zinc-800 sticky top-0 bg-black">
               <h2 className="text-[1rem] font-semibold text-white">Pages</h2>
-              <span className="text-xs font-semibold text-zinc-400">VISITORS</span>
+              <span className="text-xs font-semibold text-zinc-400">PAGE VIEWS</span>
             </div>
           </DialogHeader>
           <div className="max-h-[60vh] overflow-y-auto">
