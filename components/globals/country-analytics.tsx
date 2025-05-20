@@ -5,6 +5,8 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
+import Image from "next/image"
+import { getFlagURL } from "@/lib/country-flag"
 
 interface Country {
   country: string
@@ -14,7 +16,6 @@ interface Country {
 interface CountrysAnalyticsProps {
   countries: Country[]
 }
-
 const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -46,7 +47,18 @@ const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
                     style={{ width: `${(page.count / maxCount) * 100}%` }}
                   />
                   <div className="flex items-center justify-between w-full px-4 relative z-10">
-                    <div className="truncate text-sm text-zinc-800 dark:text-white">{page.country}</div>
+                    <div className="truncate text-sm text-zinc-800 dark:text-white">
+                      <Image
+                        height={500}
+                        width={500}
+                        quality={99}
+                        src={getFlagURL(page.country)}
+                        alt={page.country}
+                        className="w-5 h-4 mr-2 inline-block rounded-sm object-cover"
+                      />
+
+                      {page.country}
+                    </div>
                     <div className="text-sm flex flex-row gap-0.5 font-semibold text-zinc-800 dark:text-white">
                       {((page.count / totalCount) * 100).toFixed(0)}
                       <p className="font-normal">%</p>
@@ -68,7 +80,7 @@ const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
                   <div className="absolute bottom-11 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10 rounded-b-lg" />
                   <button onClick={() => setIsModalOpen(true)} className="flex w-full items-center justify-center px-4 py-3 mt-4 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
                     <div className="flex items-center space-x-2">
-                      <div className="flex items-center space-x-1" >
+                      <div className="flex items-center space-x-1">
                         <span>View All</span>
                         <Maximize2 className="h-4 w-4" />
                       </div>
@@ -101,7 +113,16 @@ const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
                     style={{ width: `${(page.count / maxCount) * 100}%` }}
                   />
                   <div className="flex items-center justify-between w-full px-4 relative z-10">
-                    <div className="truncate text-sm text-zinc-800 dark:text-white">{page.country}</div>
+                    <div className="truncate text-sm text-zinc-800 dark:text-white">
+                      <Image
+                        height={500}
+                        width={500}
+                        src={getFlagURL(page.country)}
+                        alt={page.country}
+                        className="w-5 h-4 mr-2 inline-block rounded-sm object-cover"
+                      />
+                      {page.country}
+                    </div>
                     <div className="text-sm flex flex-row gap-0.5 font-semibold text-zinc-800 dark:text-white">
                       {((page.count / totalCount) * 100).toFixed(0)}
                       <p className="font-normal">%</p>
