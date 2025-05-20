@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import PagesAnalytics from "@/components/globals/page-analytics";
 import ReferrersAnalytics from "@/components/globals/referrers-analytics";
@@ -12,6 +12,7 @@ import SiteHeader from "@/components/globals/site-header";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import Navbar from "@/components/landingpage/navbar";
 import Footer from "@/components/landingpage/footer";
+import ContentNavigation from "@/components/shared/content-navigation";
 
 interface Page {
   pathname: string;
@@ -74,9 +75,11 @@ export default function SiteVisitsPage() {
     <>
       <Navbar />
       <div className="flex flex-col gap-3 max-w-7xl mx-auto my-4 p-4">
+        <ContentNavigation>{sites?.domain}</ContentNavigation>
         <SiteHeader
           name={sites?.name ?? "Loading site..."}
           domain={sites?.domain ?? "Fetching domain..."}
+          id={Array.isArray(siteId) ? siteId[0] : siteId ?? "YOUR-SITE-ID"}
         />
         <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
         <div className="flex flex-col lg:flex-row w-full gap-3">
