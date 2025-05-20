@@ -8,9 +8,10 @@ import CountrysAnalytics from "@/components/globals/country-analytics";
 import OssAnalytics from "@/components/globals/os-analytics";
 import BrowsersAndDevicesAnalytics from "@/components/globals/browser-device-analytics";
 import AnalyticsChart from "@/components/globals/analytics-chart";
-import { Themetoggle } from "@/components/shared/ThemeToggle";
 import SiteHeader from "@/components/globals/site-header";
 import useRequireAuth from "@/hooks/useRequireAuth";
+import Navbar from "@/components/landingpage/navbar";
+import Footer from "@/components/landingpage/footer";
 
 interface Page {
   pathname: string;
@@ -70,32 +71,35 @@ export default function SiteVisitsPage() {
 
 
   return (
-    <div className="flex flex-col gap-3 max-w-7xl mx-auto p-4">
-      <Themetoggle />
-      <SiteHeader
-        name={sites?.name ?? "Loading site..."}
-        domain={sites?.domain ?? "Fetching domain..."}
-      />
-      <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
-      <div className="flex flex-col lg:flex-row w-full gap-3">
-        <div className="w-full lg:w-1/2">
-          <PagesAnalytics pages={pages} />
+    <>
+      <Navbar />
+      <div className="flex flex-col gap-3 max-w-7xl mx-auto my-4 p-4">
+        <SiteHeader
+          name={sites?.name ?? "Loading site..."}
+          domain={sites?.domain ?? "Fetching domain..."}
+        />
+        <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
+        <div className="flex flex-col lg:flex-row w-full gap-3">
+          <div className="w-full lg:w-1/2">
+            <PagesAnalytics pages={pages} />
+          </div>
+          <div className="w-full lg:w-1/2">
+            <ReferrersAnalytics referrers={referrers} />
+          </div>
         </div>
-        <div className="w-full lg:w-1/2">
-          <ReferrersAnalytics referrers={referrers} />
+        <div className="flex flex-col lg:flex-row w-full gap-3">
+          <div className="w-full lg:w-1/3">
+            <CountrysAnalytics countries={countries} />
+          </div>
+          <div className="w-full lg:w-1/3">
+            <OssAnalytics oses={oses} />
+          </div>
+          <div className="w-full lg:w-1/3">
+            <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
+          </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row w-full gap-3">
-        <div className="w-full lg:w-1/3">
-          <CountrysAnalytics countries={countries} />
-        </div>
-        <div className="w-full lg:w-1/3">
-          <OssAnalytics oses={oses} />
-        </div>
-        <div className="w-full lg:w-1/3">
-          <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
-        </div>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }
