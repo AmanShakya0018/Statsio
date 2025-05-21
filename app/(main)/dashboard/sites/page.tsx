@@ -1,20 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { AddSiteModal } from "@/components/globals/site-modal";
+import { EmptyState } from "@/components/globals/empty-state";
+import { SiteCard } from "@/components/globals/site-card";
 
 interface Site {
   id: string;
   name: string;
   domain: string;
-  _count: {
-    visits: number;
-  };
+  visitors: number;
+  pageviews: number;
 }
 
 export default function SitesPage() {
   const [sites, setSites] = useState<Site[]>([]);
-  const [name, setName] = useState("");
-  const [domain, setDomain] = useState("");
 
   useEffect(() => {
     const fetchSites = async () => {
@@ -29,64 +31,39 @@ export default function SitesPage() {
     fetchSites();
   }, []);
 
-  const handleAddSite = async () => {
-    if (!name || !domain) return alert("Fill both fields");
-
-    try {
-      const res = await axios.post("/api/sites", { name, domain });
-      const newSite: Site = res.data;
-      setSites([newSite, ...sites]);
-      setName("");
-      setDomain("");
-    } catch (error) {
-      console.error("Error adding site:", error);
-      alert("Error adding site");
-    }
+  const handleSiteAdded = (newSite: Site) => {
+    setSites((prev) => [newSite, ...prev]);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Your Sites</h1>
-
-      <div className="mb-6 space-y-4">
-        <input
-          type="text"
-          placeholder="Site Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="mb-10 space-y-2">
+        <h1 className="text-3xl font-bold">Your Sites</h1>
+        <p className="text-muted-foreground max-w-xl">
+          Statsio helps you collect privacy-friendly analytics for your websites. Here you can manage your tracked
+          domains and view analytics.
+        </p>
+        <AddSiteModal
+          trigger={<Button size="sm" className="mt-2">Add New Site</Button>}
+          onSiteAdded={handleSiteAdded}
         />
-        <input
-          type="text"
-          placeholder="Domain (e.g. example.com)"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <button
-          onClick={handleAddSite}
-          className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
-        >
-          Add Site
-        </button>
       </div>
 
-      <div className="space-y-4">
-        {sites.length === 0 ? (
-          <p>No sites yet. Add one above.</p>
-        ) : (
-          sites.map((site) => (
-            <div key={site.id} className="p-4 border rounded space-y-2">
-              <h2 className="text-xl font-semibold">{site.name}</h2>
-              <p className="text-gray-600">{site.domain}</p>
-              <p>Visits: {site._count.visits}</p>
-              <div className="bg-gray-100 p-2 rounded text-sm overflow-x-auto whitespace-nowrap">
-                {`<script src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${site.id}"></script>`}
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      {sites.length === 0 ? (
+        <EmptyState />
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+          {sites.map((site) => (
+            <SiteCard
+              key={site.id}
+              site={{
+                ...site,
+                script: `<script src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${site.id}"></script>`,
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
