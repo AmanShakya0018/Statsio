@@ -42,8 +42,6 @@ interface Site {
   id: string;
   name: string;
   domain: string;
-  visitors: number;
-  pageviews: number;
 }
 
 interface AddSiteModalProps {
@@ -67,7 +65,6 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
     try {
       const res = await axios.post("/api/sites", values);
       const newSite = res.data;
-
       toast({
         title: "Site added successfully",
         description: `${values.name} (${values.domain}) has been added to your account.`,

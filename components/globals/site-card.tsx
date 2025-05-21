@@ -1,70 +1,56 @@
 "use client"
-
-import { useState } from "react"
-import { CheckCircle, Copy, ExternalLink } from "lucide-react"
+import { FilePenLine, SquareArrowOutUpRight, Trash } from "lucide-react"
 import Link from "next/link"
-
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
 
 interface SiteCardProps {
   site: {
     id: string
     name: string
     domain: string
-    script: string
-    visitors: number
-    pageviews: number
   }
 }
 
 export function SiteCard({ site }: SiteCardProps) {
-  const { toast } = useToast()
-  const [copied, setCopied] = useState(false)
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(site.script)
-    setCopied(true)
-    toast({
-      title: "Copied to clipboard",
-      description: "The tracking script has been copied to your clipboard.",
-    })
-
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   return (
-    <Card className="overflow-hidden">
-      <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
-          <div>
-            <CardTitle className="text-xl">{site.name}</CardTitle>
-            <CardDescription className="mt-1 flex items-center">
-              <span className="text-sm font-medium text-muted-foreground">{site.domain}</span>
-            </CardDescription>
+    <Link
+      href={`/dashboard/sites/${site.id}`}
+      className="flex items-start gap-2 bg-white dark:bg-black p-3 border border-zinc-200 dark:border-zinc-800 rounded-md w-full h-full cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-900 transition"
+    >
+      <div className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden">
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <h2 className="overflow-hidden text-zinc-800 dark:text-white text-xl text-ellipsis whitespace-nowrap">
+              {site.name}
+            </h2>
+            <div className="bg-emerald-400 p-[2px] rounded-full animate-pulse">
+              <div className="bg-emerald-500 rounded-full size-[5px]" />
+            </div>
           </div>
+          <p className="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-sm 2xl:text-xs underline">
+            {site.domain}
+            <SquareArrowOutUpRight size={9} />
+          </p>
         </div>
-      </CardHeader>
-      <CardContent className="pb-4">
-        <div className="relative rounded-md bg-muted p-3">
-          <pre className="text-xs text-muted-foreground">
-            <code>{site.script}</code>
-          </pre>
-          <Button size="sm" variant="ghost" className="absolute right-2 top-2 h-7 w-7 p-0" onClick={copyToClipboard}>
-            {copied ? <CheckCircle className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-            <span className="sr-only">Copy script</span>
-          </Button>
-        </div>
-      </CardContent>
-      <CardFooter className="border-t bg-muted/40 px-6 py-3">
-        <Button asChild className="ml-auto" size="sm">
-          <Link href={`/dashboard/sites/${site.id}`}>
-            <ExternalLink className="mr-2 h-4 w-4" />
-            View Analytics
-          </Link>
+      </div>
+
+      <div className="flex flex-col justify-between gap-2 pl-3 border-l border-zinc-200 dark:border-zinc-800 h-full">
+        <Button
+          className="bg-transparent p-1 rounded-full text-zinc-500 dark:text-zinc-400 transition"
+          size="icon"
+          variant="ghost"
+        >
+          <FilePenLine size={16} />
         </Button>
-      </CardFooter>
-    </Card>
+        <Button
+          className="bg-transparent p-1 rounded-full text-red-400 transition"
+          size="icon"
+          variant="ghost"
+        >
+          <Trash size={16} />
+        </Button>
+      </div>
+    </Link>
   )
 }
