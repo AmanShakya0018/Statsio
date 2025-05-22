@@ -11,8 +11,8 @@ import AnalyticsChart from "@/components/globals/analytics-chart";
 import SiteHeader from "@/components/globals/site-header";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import Navbar from "@/components/landingpage/navbar";
-import Footer from "@/components/landingpage/footer";
 import ContentNavigation from "@/components/shared/content-navigation";
+import Footer2 from "@/components/landingpage/footer2";
 
 interface Page {
   pathname: string;
@@ -102,7 +102,7 @@ export default function SiteVisitsPage() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer2 />
     </>
   );
 }

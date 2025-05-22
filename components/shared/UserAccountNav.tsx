@@ -23,7 +23,7 @@ const UserAccountNav = ({ user }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <UserAvatar
-          className="w-10 h-10"
+          className="w-9 h-9"
           user={{
             name: user.name || null,
             image: user.image || null,

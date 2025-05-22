@@ -30,7 +30,7 @@ const Navbar = () => {
       <nav className="z-50 sticky top-0 w-full bg-secondary/15 shadow-lg shadow-neutral-600/5 backdrop-blur-lg border-b border-primary/10 px-4 lg:px-8
 ">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-12">
             <div className='flex items-center space-x-12'>
               <Link href="/" className="flex items-center">
                 <Image
@@ -42,7 +42,7 @@ const Navbar = () => {
                   priority={true}
                   className="w-10 h-10 rounded-xl mt-1 object-cover flex-shrink-0"
                 />
-                <h3 className="text-2xl font-bold ml-1">Statsio</h3>
+                <h3 className="text-xl font-bold ml-1">Statsio</h3>
               </Link>
               <div
                 className="hidden md:flex items-center space-x-6">

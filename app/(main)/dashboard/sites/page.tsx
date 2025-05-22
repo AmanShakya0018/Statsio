@@ -9,9 +9,9 @@ import { SiteCard } from "@/components/globals/site-card";
 import { useSession } from "next-auth/react";
 import Navbar from "@/components/landingpage/navbar";
 import useRequireAuth from "@/hooks/useRequireAuth";
-import Footer from "@/components/landingpage/footer";
 import { BookOpen, Plus } from "lucide-react";
 import Link from "next/link";
+import Footer2 from "@/components/landingpage/footer2";
 
 interface Site {
   id: string;
@@ -88,7 +88,7 @@ export default function SitesPage() {
 
         )}
       </div>
-      <Footer />
+      <Footer2 />
     </>
   );
 }

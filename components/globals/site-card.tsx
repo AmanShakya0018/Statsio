@@ -2,6 +2,9 @@
 import { FilePenLine, SquareArrowOutUpRight, Trash } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import { MdOutlineWifiTetheringError } from "react-icons/md"
+import { useState } from "react"
 
 interface SiteCardProps {
   site: {
@@ -13,6 +16,9 @@ interface SiteCardProps {
 
 export function SiteCard({ site }: SiteCardProps) {
 
+  const [imageError, setImageError] = useState(false)
+  const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${site.domain}`
+
   return (
     <Link
       href={`/dashboard/sites/${site.id}`}
@@ -20,7 +26,21 @@ export function SiteCard({ site }: SiteCardProps) {
     >
       <div className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden">
         <div className="flex flex-col">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1"><>
+            {imageError ? (
+              <MdOutlineWifiTetheringError className="w-7 h-7 text-neutral-500 dark:text-neutral-400" />
+            ) : (
+              <Image
+                width={500}
+                height={500}
+                src={favicon}
+                alt={`${site.name} favicon`}
+                className="w-6 h-6 rounded-sm"
+                onError={() => setImageError(true)}
+              />
+
+            )}
+          </>
             <h2 className="overflow-hidden text-zinc-800 dark:text-white text-xl text-ellipsis whitespace-nowrap">
               {site.name}
             </h2>
