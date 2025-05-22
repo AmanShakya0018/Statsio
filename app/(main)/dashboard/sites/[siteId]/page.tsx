@@ -13,6 +13,8 @@ import useRequireAuth from "@/hooks/useRequireAuth";
 import Navbar from "@/components/landingpage/navbar";
 import ContentNavigation from "@/components/shared/content-navigation";
 import Footer2 from "@/components/landingpage/footer2";
+import ToggleButtonGroup from "@/components/globals/togglebutton";
+import Trackingscript from "@/components/globals/trackingscript";
 
 interface Page {
   pathname: string;
@@ -36,6 +38,7 @@ export default function SiteVisitsPage() {
   const [devices, setDevices] = useState([]);
   const [oses, setOses] = useState([]);
   const [browser, setBrowser] = useState([]);
+  const [analytics, setAnalytics] = useState(false);
 
   useEffect(() => {
     if (!siteId) return;
@@ -81,26 +84,35 @@ export default function SiteVisitsPage() {
           domain={sites?.domain ?? "Fetching domain..."}
           id={Array.isArray(siteId) ? siteId[0] : siteId ?? "YOUR-SITE-ID"}
         />
-        <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
-        <div className="flex flex-col lg:flex-row w-full gap-3">
-          <div className="w-full lg:w-1/2">
-            <PagesAnalytics pages={pages} />
-          </div>
-          <div className="w-full lg:w-1/2">
-            <ReferrersAnalytics referrers={referrers} />
-          </div>
-        </div>
-        <div className="flex flex-col lg:flex-row w-full gap-3">
-          <div className="w-full lg:w-1/3">
-            <CountrysAnalytics countries={countries} />
-          </div>
-          <div className="w-full lg:w-1/3">
-            <OssAnalytics oses={oses} />
-          </div>
-          <div className="w-full lg:w-1/3">
-            <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
-          </div>
-        </div>
+        <ToggleButtonGroup analytics={analytics} setAnalytics={setAnalytics} />
+        {(!analytics) ?
+          (
+            <Trackingscript siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? "YOUR-SITE-ID"} />
+          )
+          : (
+            <>
+              <AnalyticsChart siteId={Array.isArray(siteId) ? siteId[0] : siteId ?? ""} />
+              <div className="flex flex-col lg:flex-row w-full gap-3">
+                <div className="w-full lg:w-1/2">
+                  <PagesAnalytics pages={pages} />
+                </div>
+                <div className="w-full lg:w-1/2">
+                  <ReferrersAnalytics referrers={referrers} />
+                </div>
+              </div>
+              <div className="flex flex-col lg:flex-row w-full gap-3">
+                <div className="w-full lg:w-1/3">
+                  <CountrysAnalytics countries={countries} />
+                </div>
+                <div className="w-full lg:w-1/3">
+                  <OssAnalytics oses={oses} />
+                </div>
+                <div className="w-full lg:w-1/3">
+                  <BrowsersAndDevicesAnalytics browsers={browser} devices={devices} />
+                </div>
+              </div>
+            </>
+          )}
       </div>
       <Footer2 />
     </>

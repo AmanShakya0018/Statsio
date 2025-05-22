@@ -22,7 +22,6 @@ export default function SiteHeader({
 }) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [imageError, setImageError] = useState(false)
   const trackingScript = `<script src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${id}"></script>`
   const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${domain}`
 
@@ -34,22 +33,20 @@ export default function SiteHeader({
 
 
   return (
-    <div className="flex flex-row justify-between items-start px-1 pt-1 pb-3 mb-3 border-b border-neutral-200 dark:border-neutral-800">
+    <div className="flex flex-row justify-between items-start px-1 pt-1 pb-3">
       <div className="flex flex-col space-y-3">
         <div className="flex flex-row items-center gap-2">
           <>
-            {imageError ? (
-              <MdOutlineWifiTetheringError className="w-7 h-7 text-neutral-500 dark:text-neutral-400" />
-            ) : (
+            {favicon ? (
               <Image
-                width={500}
-                height={500}
+                width={24}
+                height={24}
                 src={favicon}
                 alt={`${name} favicon`}
                 className="w-7 h-7 rounded-sm"
-                onError={() => setImageError(true)}
               />
-
+            ) : (
+              <MdOutlineWifiTetheringError className="w-7 h-7 text-neutral-500 dark:text-neutral-400" />
             )}
           </>
           <h1 className="text-3xl font-semibold text-black dark:text-white">{name}</h1>
