@@ -1,7 +1,7 @@
 "use client"
 
-import { Copy, CheckCircle } from "lucide-react"
-import { useState } from "react"
+import { CheckCircle } from "lucide-react"
+import { CodeBlock } from "../ui/code-block"
 
 interface TrackingScriptProps {
   siteId: string
@@ -9,7 +9,6 @@ interface TrackingScriptProps {
 }
 
 const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
-  const [copiedBlock, setCopiedBlock] = useState<"html" | "nextjs" | "react" | null>(null)
 
   const htmlCodeBlock = `<script
   defer
@@ -45,14 +44,6 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
   </body>
 </html>`
 
-  const handleCopy = async (
-    type: "html" | "nextjs" | "react",
-    code: string
-  ) => {
-    await navigator.clipboard.writeText(code)
-    setCopiedBlock(type)
-    setTimeout(() => setCopiedBlock(null), 2000)
-  }
 
   return (
     <div className="space-y-4 text-neutral-800 dark:text-neutral-100">
@@ -70,28 +61,10 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
             <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800 mx-4"></div>
           </div>
           <p className="text-neutral-500 dark:text-neutral-400">Add this code to your layout or page file:</p>
-          <div className="relative group">
-            <div className="absolute -inset-px bg-gradient-to-r from-neutral-200 via-neutral-300 to-neutral-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 font-mono text-sm overflow-auto">
-              <pre className="text-neutral-700 dark:text-neutral-300">{nextJsCodeBlock}</pre>
-              <button
-                onClick={() => handleCopy("nextjs", nextJsCodeBlock)}
-                className="absolute top-3 right-3 p-1.5 rounded-md text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-              >
-                {copiedBlock === "nextjs" ? (
-                  <span className="flex items-center">
-                    <CheckCircle size={14} className="mr-1.5 text-emerald-500" />
-                    <span>Copied</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <Copy size={14} className="mr-1.5" />
-                    <span>Copy</span>
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
+          <CodeBlock
+            language="jsx"
+            code={nextJsCodeBlock}
+          />
         </div>
 
         {/* --- React public/index.html --- */}
@@ -111,28 +84,10 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
             </code>{" "}
             section.
           </p>
-          <div className="relative group">
-            <div className="absolute -inset-px bg-gradient-to-r from-neutral-200 via-neutral-300 to-neutral-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 font-mono text-sm overflow-auto">
-              <pre className="text-neutral-700 dark:text-neutral-300">{reactPublicCodeBlock}</pre>
-              <button
-                onClick={() => handleCopy("react", reactPublicCodeBlock)}
-                className="absolute top-3 right-3 p-1.5 rounded-md text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-              >
-                {copiedBlock === "react" ? (
-                  <span className="flex items-center">
-                    <CheckCircle size={14} className="mr-1.5 text-emerald-500" />
-                    <span>Copied</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <Copy size={14} className="mr-1.5" />
-                    <span>Copy</span>
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
+          <CodeBlock
+            language="jsx"
+            code={reactPublicCodeBlock}
+          />
         </div>
 
         {/* --- HTML --- */}
@@ -148,29 +103,10 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
             </code>{" "}
             section of your HTML:
           </p>
-          <div className="relative group">
-            <div className="absolute -inset-px bg-gradient-to-r from-neutral-200 via-neutral-300 to-neutral-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 font-mono text-sm overflow-auto">
-              <pre className="text-neutral-700 dark:text-neutral-300">{htmlCodeBlock}</pre>
-              <button
-                onClick={() => handleCopy("html", htmlCodeBlock)}
-                className="absolute top-3 right-3 p-1.5 rounded-md text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-                aria-label="Copy HTML code"
-              >
-                {copiedBlock === "html" ? (
-                  <span className="flex items-center">
-                    <CheckCircle size={14} className="mr-1.5 text-emerald-500" />
-                    <span>Copied</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <Copy size={14} className="mr-1.5" />
-                    <span>Copy</span>
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
+          <CodeBlock
+            language="jsx"
+            code={htmlCodeBlock}
+          />
         </div>
       </div>
 
