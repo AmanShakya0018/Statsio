@@ -41,6 +41,16 @@ export default function SitesPage() {
     setSites((prev) => [newSite, ...prev]);
   };
 
+  const handleSiteDeleted = (deletedSiteId: string) => {
+    setSites((prev) => prev.filter((site) => site.id !== deletedSiteId));
+  };
+
+  const handleSiteEdited = (editedSiteId: string, updatedData: { name: string; domain: string }) => {
+    setSites((prev) =>
+      prev.map((site) => site.id === editedSiteId ? { ...site, ...updatedData } : site)
+    )
+  }
+
   return (
     <>
       <Navbar />
@@ -64,7 +74,7 @@ export default function SitesPage() {
           <div className="min-h-[400px] flex flex-col justify-between rounded-lg border border-dashed border-neutral-300 dark:border-neutral-800 space-y-8">
             <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 p-8">
               {sites.map((site) => (
-                <SiteCard key={site.id} site={site} />
+                <SiteCard key={site.id} site={site} onDelete={handleSiteDeleted} onEdit={handleSiteEdited} />
               ))}
             </div>
 

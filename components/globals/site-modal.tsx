@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,17 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Site name is required" }),
-  domain: z
-    .string()
-    .min(1, { message: "Domain is required" })
-    .regex(
-      /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/,
-      { message: "Please enter a valid domain (e.g. example.com or sub.example.com)" }
-    ),
-});
+import { SiteFormData, siteSchema } from "@/lib/validation/site";
 
 interface Site {
   id: string;
@@ -53,15 +41,15 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<SiteFormData>({
+    resolver: zodResolver(siteSchema),
     defaultValues: {
       name: "",
       domain: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: SiteFormData) => {
     try {
       const res = await axios.post("/api/sites", values);
       const newSite = res.data;
@@ -72,7 +60,6 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
 
       if (onSiteAdded) onSiteAdded(newSite);
 
-      setOpen(false);
       form.reset();
     } catch (error) {
       console.error("Error adding site:", error);
@@ -81,6 +68,8 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
         description: "There was a problem adding the site.",
         variant: "destructive",
       });
+    } finally {
+      setOpen(false);
     }
   };
 

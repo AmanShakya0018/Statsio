@@ -57,7 +57,7 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
         {/* --- Next.js --- */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-200">Next.js Implementation</h3>
+            <h3 className="text-lg font-medium text-neutral-800 dark:text-transparent bg-clip-text bg-gradient-stop bg-gradient-to-br from-white via-30% via-white to-white/30">Next.js Implementation</h3>
             <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800 mx-4"></div>
           </div>
           <p className="text-neutral-500 dark:text-neutral-400">Add this code to your layout or page file:</p>
@@ -70,7 +70,7 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
         {/* --- React public/index.html --- */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-200">React (public/index.html) Implementation</h3>
+            <h3 className="text-lg font-medium text-neutral-800 dark:text-transparent bg-clip-text bg-gradient-stop bg-gradient-to-br from-white via-30% via-white to-white/30">React (public/index.html) Implementation</h3>
             <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800 mx-4"></div>
           </div>
           <p className="text-neutral-500 dark:text-neutral-400">
@@ -93,7 +93,7 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
         {/* --- HTML --- */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-200">HTML Implementation</h3>
+            <h3 className="text-lg font-medium text-neutral-800 dark:text-transparent bg-clip-text bg-gradient-stop bg-gradient-to-br from-white via-30% via-white to-white/30">HTML Implementation</h3>
             <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800 mx-4"></div>
           </div>
           <p className="text-neutral-500 dark:text-neutral-400">
