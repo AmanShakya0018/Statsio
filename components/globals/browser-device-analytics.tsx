@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
+import axios from "axios"
 
 interface Browser {
   browser: string
@@ -16,13 +17,34 @@ interface Device {
 }
 
 interface BrowsersAndDevicesAnalyticsProps {
-  browsers: Browser[]
-  devices: Device[]
+  siteId: string
 }
 
-export default function BrowsersAndDevicesAnalytics({ browsers, devices }: BrowsersAndDevicesAnalyticsProps) {
+export default function BrowsersAndDevicesAnalytics({ siteId }: BrowsersAndDevicesAnalyticsProps) {
+  const [browsers, setBrowsers] = useState<Browser[]>([])
+  const [devices, setDevices] = useState<Device[]>([])
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<"browsers" | "devices">("browsers")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [browsersResponse, devicesResponse] = await Promise.all([
+          axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/browser`),
+          axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/devices`)
+        ])
+        setBrowsers(browsersResponse.data)
+        setDevices(devicesResponse.data)
+      } catch (error) {
+        console.error("Error fetching analytics data:", error)
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData()
+  }, [siteId])
 
   const browserMaxCount = Math.max(...browsers.map((browser) => browser.count))
   const browserTotalCount = browsers.reduce((acc, curr) => acc + curr.count, 0)
@@ -54,7 +76,14 @@ export default function BrowsersAndDevicesAnalytics({ browsers, devices }: Brows
           </div>
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
-        {currentData.length === 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-[5.16rem]">
+            <div className="mb-2">
+              <GoGraph className="h-5 w-5 text-neutral-500" />
+            </div>
+            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          </div>
+        ) : currentData.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[5.16rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />

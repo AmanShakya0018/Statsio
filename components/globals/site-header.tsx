@@ -22,7 +22,7 @@ export default function SiteHeader({
 }) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
-  const trackingScript = `<script src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${id}"></script>`
+  const trackingScript = `<script defer src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${id}"></script>`
   const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${domain}`
 
   const copyToClipboard = () => {

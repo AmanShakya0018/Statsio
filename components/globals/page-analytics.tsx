@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from 'lucide-react'
 import { GoGraph } from "react-icons/go";
+import axios from "axios";
 
 interface Page {
   pathname: string
@@ -11,12 +12,29 @@ interface Page {
 }
 
 interface PagesAnalyticsProps {
-  pages: Page[]
+  siteId: string
 }
 
-export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
+export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
+  const [pages, setpages] = useState<Page[]>([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const maxCount = Math.max(...pages.map((page) => page.count))
+
+  useEffect(() => {
+    const fetchPages = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/pages`)
+        setpages(response.data);
+      } catch (error) {
+        console.error("Failed to fetch pages:" + error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchPages()
+  }, [siteId])
+
+  const maxCount = Math.max(...pages.map((page) => page.count), 0)
 
   return (
     <section>
@@ -25,7 +43,14 @@ export default function PagesAnalytics({ pages }: PagesAnalyticsProps) {
           <h2 className="text-sm font-semibold text-zinc-900 dark:text-white">Pages</h2>
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
-        {pages.length === 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-[7.89rem]">
+            <div className="mb-2">
+              <GoGraph className="h-5 w-5 text-neutral-500" />
+            </div>
+            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          </div>
+        ) : pages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[7.89rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />

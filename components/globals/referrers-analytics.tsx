@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from 'lucide-react'
 import { GoGraph } from "react-icons/go"
+import axios from "axios"
 
 interface Referrer {
   referrer: string
@@ -11,11 +12,27 @@ interface Referrer {
 }
 
 interface ReferrersAnalyticsProps {
-  referrers: Referrer[]
+  siteId: string
 }
 
-export default function ReferrersAnalytics({ referrers }: ReferrersAnalyticsProps) {
+export default function ReferrersAnalytics({ siteId }: ReferrersAnalyticsProps) {
+  const [referrers, setReferrers] = useState<Referrer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    const fetchReferres = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/referrers`)
+        setReferrers(response.data)
+      } catch (error) {
+        console.error("Error fetching referrers" + error)
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchReferres()
+  }, [siteId])
 
   const maxCount = Math.max(...referrers.map((referrer) => referrer.count))
 
@@ -26,7 +43,14 @@ export default function ReferrersAnalytics({ referrers }: ReferrersAnalyticsProp
           <h2 className="text-sm font-semibold text-zinc-900 dark:text-white">Referrers</h2>
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
-        {referrers.length === 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-[7.89rem]">
+            <div className="mb-2">
+              <GoGraph className="h-5 w-5 text-neutral-500" />
+            </div>
+            <p className="text-sm text-zinc-400 dark:text-zinc-500">Laoding...</p>
+          </div>
+        ) : referrers.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[7.89rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />

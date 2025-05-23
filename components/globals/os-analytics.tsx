@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
@@ -11,13 +12,30 @@ interface Os {
 }
 
 interface OssAnalyticsProps {
-  oses: Os[]
+  siteId: string
 }
 
-export default function OssAnalytics({ oses }: OssAnalyticsProps) {
+export default function OssAnalytics({ siteId }: OssAnalyticsProps) {
+  const [oses, setOses] = useState<Os[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const maxCount = Math.max(...oses.map((page) => page.count))
+  useEffect(() => {
+    const fetchOses = async () => {
+      try {
+        const response = await axios.get(`/api/sites/${siteId}/analytics/os`)
+        setOses(response.data)
+      } catch (error) {
+        console.error("Failed to fetch OS analytics:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchOses()
+  }, [siteId])
+
+  const maxCount = Math.max(...oses.map((page) => page.count), 0)
   const totalCount = oses.reduce((acc, curr) => acc + curr.count, 0)
 
   return (
@@ -27,7 +45,15 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
           <h2 className="text-sm font-semibold text-zinc-800 dark:text-white">Operating Systems</h2>
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
-        {oses.length === 0 ? (
+
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-[5.16rem]">
+            <div className="mb-2">
+              <GoGraph className="h-5 w-5 text-neutral-500" />
+            </div>
+            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          </div>
+        ) : oses.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[5.16rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
@@ -46,12 +72,12 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
                   <div className="flex items-center justify-between w-full px-4 relative z-10">
                     <div className="truncate text-sm text-zinc-800 dark:text-white">{page.os}</div>
                     <div className="text-sm flex flex-row gap-0.5 font-semibold text-zinc-800 dark:text-white">
-                      {((page.count / totalCount) * 100).toFixed(0)}
-                      <p className="font-normal">%</p>
+                      {((page.count / totalCount) * 100).toFixed(0)}%
                     </div>
                   </div>
                 </li>
               ))}
+
               {Array.from({ length: 4 - oses.slice(0, 4).length }).map((_, idx) => (
                 <li key={`empty-${idx}`} className="relative h-8 flex items-center my-2 mx-2 opacity-0 pointer-events-none">
                   <div className="w-full h-full" />
@@ -63,10 +89,8 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
                   <div className="absolute bottom-11 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10 rounded-b-lg" />
                   <button onClick={() => setIsModalOpen(true)} className="flex w-full items-center justify-center px-4 py-3 mt-4 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
                     <div className="flex items-center space-x-2">
-                      <div className="flex items-center space-x-1" >
-                        <span>View All</span>
-                        <Maximize2 className="h-4 w-4" />
-                      </div>
+                      <span>View All</span>
+                      <Maximize2 className="h-4 w-4" />
                     </div>
                   </button>
                 </>
@@ -98,8 +122,7 @@ export default function OssAnalytics({ oses }: OssAnalyticsProps) {
                   <div className="flex items-center justify-between w-full px-4 relative z-10">
                     <div className="truncate text-sm text-zinc-800 dark:text-white">{page.os}</div>
                     <div className="text-sm flex flex-row gap-0.5 font-semibold text-zinc-800 dark:text-white">
-                      {((page.count / totalCount) * 100).toFixed(0)}
-                      <p className="font-normal">%</p>
+                      {((page.count / totalCount) * 100).toFixed(0)}%
                     </div>
                   </div>
                 </li>

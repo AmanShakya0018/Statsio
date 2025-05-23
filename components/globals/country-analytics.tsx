@@ -1,12 +1,13 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
 import Image from "next/image"
 import { getFlagURL } from "@/lib/country-flag"
+import axios from "axios"
 
 interface Country {
   country: string
@@ -14,11 +15,26 @@ interface Country {
 }
 
 interface CountrysAnalyticsProps {
-  countries: Country[]
+  siteId: string
 }
-const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
+const CountrysAnalytics = ({ siteId }: CountrysAnalyticsProps) => {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/countries`)
+        setCountries(response.data)
+      } catch (error) {
+        console.error("Error fetching countries" + error)
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCountries()
+  }, [siteId])
   const maxCount = countries.length > 0 ? Math.max(...countries.map((page) => page.count)) : 0
   const totalCount = countries.length > 0 ? countries.reduce((acc, curr) => acc + curr.count, 0) : 0
 
@@ -30,7 +46,14 @@ const CountrysAnalytics: React.FC<CountrysAnalyticsProps> = ({ countries }) => {
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
 
-        {countries.length === 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-[5.16rem]">
+            <div className="mb-2">
+              <GoGraph className="h-5 w-5 text-neutral-500" />
+            </div>
+            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          </div>
+        ) : countries.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[5.16rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
