@@ -44,14 +44,14 @@ export default function ReferrersAnalytics({ siteId }: ReferrersAnalyticsProps) 
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-[7.89rem]">
+          <div className="flex flex-col items-center justify-center py-[7.68rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
             <p className="text-sm text-zinc-400 dark:text-zinc-500">Laoding...</p>
           </div>
         ) : referrers.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-[7.89rem]">
+          <div className="flex flex-col items-center justify-center py-[7.68rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
@@ -77,22 +77,15 @@ export default function ReferrersAnalytics({ siteId }: ReferrersAnalyticsProps) 
                   <div className="w-full h-full" />
                 </li>
               ))}
-
-              {referrers.length > 6 ? (
-                <>
-                  <div className="absolute bottom-11 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10 rounded-b-lg" />
-                  <button onClick={() => setIsModalOpen(true)} className="flex w-full items-center justify-center px-4 py-3 mt-4 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex items-center space-x-1" >
-                        <span>View All</span>
-                        <Maximize2 className="h-4 w-4" />
-                      </div>
-                    </div>
+              <>
+                <div className="absolute bottom-12 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10" />
+                <div className="flex w-full items-center justify-center px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  <button onClick={() => setIsModalOpen(true)} className="flex text-xs text-black dark:text-white border border-neutral-300 dark:border-neutral-800 px-2 py-1 rounded-2xl items-center space-x-2">
+                    <p>View All</p>
+                    <Maximize2 className="h-4 w-4" />
                   </button>
-                </>
-              ) : (
-                <div className="h-[3.3rem]" />
-              )}
+                </div>
+              </>
             </ul>
           </div>
         )}
