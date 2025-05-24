@@ -5,6 +5,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Maximize2 } from "lucide-react"
 import { GoGraph } from "react-icons/go"
 import axios from "axios"
+import { PiDotsThreeBold } from "react-icons/pi"
+import { FiDownload } from "react-icons/fi"
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { exportToCSV } from "@/lib/export-csv"
 
 interface Browser {
   browser: string
@@ -77,14 +81,14 @@ export default function BrowsersAndDevicesAnalytics({ siteId }: BrowsersAndDevic
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-[5.16rem]">
+          <div className="flex flex-col items-center justify-center py-[5.18rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
             <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
           </div>
         ) : currentData.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-[5.16rem]">
+          <div className="flex flex-col items-center justify-center py-[5.18rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
@@ -120,11 +124,33 @@ export default function BrowsersAndDevicesAnalytics({ siteId }: BrowsersAndDevic
               ))}
               <>
                 <div className="absolute bottom-12 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10 rounded-b-lg" />
-                <div className="flex w-full items-center justify-center px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="flex flex-row gap-2 w-full items-center justify-center px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
                   <button onClick={() => setIsModalOpen(true)} className="flex text-xs text-black dark:text-white border border-neutral-300 dark:border-neutral-800 px-2 py-1 rounded-2xl items-center space-x-2">
                     <p>View All</p>
-                    <Maximize2 className="h-4 w-4" />
+                    <Maximize2 className="h-3 w-3" />
                   </button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="text-black dark:text-white border border-neutral-300 dark:border-neutral-800 px-1 rounded-2xl items-center space-x-2">
+                        <PiDotsThreeBold className="h-6 w-6" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="bg-white dark:bg-black" align="end">
+                      <DropdownMenuItem asChild>
+                        <button
+                          onClick={() =>
+                            exportToCSV(
+                              activeTab === "browsers" ? browsers : devices,
+                              `${activeTab}-analytics`
+                            )
+                          }
+                          className="w-full"
+                        >
+                          <FiDownload /> Export CSV
+                        </button>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </>
             </ul>

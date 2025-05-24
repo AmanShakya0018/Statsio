@@ -5,6 +5,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Maximize2 } from 'lucide-react'
 import { GoGraph } from "react-icons/go"
 import axios from "axios"
+import { PiDotsThreeBold } from "react-icons/pi"
+import { FiDownload } from "react-icons/fi"
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { exportToCSV } from "@/lib/export-csv"
 
 interface Referrer {
   referrer: string
@@ -79,11 +83,25 @@ export default function ReferrersAnalytics({ siteId }: ReferrersAnalyticsProps) 
               ))}
               <>
                 <div className="absolute bottom-12 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-black to-transparent pointer-events-none z-10" />
-                <div className="flex w-full items-center justify-center px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="flex flex-row gap-2 w-full items-center justify-center px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
                   <button onClick={() => setIsModalOpen(true)} className="flex text-xs text-black dark:text-white border border-neutral-300 dark:border-neutral-800 px-2 py-1 rounded-2xl items-center space-x-2">
                     <p>View All</p>
-                    <Maximize2 className="h-4 w-4" />
+                    <Maximize2 className="h-3 w-3" />
                   </button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="text-black dark:text-white border border-neutral-300 dark:border-neutral-800 px-1 rounded-2xl items-center space-x-2">
+                        <PiDotsThreeBold className="h-6 w-6" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="bg-white dark:bg-black" align="end">
+                      <DropdownMenuItem asChild>
+                        <button onClick={() => exportToCSV(referrers, `referrers-analytics`)} className="w-full">
+                          <FiDownload /> Export CSV
+                        </button>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </>
             </ul>
