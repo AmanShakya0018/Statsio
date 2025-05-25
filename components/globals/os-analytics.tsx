@@ -9,6 +9,7 @@ import { PiDotsThreeBold } from "react-icons/pi"
 import { FiDownload } from "react-icons/fi"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { exportToCSV } from "@/lib/export-csv"
+import { TextShimmer } from "../ui/text-shimmer"
 
 interface Os {
   os: string
@@ -51,14 +52,13 @@ export default function OssAnalytics({ siteId }: OssAnalyticsProps) {
         </div>
 
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-[5.18rem]">
-            <div className="mb-2">
-              <GoGraph className="h-5 w-5 text-neutral-500" />
-            </div>
-            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          <div className="flex flex-col items-center justify-center min-h-[13.35rem]">
+            <TextShimmer className='text-sm' duration={1}>
+              Loading...
+            </TextShimmer>
           </div>
         ) : oses.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-[5.18rem]">
+          <div className="flex flex-col items-center justify-center min-h-[13.35rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>

@@ -12,6 +12,7 @@ import { IoMdCode } from "react-icons/io"
 import { MdOutlineWifiTetheringError } from "react-icons/md"
 import axios from "axios"
 import ContentNavigation from "../shared/content-navigation"
+import { TextShimmer } from "../ui/text-shimmer"
 
 interface SiteInterfaceProps {
   siteId: string;
@@ -25,6 +26,7 @@ interface Site {
 export default function SiteHeader({ siteId }: SiteInterfaceProps) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
   const [sites, setSites] = useState<Site>();
   const trackingScript = `<script defer src="${process.env.NEXT_PUBLIC_API_URL}/tracker.js" data-site="${siteId}"></script>`
   const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${sites?.domain}`
@@ -38,6 +40,8 @@ export default function SiteHeader({ siteId }: SiteInterfaceProps) {
         setSites(res.data);
       } catch (error) {
         console.error("Error fetching analytics:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -53,11 +57,40 @@ export default function SiteHeader({ siteId }: SiteInterfaceProps) {
 
   return (
     <>
-      <ContentNavigation>{sites?.domain}</ContentNavigation>
+      <ContentNavigation>
+        {isLoading ? (
+          <TextShimmer className='text-sm' duration={1}>
+            Loading...
+          </TextShimmer>
+        ) : (
+          sites?.domain
+        )}</ContentNavigation>
       <div className="flex flex-row justify-between items-start px-1 pt-1 pb-3">
-        <div className="flex flex-col space-y-3">
-          <div className="flex flex-row items-center gap-2">
-            <>
+        {isLoading ? (
+          <div className="flex flex-col space-y-3">
+            <div className="flex flex-row items-center gap-2">
+              <div className="w-7 h-7 rounded-sm bg-neutral-300 dark:bg-neutral-700 animate-pulse" />
+              <h1 className="text-3xl font-semibold text-black dark:text-white">
+                <TextShimmer className='text-lg' duration={1}>
+                  Loading...
+                </TextShimmer>
+              </h1>
+            </div>
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-1">
+              <CiGlobe className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
+              <div
+                className="hover:underline text-black font-semibold flex flex-row gap-1 items-center dark:text-white"
+              >
+                <TextShimmer className='text-sm' duration={1}>
+                  Loading...
+                </TextShimmer>
+                <BiLinkExternal className="w-3.5 h-3.5 mt-1 text-neutral-500 dark:text-neutral-400" />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col space-y-3">
+            <div className="flex flex-row items-center gap-2">
               {favicon ? (
                 <Image
                   width={24}
@@ -69,22 +102,22 @@ export default function SiteHeader({ siteId }: SiteInterfaceProps) {
               ) : (
                 <MdOutlineWifiTetheringError className="w-7 h-7 text-neutral-500 dark:text-neutral-400" />
               )}
-            </>
-            <h1 className="text-3xl font-semibold text-black dark:text-white">{sites?.name}</h1>
+              <h1 className="text-3xl font-semibold text-black dark:text-white">{sites?.name}</h1>
+            </div>
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-1">
+              <CiGlobe className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
+              <Link
+                href={`https://${sites?.domain}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-black font-semibold flex flex-row gap-1 items-center dark:text-white"
+              >
+                {sites?.domain}
+                <BiLinkExternal className="w-3.5 h-3.5 mt-1 text-neutral-500 dark:text-neutral-400" />
+              </Link>
+            </div>
           </div>
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-1">
-            <CiGlobe className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
-            <Link
-              href={`https://${sites?.domain}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-black font-semibold flex flex-row gap-1 items-center dark:text-white"
-            >
-              {sites?.domain}
-              <BiLinkExternal className="w-3.5 h-3.5 mt-1 text-neutral-500 dark:text-neutral-400" />
-            </Link>
-          </div>
-        </div>
+        )}
 
         <Button variant="outline" size="sm" onClick={() => setOpen(true)} className="mt-1">
           <IoMdCode className="w-4 h-4" />Tracking Script

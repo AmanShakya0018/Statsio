@@ -9,6 +9,7 @@ import { PiDotsThreeBold } from "react-icons/pi";
 import { FiDownload } from "react-icons/fi"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { exportToCSV } from "@/lib/export-csv"
+import { TextShimmer } from "../ui/text-shimmer";
 
 interface Page {
   pathname: string
@@ -48,14 +49,13 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
           <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">PAGE VIEWS</span>
         </div>
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-[7.68rem]">
-            <div className="mb-2">
-              <GoGraph className="h-5 w-5 text-neutral-500" />
-            </div>
-            <p className="text-sm text-zinc-400 dark:text-zinc-500">Loading...</p>
+          <div className="flex flex-col items-center justify-center min-h-[18.35rem]">
+            <TextShimmer className='text-sm' duration={1}>
+              Loading...
+            </TextShimmer>
           </div>
         ) : pages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-[7.68rem]">
+          <div className="flex flex-col items-center justify-center min-h-[18.35rem]">
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
