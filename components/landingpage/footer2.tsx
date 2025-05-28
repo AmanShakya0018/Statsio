@@ -34,8 +34,8 @@ const Footer = () => {
 
           <div className="grid grid-cols-2 gap-10 items-start mt-10 md:mt-0">
             <div className="flex justify-center space-y-4 flex-col mt-4">
-              <Link className="transition-colors hover:text-zinc-800 dark:hover:text-zinc-300 text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm" href="/">Home</Link>
               <Link className="transition-colors hover:text-zinc-800 dark:hover:text-zinc-300 text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm" href="/dashboard/sites">Dashboard</Link>
+              <Link className="transition-colors hover:text-zinc-800 dark:hover:text-zinc-300 text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm" href="/docs">Documentation</Link>
             </div>
 
             <div className="flex justify-center space-y-4 flex-col mt-4">

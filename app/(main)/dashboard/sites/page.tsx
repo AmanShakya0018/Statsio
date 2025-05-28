@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AddSiteModal } from "@/components/globals/site-modal";
 import { EmptyState } from "@/components/globals/empty-state";
+import { LoadingState } from "@/components/globals/loading-state";
 import { SiteCard } from "@/components/globals/site-card";
 import { useSession } from "next-auth/react";
 import Navbar from "@/components/landingpage/navbar";
 import useRequireAuth from "@/hooks/useRequireAuth";
-import { BookOpen, Plus } from "lucide-react";
-import Link from "next/link";
 import Footer2 from "@/components/landingpage/footer2";
-import { LoadingState } from "@/components/globals/loading-state";
+import { BookOpen, Plus } from "lucide-react";
 
 interface Site {
   id: string;
@@ -66,10 +66,12 @@ export default function SitesPage() {
               Manage your websites and view privacy-friendly analytics in one place.
             </p>
           </div>
-          <AddSiteModal
-            trigger={<Button variant="outline" size="sm" className="mt-2"><Plus size={16} />Add New Site</Button>}
-            onSiteAdded={handleSiteAdded}
-          />
+          {sites.length !== 0 &&
+            <AddSiteModal
+              trigger={<Button variant="outline" size="sm" className="mt-2"><Plus size={16} />Add New Site</Button>}
+              onSiteAdded={handleSiteAdded}
+            />
+          }
         </div>
 
         {isLoading ? (
