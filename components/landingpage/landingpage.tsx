@@ -2,14 +2,18 @@
 // import FeaturesSection from './featuressection'
 // import HeroSection from './herosection'
 // import Footer from './footer'
-import Navbar from './navbar'
+// import Navbar from './navbar'
 import HeroSection from './hero-section'
+import NavbarResizeable from './navbar-resizeable'
 
 
 const LandingPage = () => {
   return (
     <>
-      <Navbar />
+      <NavbarResizeable />
+      <HeroSection />
+      <HeroSection />
+      <HeroSection />
       <HeroSection />
       {/* 
       <FeaturesSection />

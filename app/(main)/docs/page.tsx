@@ -2,16 +2,16 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle } from "lucide-react"
-import Navbar from "@/components/landingpage/navbar"
 import TrackingScriptInstructions from "@/components/globals/trackingscript"
 import Footer from "@/components/landingpage/footer2"
 import { BiLinkExternal } from "react-icons/bi"
+import NavbarResizeable from "@/components/landingpage/navbar-resizeable"
 
 const DocumentationPage = () => {
 
   return (
     <>
-      <Navbar />
+      <NavbarResizeable />
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="flex flex-col items-center text-center mb-16">
