@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import { BookOpen, ChevronRight, SquareArrowOutUpRight } from 'lucide-react';
+import { Themetoggle } from '../shared/ThemeToggle';
 
 const Herobuttons = () => {
   return (
@@ -16,6 +17,7 @@ const Herobuttons = () => {
         Documentaion
         <ChevronRight className='w-4 h-4 mt-0.5 transition-all group-hover:translate-x-3 duration-200 ease-in-out' />
       </Link>
+      <Themetoggle />
     </div>
   )
 }
