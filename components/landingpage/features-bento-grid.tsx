@@ -4,6 +4,7 @@ import { MdAnalytics, MdInsights, MdSpeed } from "react-icons/md";
 import { Earth } from "lucide-react";
 import WorldMap from "./world-map";
 import { CpuArchitecture } from "../ui/cpu-arch";
+import FeatureChart from "./feature-chart";
 
 export default function FeaturesBentoGrid() {
   return (
@@ -27,11 +28,11 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "Visitor Insights",
-    description: "Get a clear breakdown of your traffic with real-time data on unique visitors, device types, browsers, and operating systems.",
+    title: "Real-time Analytics",
+    description: "Track website performance as it happens with live updates and instant insights.",
     header: <Skeleton />,
     className: "md:col-span-2",
-    icon: <MdInsights className="h-4 w-4 text-neutral-500" />,
+    icon: <MdAnalytics className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Instant Analytics",
@@ -49,10 +50,10 @@ const items = [
   },
 
   {
-    title: "Real-time Analytics",
-    description: "Track website performance as it happens with live updates and instant insights.",
-    header: <Skeleton />,
+    title: "Visitor Insights",
+    description: "Get a clear breakdown of your traffic with real-time data on unique visitors, device types, browsers, and operating systems.",
+    header: <FeatureChart />,
     className: "md:col-span-2",
-    icon: <MdAnalytics className="h-4 w-4 text-neutral-500" />,
+    icon: <MdInsights className="h-4 w-4 text-neutral-500" />,
   },
 ];

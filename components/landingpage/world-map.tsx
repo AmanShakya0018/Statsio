@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const WorldMap = () => {
   const dots = [
@@ -15,7 +15,13 @@ const WorldMap = () => {
     { top: '80%', left: '90%' },
   ];
 
-  const getRandomDelay = () => `${Math.random() * 2}s`;
+  const [delays, setDelays] = useState<string[]>([]);
+
+  useEffect(() => {
+    const generatedDelays = dots.map(() => `${Math.random() * 2}s`);
+    setDelays(generatedDelays);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
@@ -39,9 +45,12 @@ const WorldMap = () => {
         >
           <div
             className="w-4 h-4 relative"
-            style={{ animationDelay: getRandomDelay() }}
+            style={{ animationDelay: delays[index] }}
           >
-            <span className="ping-dot" style={{ animationDelay: getRandomDelay() }} />
+            <span
+              className="ping-dot"
+              style={{ animationDelay: delays[index] }}
+            />
           </div>
         </div>
       ))}
