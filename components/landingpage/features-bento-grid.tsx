@@ -1,11 +1,9 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
-import {
-  IconDatabaseExport,
-} from "@tabler/icons-react";
-import { MdAnalytics, MdInsights } from "react-icons/md";
+import { MdAnalytics, MdInsights, MdSpeed } from "react-icons/md";
 import { Earth } from "lucide-react";
 import WorldMap from "./world-map";
+import { CpuArchitecture } from "../ui/cpu-arch";
 
 export default function FeaturesBentoGrid() {
   return (
@@ -29,19 +27,18 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "Data Export",
-    description: "Easily export your analytics data in CSV format for custom reports, backups, or deeper analysis.",
-    header: <Skeleton />,
-    className: "md:col-span-2",
-    icon: <IconDatabaseExport className="h-4 w-4 text-neutral-500" />,
-  },
-
-  {
     title: "Visitor Insights",
     description: "Get a clear breakdown of your traffic with real-time data on unique visitors, device types, browsers, and operating systems.",
     header: <Skeleton />,
-    className: "md:col-span-1",
+    className: "md:col-span-2",
     icon: <MdInsights className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Instant Analytics",
+    description: "Enjoy a fluid experience with live data that updates as your users interact — no delays.",
+    header: <CpuArchitecture />,
+    className: "md:col-span-1",
+    icon: <MdSpeed className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Global Insights",
