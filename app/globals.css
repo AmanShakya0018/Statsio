@@ -113,3 +113,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes ping-random {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ping-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #34d399;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  animation: ping-random 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
