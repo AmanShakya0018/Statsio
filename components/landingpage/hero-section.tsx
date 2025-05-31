@@ -9,10 +9,9 @@ const HeroSection = () => {
     <div>
       <div className='pt-20 pb-12 lg:pt-40 lg:pb-20'>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-6 items-center justify-center space-y-3"
         >
           <div className="flex flex-col items-center justify-center">

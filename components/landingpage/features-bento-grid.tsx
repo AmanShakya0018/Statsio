@@ -5,7 +5,6 @@ import { HiOutlineCodeBracket } from "react-icons/hi2";
 import { Earth } from "lucide-react";
 import WorldMap from "./world-map";
 import { CpuArchitecture } from "../ui/cpu-arch";
-import FeatureChart from "./feature-chart";
 import FeatureTechstack from "./features-techstack";
 
 export default function FeaturesBentoGrid() {
@@ -54,7 +53,7 @@ const items = [
   {
     title: "Visitor Insights",
     description: "Get a clear breakdown of your traffic with real-time data on unique visitors, device types, browsers, and operating systems.",
-    header: <FeatureChart />,
+    header: <CpuArchitecture />,
     className: "md:col-span-2",
     icon: <MdInsights className="h-4 w-4 text-neutral-500" />,
   },

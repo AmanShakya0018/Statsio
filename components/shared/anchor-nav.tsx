@@ -27,7 +27,7 @@ export default function AnchorNav({
       <div className={cn(className, "cursor-not-allowed")}>{children}</div>
     );
   return (
-    <Link className={cn(className, "text-[0.82rem] font-medium text-zinc-500 dark:text-zinc-400 hover:text-foreground/80 relative", isMatch && "text-black dark:text-white font-semibold")} {...props}>
+    <Link className={cn(className, "text-muted-foreground hover:text-accent-foreground block duration-150", isMatch && "text-black dark:text-white font-semibold")} {...props}>
       {children}
     </Link>
   );

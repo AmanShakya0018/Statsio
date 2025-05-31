@@ -9,13 +9,8 @@ import Image from "next/image"
 import SignInButton from "../shared/SignInButoon"
 import UserAccountNav from "../shared/UserAccountNav"
 import { useSession } from "next-auth/react"
+import AnchorNav from "../shared/anchor-nav"
 
-// const navItems = [
-//   { name: 'Features', href: '#link' },
-//   { name: 'Solution', href: '#link' },
-//   { name: 'Pricing', href: '#link' },
-//   { name: 'About', href: '#link' },
-// ]
 
 const Navbar = () => {
   const [menuState, setMenuState] = useState(false)
@@ -63,14 +58,14 @@ const Navbar = () => {
 
             <div className="absolute inset-0 m-auto hidden size-fit lg:block">
               <ul className="flex gap-8 text-sm">
-                {navItems.map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      href={item.href}
-                      className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                      <span>{item.name}</span>
-                    </Link>
-                  </li>
+                {navItems.map((item) => (
+                  <AnchorNav
+                    key={item.name + item.href}
+                    absolute
+                    href={item.href}
+                  >
+                    {item.name}
+                  </AnchorNav>
                 ))}
               </ul>
             </div>
@@ -78,14 +73,14 @@ const Navbar = () => {
             <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
-                  {navItems.map((item, index) => (
-                    <li key={index}>
-                      <Link
-                        href={item.href}
-                        className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                        <span>{item.name}</span>
-                      </Link>
-                    </li>
+                  {navItems.map((item) => (
+                    <AnchorNav
+                      key={item.name + item.href}
+                      absolute
+                      href={item.href}
+                    >
+                      {item.name}
+                    </AnchorNav>
                   ))}
                 </ul>
               </div>
