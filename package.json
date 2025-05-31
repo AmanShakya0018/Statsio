@@ -26,6 +26,7 @@
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "date-fns": "^4.1.0",
+    "dotted-map": "^2.2.3",
     "framer-motion": "^12.12.2",
     "lucide-react": "^0.510.0",
     "motion": "^12.15.0",
