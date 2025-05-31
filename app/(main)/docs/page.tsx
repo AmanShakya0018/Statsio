@@ -5,15 +5,15 @@ import { CheckCircle } from "lucide-react"
 import TrackingScriptInstructions from "@/components/globals/trackingscript"
 import Footer from "@/components/landingpage/footer2"
 import { BiLinkExternal } from "react-icons/bi"
-import NavbarResizeable from "@/components/landingpage/navbar-resizeable"
+import Navbar from "@/components/landingpage/navbar-shrink"
 
 const DocumentationPage = () => {
 
   return (
     <>
-      <NavbarResizeable />
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-        <div className="max-w-4xl mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto px-6 pt-32 pb-16">
           <div className="flex flex-col items-center text-center mb-16">
             <div className="max-w-fit flex justify-center items-center gap-2 bg-neutral-100 dark:bg-neutral-800 px-3 py-1 rounded-full mb-4">
               <div className="relative flex justify-center items-center bg-emerald-300/40 dark:bg-emerald-500/40 rounded-full w-1.5 h-1.5">

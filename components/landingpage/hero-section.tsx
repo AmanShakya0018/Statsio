@@ -7,7 +7,7 @@ const HeroSection = () => {
 
   return (
     <div>
-      <div className='py-12 lg:py-20'>
+      <div className='pt-20 pb-12 lg:pt-40 lg:pb-20'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
