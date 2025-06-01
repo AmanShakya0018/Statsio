@@ -14,7 +14,7 @@ const Herobuttons = () => {
       </Link>
       <Link href="/docs" className='flex items-center gap-2 text-sm dark:text-white text-black sm:text-base group'>
         <BookOpen className='w-4 h-4 translate-y-[1px]' />
-        Documentaion
+        Documentation
         <ChevronRight className='w-4 h-4 mt-0.5 transition-all group-hover:translate-x-3 duration-200 ease-in-out' />
       </Link>
       <Themetoggle />

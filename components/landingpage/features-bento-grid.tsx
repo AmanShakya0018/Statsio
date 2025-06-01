@@ -6,6 +6,7 @@ import { Earth } from "lucide-react";
 import WorldMap from "./world-map";
 import { CpuArchitecture } from "../ui/cpu-arch";
 import FeatureTechstack from "./features-techstack";
+import FeaturesVisitorInsights from "./features-insights";
 
 export default function FeaturesBentoGrid() {
   return (
@@ -49,11 +50,10 @@ const items = [
     className: "md:col-span-1",
     icon: <Earth className="h-4 w-4 text-neutral-500" />,
   },
-
   {
     title: "Visitor Insights",
     description: "Get a clear breakdown of your traffic with real-time data on unique visitors, device types, browsers, and operating systems.",
-    header: <CpuArchitecture />,
+    header: <FeaturesVisitorInsights />,
     className: "md:col-span-2",
     icon: <MdInsights className="h-4 w-4 text-neutral-500" />,
   },
