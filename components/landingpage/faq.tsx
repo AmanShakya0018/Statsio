@@ -149,8 +149,8 @@ function FAQ() {
     <section className="py-24 w-full bg-linear-to-b from-transparent via-zinc-50/50 to-transparent dark:from-transparent dark:via-white/[0.02] dark:to-transparent">
       <motion.div
 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         className="container px-4 mx-auto">

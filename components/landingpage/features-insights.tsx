@@ -2,7 +2,8 @@ import { getFlagURL } from "@/lib/country-flag"
 import { ArrowUp } from "lucide-react"
 import Image from "next/image"
 
-export default function ModernVisitorInsights() {
+const FeaturesVisitorInsights = () => {
+
   return (
     <div className="w-full bg-white dark:bg-neutral-950 rounded-xl border border-neutral-200 dark:border-neutral-900 shadow-sm">
       <div className="flex p-3 items-center justify-start gap-4 border-b border-neutral-200 dark:border-neutral-900">
@@ -180,3 +181,5 @@ export default function ModernVisitorInsights() {
     </div>
   )
 }
+
+export default FeaturesVisitorInsights

@@ -43,9 +43,8 @@ const Navbar = () => {
                   priority={true}
                   className="w-10 h-10 rounded-xl mt-1 object-cover flex-shrink-0"
                 />
-                <h3 className="text-xl font-bold ml-1">Statsio</h3>
+                <h3 className="text-xl font-bold">Statsio</h3>
               </Link>
-
 
               <button
                 onClick={() => setMenuState(!menuState)}

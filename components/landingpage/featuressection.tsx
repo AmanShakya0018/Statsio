@@ -1,10 +1,16 @@
+"use client"
 import React from 'react';
 import { PointerHighlight } from '../ui/pointer-highlight';
 import FeaturesBentoGrid from './features-bento-grid';
+import { motion } from 'framer-motion';
 
 const FeaturesSection = () => {
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      viewport={{ once: true }}
       id="features"
       className="w-full mx-auto bg-white dark:bg-neutral-950 py-20 px-4 md:px-8"
     >
@@ -18,13 +24,13 @@ const FeaturesSection = () => {
         </h2>
       </div>
 
-      <p className="max-w-lg text-sm text-neutral-600 text-center mx-auto mt-4 mb-12 dark:text-neutral-400">
+      <p className="max-w-lg text-sm text-neutral-600 text-center mx-auto mt-4 mb-6 dark:text-neutral-400">
         Track what matters, forget the noise.
       </p>
       <FeaturesBentoGrid />
 
 
-    </section>
+    </motion.section>
   );
 };
 
