@@ -19,7 +19,7 @@
 
       console.log("Sending visit payload:", payload);
 
-      fetch("http://localhost:3000/api/collect", {
+      fetch("https://statsio.amanshakya.in/api/collect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
