@@ -28,10 +28,10 @@ export default function SiteAnalyticsGrid({ siteId }: SiteAnalyticsGridProps) {
           <CountrysAnalytics siteId={siteId} />
         </div>
         <div className="w-full lg:w-1/3">
-          <OssAnalytics siteId={siteId} />
+          <BrowsersAndDevicesAnalytics siteId={siteId} />
         </div>
         <div className="w-full lg:w-1/3">
-          <BrowsersAndDevicesAnalytics siteId={siteId} />
+          <OssAnalytics siteId={siteId} />
         </div>
       </div>
     </>

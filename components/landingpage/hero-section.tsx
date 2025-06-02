@@ -2,12 +2,13 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import Herobuttons from './hero-buttons';
+import Image from 'next/image';
 
 const HeroSection = () => {
 
   return (
     <div>
-      <div className='pt-20 pb-12 lg:pt-40 lg:pb-20'>
+      <div className='pt-20 pb-12 lg:pt-40'>
         <motion.div
           initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -25,6 +26,21 @@ const HeroSection = () => {
             Track page views and visitors with Statsio — a minimal analytics tool for developers who prefer simplicity.
           </p>
           <Herobuttons />
+          <div className="mx-auto -mt-16 max-w-7xl [mask-image:linear-gradient(to_bottom,black_50%,transparent_100%)] overflow-hidden">
+            <div className="[perspective:10000px] [mask-image:linear-gradient(to_right,black_50%,transparent_100%)] -mr-16 pl-16 lg:-mr-20 lg:pl-36">
+              <div className="[transform:rotateX(20deg);]">
+                <div className="lg:h-fit relative skew-x-[.20rad]">
+                  <Image
+                    className="rounded-[--radius] z-[2] relative block"
+                    src="/analytics.webp"
+                    alt="hero section"
+                    width={2880}
+                    height={2074}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>

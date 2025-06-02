@@ -12,7 +12,7 @@ const FeaturesSection = () => {
       transition={{ duration: 0.4, ease: 'easeOut' }}
       viewport={{ once: true }}
       id="features"
-      className="w-full mx-auto bg-white dark:bg-neutral-950 py-20 px-4 md:px-8"
+      className="w-full mx-auto bg-white dark:bg-neutral-950 py-8 px-4 md:px-8"
     >
       <div className="relative w-fit mx-auto p-4 flex items-center justify-center">
         <h2 className="font-sans text-xl text-center md:text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
