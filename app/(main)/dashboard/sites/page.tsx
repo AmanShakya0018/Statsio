@@ -22,12 +22,13 @@ interface Site {
 
 export default function SitesPage() {
   useRequireAuth();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
   const [sites, setSites] = useState<Site[]>([]);
 
   useEffect(() => {
     const fetchSites = async () => {
+      if (status !== "authenticated") return;
       try {
         const res = await axios.get("/api/sites");
         setSites(res.data);
@@ -39,7 +40,7 @@ export default function SitesPage() {
     };
 
     fetchSites();
-  }, []);
+  }, [status]);
 
   const handleSiteAdded = (newSite: Site) => {
     setSites((prev) => [newSite, ...prev]);
@@ -54,6 +55,7 @@ export default function SitesPage() {
       prev.map((site) => site.id === editedSiteId ? { ...site, ...updatedData } : site)
     )
   }
+  if (status !== "authenticated") return null;
 
   return (
     <>

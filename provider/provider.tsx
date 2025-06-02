@@ -12,9 +12,9 @@ const Provider = ({ children }: Props) => {
     <SessionProvider>
       <ThemeProvider
         attribute="class"
-        // forcedTheme="dark"
-        defaultTheme="dark"
-        enableSystem
+        forcedTheme="dark"
+        // defaultTheme="dark"
+        // enableSystem
         disableTransitionOnChange
       >
         {children}

@@ -7,10 +7,12 @@ import ToggleButtonGroup from "@/components/globals/togglebutton";
 import Trackingscript from "@/components/globals/trackingscript";
 import SiteAnalyticsGrid from "@/components/project/site-analytics-grid";
 import Navbar from "@/components/landingpage/navbar-shrink";
+import { useSession } from "next-auth/react";
 
 
 export default function SiteVisitsPage() {
   useRequireAuth();
+  const { status } = useSession();
   const { siteId } = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,6 +29,8 @@ export default function SiteVisitsPage() {
     }
     router.replace(`?${params.toString()}`, { scroll: false });
   };
+
+  if (status !== "authenticated") return null;
 
   return (
     <>
