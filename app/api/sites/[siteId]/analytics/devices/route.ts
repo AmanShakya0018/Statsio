@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/db";
+
+interface Params {
+  params: Promise<{ siteId: string }>;
+}
+
+export async function GET(req: NextRequest, { params }: Params) {
+  const { siteId } = await params;
+  if (!siteId) return NextResponse.json({ error: "Missing siteId" }, { status: 400 });
+
+  try {
+    const data = await prisma.visit.groupBy({
+      by: ["device"],
+      where: { siteId },
+      _count: { device: true },
+      orderBy: {
+        _count: { device: "desc" },
+      },
+    });
+
+    const formatted = data.map((item) => ({
+      device: item.device || "Unknown",
+      count: item._count.device,
+    }));
+
+    return NextResponse.json(formatted);
+  } catch (error) {
+    console.error("Devices Analytics Error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
