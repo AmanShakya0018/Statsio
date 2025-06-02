@@ -36,6 +36,7 @@ const HeroSection = () => {
                     alt="hero section"
                     width={2880}
                     height={2074}
+                    quality={100}
                   />
                 </div>
               </div>

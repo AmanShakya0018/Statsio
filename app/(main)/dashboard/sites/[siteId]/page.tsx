@@ -2,11 +2,11 @@
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import SiteHeader from "@/components/globals/site-header";
 import useRequireAuth from "@/hooks/useRequireAuth";
-import Navbar from "@/components/landingpage/navbar";
 import Footer2 from "@/components/landingpage/footer2";
 import ToggleButtonGroup from "@/components/globals/togglebutton";
 import Trackingscript from "@/components/globals/trackingscript";
 import SiteAnalyticsGrid from "@/components/project/site-analytics-grid";
+import Navbar from "@/components/landingpage/navbar-shrink";
 
 
 export default function SiteVisitsPage() {
@@ -31,7 +31,7 @@ export default function SiteVisitsPage() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col gap-3 max-w-7xl mx-auto my-4 p-4">
+      <div className="flex flex-col gap-3 max-w-7xl mx-auto px-4 pb-4 pt-24">
         <SiteHeader
           siteId={resolvedSiteid}
         />

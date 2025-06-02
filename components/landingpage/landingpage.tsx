@@ -1,8 +1,8 @@
 import FeaturesSection from './featuressection'
-import Footer from './footer'
 import HeroSection from './hero-section'
 import FAQ from './faq'
 import Navbar from './navbar-shrink'
+import Footer from './footer'
 
 
 const LandingPage = () => {

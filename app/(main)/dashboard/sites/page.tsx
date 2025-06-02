@@ -9,10 +9,10 @@ import { EmptyState } from "@/components/globals/empty-state";
 import { LoadingState } from "@/components/globals/loading-state";
 import { SiteCard } from "@/components/globals/site-card";
 import { useSession } from "next-auth/react";
-import Navbar from "@/components/landingpage/navbar";
 import useRequireAuth from "@/hooks/useRequireAuth";
 import Footer2 from "@/components/landingpage/footer2";
 import { BookOpen, Plus } from "lucide-react";
+import Navbar from "@/components/landingpage/navbar-shrink";
 
 interface Site {
   id: string;
@@ -58,10 +58,11 @@ export default function SitesPage() {
   return (
     <>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8 mt-6">
+      <div className="max-w-7xl mx-auto px-4 pb-8 pt-24">
         <div className="mb-10 flex flex-row justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold">Welcome back, {session?.user?.name}!</h1>
+            <h1 className="text-3xl font-bold">Welcome back,
+              <br className="block md:hidden" /> {session?.user?.name}!</h1>
             <p className="text-muted-foreground max-w-xl">
               Manage your websites and view privacy-friendly analytics in one place.
             </p>

@@ -17,7 +17,7 @@ const FeaturesSection = () => {
       <div className="relative w-fit mx-auto p-4 flex items-center justify-center">
         <h2 className="font-sans text-xl text-center md:text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
           <PointerHighlight>
-            <span className='text-4xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent'>
+            <span className='text-3xl md:text-5xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent'>
               Analytics made easy
             </span>
           </PointerHighlight>
@@ -25,7 +25,7 @@ const FeaturesSection = () => {
       </div>
 
       <p className="max-w-lg text-sm text-neutral-600 text-center mx-auto mt-4 mb-6 dark:text-neutral-400">
-        Track what matters, forget the noise.
+        From tech stacks to traffic sources—get fast, global insights on who’s visiting and how.
       </p>
       <FeaturesBentoGrid />
 

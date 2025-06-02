@@ -157,8 +157,8 @@ function FAQ() {
         <motion.div
           className="max-w-2xl mx-auto text-center mb-12"
         >
-          <h2 className="text-4xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent">
-            Frequently Asked Questions
+          <h2 className="text-3xl md:text-5xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent">
+            Let&apos;s Answer Your Questions
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Everything you need to know about our platform

@@ -50,7 +50,7 @@ const FeaturesVisitorInsights = () => {
                 />
                 <span className="text-xs text-zinc-700 dark:text-zinc-300">India</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "40%" }} />
                 </div>
@@ -69,7 +69,7 @@ const FeaturesVisitorInsights = () => {
                 />
                 <span className="text-xs text-zinc-700 dark:text-zinc-300">United States</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "20%" }} />
                 </div>
@@ -90,7 +90,7 @@ const FeaturesVisitorInsights = () => {
                 />
                 <span className="text-xs text-zinc-700 dark:text-zinc-300">United Kingdom</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "17%" }} />
                 </div>
@@ -110,7 +110,7 @@ const FeaturesVisitorInsights = () => {
                 />
                 <span className="text-xs text-zinc-700 dark:text-zinc-300">Australia</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "15%" }} />
                 </div>
@@ -129,7 +129,7 @@ const FeaturesVisitorInsights = () => {
                 <div className="w-1.5 h-1.5 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                 <span className="text-xs text-zinc-700 dark:text-zinc-300 font-mono">/</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "30%" }} />
                 </div>
@@ -142,7 +142,7 @@ const FeaturesVisitorInsights = () => {
                 <div className="w-1.5 h-1.5 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                 <span className="text-xs text-zinc-700 dark:text-zinc-300 font-mono">/products</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "25%" }} />
                 </div>
@@ -155,7 +155,7 @@ const FeaturesVisitorInsights = () => {
                 <div className="w-1.5 h-1.5 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                 <span className="text-xs text-zinc-700 dark:text-zinc-300 font-mono">/cart</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "15%" }} />
                 </div>
@@ -168,7 +168,7 @@ const FeaturesVisitorInsights = () => {
                 <div className="w-1.5 h-1.5 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                 <span className="text-xs text-zinc-700 dark:text-zinc-300 font-mono">/about</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <div className="w-16 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-zinc-400 dark:bg-zinc-500 rounded-full" style={{ width: "10%" }} />
                 </div>
