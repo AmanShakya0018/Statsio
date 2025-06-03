@@ -29,7 +29,7 @@ const DocumentationPage = () => {
             <h1 className="text-5xl font-medium text-neutral-800 dark:text-transparent bg-clip-text bg-gradient-stop bg-gradient-to-br from-white via-30% via-white to-white/30 mb-4">
               Quick Start Guide
             </h1>
-            <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[1rem] text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
               Follow these simple steps to add Statsio analytics to your website and start tracking visitor data in
               minutes.
             </p>

@@ -45,7 +45,6 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
       if (response.status === 200) {
         onDelete(id)
         console.log("post deleted");
-        alert("post deleted")
       }
 
     } catch (error) {
@@ -61,7 +60,6 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
       const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/project/update/${site.id}`, values);
       if (response.status === 200) {
         onEdit(site.id, values);
-        alert("Project updated");
       }
     } catch (error) {
       console.error("Error updating project:", error);
@@ -176,6 +174,7 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
                   variant="outline"
                   className="ml-auto"
                   type="submit"
+                  disabled={isEdit}
                 >
                   {isEdit ? <p>Updating...</p> : <p>Update</p>}
                 </Button>
@@ -199,6 +198,7 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
                 setIsDelete(true)
                 handleDelete(site.id)
               }}
+              disabled={isDelete}
             >
               {isDelete ? <p>Deleting...</p> : <p>Delete</p>}
             </Button>

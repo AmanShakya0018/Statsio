@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
+import { CiHeart } from 'react-icons/ci'
 
 const Footer = () => {
 
@@ -56,6 +57,17 @@ const Footer = () => {
           STATSIO
         </h1>
       </div>
+      <p className="w-full mt-12 -mb-6 text-center text-sm text-muted-foreground">
+        Made with <CiHeart className="inline-block text-foreground align-middle w-5 h-5 pb-0.5" /> by{' '}
+        <a
+          href="https://amanshakya.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline text-zinc-500"
+        >
+          this guy
+        </a>
+      </p>
     </div>
   )
 }
