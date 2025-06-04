@@ -65,7 +65,7 @@ export default function SitesPage() {
           <div>
             <h1 className="text-3xl font-bold">Welcome back,
               <br className="block md:hidden" /> {session?.user?.name}!</h1>
-            <p className="text-muted-foreground max-w-xl">
+            <p className="text-muted-foreground max-w-xl text-sm md:text-[1rem]">
               Manage your websites and view privacy-friendly analytics in one place.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function SitesPage() {
             <EmptyState onSiteAdded={handleSiteAdded} />
           ) : (
             <div className="min-h-[400px] flex flex-col justify-between rounded-lg border border-dashed border-neutral-300 dark:border-neutral-800 space-y-8">
-              <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 p-8">
+              <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 p-3 md:p-6">
                 {sites.map((site) => (
                   <SiteCard key={site.id} site={site} onDelete={handleSiteDeleted} onEdit={handleSiteEdited} />
                 ))}
