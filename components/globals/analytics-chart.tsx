@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   LineChart,
@@ -10,115 +10,157 @@ import {
   Area,
   CartesianGrid,
   type TooltipProps,
-} from "recharts"
-import { ArrowUp, ArrowDown } from "lucide-react"
-import { usePageViews } from "@/hooks/usePageViews"
-import { useUniqueVisitors } from "@/hooks/useUniqueVisitors"
-import { useState } from "react"
+} from "recharts";
+import { ArrowUp, ArrowDown } from "lucide-react";
+import { usePageViews } from "@/hooks/usePageViews";
+import { useUniqueVisitors } from "@/hooks/useUniqueVisitors";
+import { useState } from "react";
+import CustomSelect from "./custom-select";
 
 export default function AnalyticsChart({ siteId }: { siteId: string }) {
-  const { data: pageViewsData, total: pageViewsTotal } = usePageViews(siteId)
-  const { data: visitorsData, total: visitorsTotal } = useUniqueVisitors(siteId)
-  const [activeMetric, setActiveMetric] = useState<"pageviews" | "visitors">("pageviews")
+  const [range, setRange] = useState<"7d" | "all">("7d");
 
-  const activeData = activeMetric === "pageviews" ? pageViewsData : visitorsData
+  const { data: pageViewsData, total: pageViewsTotal } = usePageViews(
+    siteId,
+    range,
+  );
+  const { data: visitorsData, total: visitorsTotal } = useUniqueVisitors(
+    siteId,
+    range,
+  );
 
-  const current7 = activeData.slice(-7)
-  const previous7 = activeData.slice(-14, -7)
-  const current7Sum = current7.reduce((sum, d) => sum + d.count, 0)
-  const previous7Sum = previous7.reduce((sum, d) => sum + d.count, 0)
-  const hasEnoughData = activeData.length >= 14
+  const [activeMetric, setActiveMetric] = useState<"pageviews" | "visitors">(
+    "pageviews",
+  );
+
+  const activeData =
+    activeMetric === "pageviews" ? pageViewsData : visitorsData;
+
+  const current7 = activeData.slice(-7);
+  const previous7 = activeData.slice(-14, -7);
+  const current7Sum = current7.reduce((sum, d) => sum + d.count, 0);
+  const previous7Sum = previous7.reduce((sum, d) => sum + d.count, 0);
+  const hasEnoughData = activeData.length >= 14;
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
-  }
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
 
   const renderArrow = () => {
     if (hasEnoughData) {
       if (current7Sum > previous7Sum) {
         return (
-          <span className="flex items-center text-green-500 bg-green-200 dark:bg-green-950 rounded px-2 py-1">
-            <ArrowUp className="w-4 h-4" />
+          <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+            <ArrowUp className="h-4 w-4" />
           </span>
-        )
+        );
       } else if (current7Sum < previous7Sum) {
         return (
-          <span className="flex items-center text-red-500 bg-red-200 dark:bg-red-950 rounded px-2 py-1">
-            <ArrowDown className="w-4 h-4" />
+          <span className="flex items-center rounded bg-red-200 px-2 py-1 text-red-500 dark:bg-red-950">
+            <ArrowDown className="h-4 w-4" />
           </span>
-        )
+        );
       }
     }
 
     if (activeData.length >= 7 && previous7Sum === 0 && current7Sum > 0) {
       return (
-        <span className="flex items-center text-green-500 bg-green-200 dark:bg-green-950 rounded px-2 py-1">
-          <ArrowUp className="w-4 h-4" />
+        <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+          <ArrowUp className="h-4 w-4" />
         </span>
-      )
+      );
     }
 
-    return null
-  }
+    return null;
+  };
 
-
-  const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+    label,
+  }: TooltipProps<number, string>) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-800 rounded-md p-3 shadow-md">
-          <div className="text-zinc-700 dark:text-zinc-500 font-medium flex gap-2 items-center">
-            <span className="w-2 h-2 bg-[#5b98ff] rounded-full"></span>
-            <p className="text-sm text-zinc-900 dark:text-zinc-200 capitalize">
+        <div className="rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="flex items-center gap-2 font-medium text-zinc-700 dark:text-zinc-500">
+            <span className="h-2 w-2 rounded-full bg-[#5b98ff]"></span>
+            <p className="text-sm capitalize text-zinc-900 dark:text-zinc-200">
               {activeMetric === "visitors" ? "Visitors" : "Page Views"}
             </p>
             <p className="text-black dark:text-white">{payload[0].value}</p>
           </div>
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">{formatDate(label)}</p>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            {formatDate(label)}
+          </p>
         </div>
-      )
+      );
     }
-    return null
-  }
+    return null;
+  };
 
   return (
-    <div className="w-full rounded-xl bg-white dark:bg-black border border-neutral-200 dark:border-zinc-800 overflow-hidden">
+    <div className="w-full overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-zinc-800 dark:bg-black">
       <div className="grid grid-cols-1 divide-y divide-neutral-200 dark:divide-zinc-800">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start justify-between md:flex-row">
           <div className="flex">
             {["pageviews", "visitors"].map((metric) => (
               <div
                 key={metric}
-                className="border-r pt-6 border-neutral-200 dark:border-zinc-800"
+                className="border-r border-neutral-200 pt-6 dark:border-zinc-800"
               >
                 <button
-                  onClick={() => setActiveMetric(metric as "visitors" | "pageviews")}
-                  className={`w-48 flex flex-col items-start border-b-2 ${activeMetric === metric
-                    ? "border-zinc-800 dark:border-zinc-300"
-                    : "border-transparent"
-                    }`}
+                  onClick={() =>
+                    setActiveMetric(metric as "visitors" | "pageviews")
+                  }
+                  className={`flex w-48 flex-col items-start border-b-2 ${
+                    activeMetric === metric
+                      ? "border-zinc-800 dark:border-zinc-300"
+                      : "border-transparent"
+                  }`}
                 >
-                  <div className={`transition-opacity ml-4 pb-3 duration-200 ${activeMetric === metric ? "opacity-100" : "opacity-70"}`}>
-                    <p className="text-zinc-500 flex font-semibold dark:text-zinc-400 text-sm capitalize">
+                  <div
+                    className={`ml-4 pb-3 transition-opacity duration-200 ${
+                      activeMetric === metric ? "opacity-100" : "opacity-70"
+                    }`}
+                  >
+                    <p className="flex text-sm font-semibold capitalize text-zinc-500 dark:text-zinc-400">
                       {metric === "visitors" ? "Visitors" : "Page Views"}
                     </p>
-                    <div className="flex items-center space-x-4 mt-1">
+                    <div className="mt-1 flex items-center space-x-4">
                       <p className="text-4xl font-semibold text-black dark:text-white">
                         {metric === "visitors" ? visitorsTotal : pageViewsTotal}
                       </p>
-                      {renderArrow()}
+                      {range === "7d" ? (
+                        renderArrow()
+                      ) : (
+                        <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+                          <ArrowUp className="h-4 w-4" />
+                        </span>
+                      )}
                     </div>
                   </div>
                 </button>
               </div>
             ))}
           </div>
+          <div className="p-2">
+            <CustomSelect value={range} onValueChange={setRange} />
+          </div>
         </div>
 
         <div className="h-[400px] w-full p-4">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={activeData} margin={{ top: 40, right: 20, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" className="dark:stroke-[#2a2a2a]" />
+            <LineChart
+              data={activeData}
+              margin={{ top: 40, right: 20, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#e5e7eb"
+                className="dark:stroke-[#2a2a2a]"
+              />
 
               <defs>
                 <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
@@ -157,13 +199,17 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
                 stroke="#5b98ff"
                 strokeWidth={2}
                 dot={false}
-                activeDot={{ r: 6, fill: "#5b98ff", stroke: "#fff", strokeWidth: 2 }}
+                activeDot={{
+                  r: 6,
+                  fill: "#5b98ff",
+                  stroke: "#fff",
+                  strokeWidth: 2,
+                }}
               />
-
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
     </div>
-  )
+  );
 }
