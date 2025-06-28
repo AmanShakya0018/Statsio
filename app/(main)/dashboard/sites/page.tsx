@@ -50,64 +50,78 @@ export default function SitesPage() {
     setSites((prev) => prev.filter((site) => site.id !== deletedSiteId));
   };
 
-  const handleSiteEdited = (editedSiteId: string, updatedData: { name: string; domain: string }) => {
+  const handleSiteEdited = (
+    editedSiteId: string,
+    updatedData: { name: string; domain: string },
+  ) => {
     setSites((prev) =>
-      prev.map((site) => site.id === editedSiteId ? { ...site, ...updatedData } : site)
-    )
-  }
+      prev.map((site) =>
+        site.id === editedSiteId ? { ...site, ...updatedData } : site,
+      ),
+    );
+  };
   if (status !== "authenticated") return null;
 
   return (
     <>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 pb-8 pt-24">
-        <div className="mb-10 flex flex-row justify-between items-center">
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-24">
+        <div className="mb-10 flex flex-row items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Welcome back,
-              <br className="block md:hidden" /> {session?.user?.name}!</h1>
-            <p className="text-muted-foreground max-w-xl text-sm md:text-[1rem]">
-              Manage your websites and view privacy-friendly analytics in one place.
+            <h1 className="text-3xl font-bold">
+              Welcome back,
+              <br className="block md:hidden" /> {session?.user?.name}!
+            </h1>
+            <p className="max-w-xl text-sm text-muted-foreground md:text-[1rem]">
+              Manage your websites and view privacy-friendly analytics in one
+              place.
             </p>
           </div>
-          {sites.length !== 0 &&
+          {sites.length !== 0 && (
             <AddSiteModal
-              trigger={<Button variant="outline" size="sm" className="mt-2"><Plus size={16} />Add New Site</Button>}
+              trigger={
+                <Button variant="outline" size="sm" className="mt-2">
+                  <Plus size={16} />
+                  Add New Site
+                </Button>
+              }
               onSiteAdded={handleSiteAdded}
             />
-          }
+          )}
         </div>
 
         {isLoading ? (
           <LoadingState />
-        ) :
-          (sites.length === 0 ? (
-            <EmptyState onSiteAdded={handleSiteAdded} />
-          ) : (
-            <div className="min-h-[400px] flex flex-col justify-between rounded-lg border border-dashed border-neutral-300 dark:border-neutral-800 space-y-8">
-              <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 p-3 md:p-6">
-                {sites.map((site) => (
-                  <SiteCard key={site.id} site={site} onDelete={handleSiteDeleted} onEdit={handleSiteEdited} />
-                ))}
-              </div>
+        ) : sites.length === 0 ? (
+          <EmptyState onSiteAdded={handleSiteAdded} />
+        ) : (
+          <div className="flex min-h-[400px] flex-col justify-between space-y-8 rounded-lg border border-dashed border-neutral-300 dark:border-neutral-800">
+            <div className="grid gap-3 p-3 sm:grid-cols-1 md:grid-cols-2 md:p-6">
+              {sites.map((site) => (
+                <SiteCard
+                  key={site.id}
+                  site={site}
+                  onDelete={handleSiteDeleted}
+                  onEdit={handleSiteEdited}
+                />
+              ))}
+            </div>
 
-              <div className="p-4 mt-4 border-t border-dashed border-neutral-300 dark:border-neutral-800">
-                <p className="mb-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-                  Need help setting up tracking on your website?
-                </p>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-                  <Link href="/docs" target="_blank" rel="noopener noreferrer">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                    >
-                      <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      View documentation
-                    </Button>
-                  </Link>
-                </div>
+            <div className="mt-4 border-t border-dashed border-neutral-300 p-4 dark:border-neutral-800">
+              <p className="mb-3 text-xs text-zinc-600 dark:text-zinc-400 sm:text-sm">
+                Need help setting up tracking on your website?
+              </p>
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
+                <Link href="/docs" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm">
+                    <BookOpen className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
+                    View documentation
+                  </Button>
+                </Link>
               </div>
             </div>
-          ))}
+          </div>
+        )}
       </div>
       <Footer2 />
     </>

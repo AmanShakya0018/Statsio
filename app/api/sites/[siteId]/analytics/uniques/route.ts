@@ -12,17 +12,11 @@ export async function GET(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Missing siteId" }, { status: 400 });
   }
 
-  const now = new Date();
-  const past13 = new Date();
-  past13.setDate(now.getDate() - 13);
 
   try {
     const visits = await prisma.visit.findMany({
       where: {
         siteId,
-        createdAt: {
-          gte: past13,
-        },
       },
       select: {
         ip: true,

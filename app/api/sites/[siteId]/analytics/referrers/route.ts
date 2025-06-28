@@ -6,7 +6,6 @@ interface Params {
 }
 
 export async function GET(req: NextRequest, { params }: Params) {
-
   const { siteId } = await params;
 
   if (!siteId) {
@@ -14,27 +13,40 @@ export async function GET(req: NextRequest, { params }: Params) {
   }
 
   try {
-    const data = await prisma.visit.groupBy({
-      by: ["referrer"],
+    const visits = await prisma.visit.findMany({
       where: { siteId },
-      _count: {
+      select: {
         referrer: true,
-      },
-      orderBy: {
-        _count: {
-          referrer: "desc",
-        },
+        ip: true,
       },
     });
 
-    const formatted = data.map((item) => ({
-      referrer: item.referrer || "Direct",
-      count: item._count.referrer,
-    }));
+    const referrerMap: Record<
+      string,
+      { views: number; visitors: Set<string> }
+    > = {};
 
-    return NextResponse.json(formatted);
+    for (const { referrer, ip } of visits) {
+      const key = referrer || "Direct";
+      if (!referrerMap[key]) {
+        referrerMap[key] = { views: 0, visitors: new Set() };
+      }
+      referrerMap[key].views += 1;
+      referrerMap[key].visitors.add(ip);
+    }
+
+    const result = Object.entries(referrerMap)
+      .map(([referrer, data]) => ({
+        referrer,
+        count: data.views,
+        visitors: data.visitors.size,
+      }))
+      .sort((a, b) => b.count - a.count); // sort by views
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Referrers Analytics Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
