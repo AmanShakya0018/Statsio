@@ -41,7 +41,7 @@ export async function GET(req: NextRequest, { params }: Params) {
         count: data.views,
         visitors: data.visitors.size,
       }))
-      .sort((a, b) => b.count - a.count); // sort by views
+      .sort((a, b) => b.count - a.count);
 
     return NextResponse.json(result);
   } catch (error) {

@@ -6,7 +6,6 @@ interface Params {
 }
 
 export async function GET(req: NextRequest, { params }: Params) {
-
   const { siteId } = await params;
 
   if (!siteId) {
@@ -14,25 +13,37 @@ export async function GET(req: NextRequest, { params }: Params) {
   }
 
   try {
-    const data = await prisma.visit.groupBy({
-      by: ["pathname"],
+    const visits = await prisma.visit.findMany({
       where: { siteId },
-      _count: {
+      select: {
         pathname: true,
-      },
-      orderBy: {
-        _count: {
-          pathname: "desc",
-        },
+        ip: true,
       },
     });
 
-    const formatted = data.map((item) => ({
-      pathname: item.pathname,
-      count: item._count.pathname,
-    }));
+    const pathnameMap: Record<
+      string,
+      { views: number; visitors: Set<string> }
+    > = {};
 
-    return NextResponse.json(formatted);
+    for (const { pathname, ip } of visits) {
+      const key = pathname || "/";
+      if (!pathnameMap[key]) {
+        pathnameMap[key] = { views: 0, visitors: new Set() };
+      }
+      pathnameMap[key].views += 1;
+      pathnameMap[key].visitors.add(ip);
+    }
+
+    const result = Object.entries(pathnameMap)
+      .map(([pathname, data]) => ({
+        pathname,
+        count: data.views,
+        visitors: data.visitors.size,
+      }))
+      .sort((a, b) => b.count - a.count);
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Pages Analytics Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

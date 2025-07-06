@@ -183,7 +183,7 @@ export default function ReferrersAnalytics({
                     style={{ width: `${(referrer.count / maxCount) * 100}%` }}
                   />
                   <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="truncate text-sm text-zinc-900 dark:text-white">
+                    <div className="max-w-[75%] truncate text-sm text-zinc-900 dark:text-white">
                       {referrer.referrer}
                     </div>
                     <div className="absolute right-24 text-sm font-semibold text-zinc-900 dark:text-white">
