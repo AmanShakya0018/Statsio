@@ -1,13 +1,12 @@
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
-import { CiHeart } from 'react-icons/ci'
+import Link from "next/link";
+import React from "react";
+import Image from "next/image";
+import { CiHeart } from "react-icons/ci";
 
 const Footer = () => {
-
   return (
-    <div className="block border-t border-neutral-100 dark:border-white/[0.1] px-8 py-12">
-      <div className="max-w-[80rem] mx-auto text-sm px-4 text-gray-400 flex sm:flex-row flex-col justify-between items-start ">
+    <div className="block border-t border-white/[0.1] px-8 py-12">
+      <div className="mx-auto flex max-w-[80rem] flex-col items-start justify-between px-4 text-sm text-gray-400 sm:flex-row">
         <div>
           <div className="mb-2 flex">
             <Link href="/" className="flex items-center">
@@ -18,51 +17,69 @@ const Footer = () => {
                 alt="logo.png"
                 quality={100}
                 priority={true}
-                className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                className="h-10 w-10 flex-shrink-0 rounded-full object-cover"
               />
-              <span className="text-lg font-medium text-black dark:text-white ">Statsio</span>
+              <span className="text-lg font-medium text-white">Statsio</span>
             </Link>
           </div>
-          <p className="text-sm dark:text-zinc-400 ml-3">
+          <p className="ml-3 text-sm text-zinc-400">
             © {new Date().getFullYear()} Statsio. All rights reserved.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-10 items-start mt-10 md:mt-0">
-          <div className="flex justify-center space-y-4 flex-col mt-4">
-            <Link href='/dashboard/sites'>
-              <p className="hover:text-foreground/80 text-foreground/60">Dashboard</p>
+        <div className="mt-10 grid grid-cols-3 items-start gap-10 md:mt-0">
+          <div className="mt-4 flex flex-col justify-center space-y-4">
+            <Link href="/dashboard/sites">
+              <p className="text-neutral-300/60 hover:text-neutral-300/80">
+                Dashboard
+              </p>
             </Link>
-            <Link href='/docs'>
-              <p className="hover:text-foreground/80 text-foreground/60">Documentation</p>
-            </Link>
-          </div>
-          <div className="flex justify-center space-y-4 flex-col mt-4">
-            <Link href='https://x.com/AmanShakya0018' target="_blank">
-              <p className="hover:text-foreground/80 text-foreground/60">Twitter</p>
-            </Link>
-            <Link href='https://www.github.com/amanshakya0018/' target='_blank'>
-              <p className="hover:text-foreground/80 text-foreground/60">Github</p>
+            <Link href="/docs">
+              <p className="text-neutral-300/60 hover:text-neutral-300/80">
+                Documentation
+              </p>
             </Link>
           </div>
-          <div className="flex justify-center space-y-4 flex-col mt-4">
-            <p className="hover:text-foreground/80 text-foreground/60"><Link href='/termsofservice' target='_blank'>Terms of Service</Link></p>
-            <p className="hover:text-foreground/80 text-foreground/60"><Link href='/privacypolicy' target='_blank'>Privacy Policy</Link></p>
+          <div className="mt-4 flex flex-col justify-center space-y-4">
+            <Link href="https://x.com/AmanShakya0018" target="_blank">
+              <p className="text-neutral-300/60 hover:text-neutral-300/80">
+                Twitter
+              </p>
+            </Link>
+            <Link href="https://www.github.com/amanshakya0018/" target="_blank">
+              <p className="text-neutral-300/60 hover:text-neutral-300/80">
+                Github
+              </p>
+            </Link>
+          </div>
+          <div className="mt-4 flex flex-col justify-center space-y-4">
+            <p className="text-neutral-300/60 hover:text-neutral-300/80">
+              <Link href="/termsofservice" target="_blank">
+                Terms of Service
+              </Link>
+            </p>
+            <p className="text-neutral-300/60 hover:text-neutral-300/80">
+              <Link href="/privacypolicy" target="_blank">
+                Privacy Policy
+              </Link>
+            </p>
           </div>
         </div>
       </div>
-      <p className="w-full mt-12 -mb-6 text-center text-sm text-muted-foreground">
-        Made with <CiHeart className="inline-block text-foreground align-middle w-5 h-5 pb-0.5" /> by{' '}
+      <p className="-mb-6 mt-12 w-full text-center text-sm text-neutral-400">
+        Made with{" "}
+        <CiHeart className="inline-block h-5 w-5 pb-0.5 align-middle text-neutral-200" />{" "}
+        by{" "}
         <a
           href="https://amanshakya.in"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline text-zinc-500"
+          className="text-zinc-500 hover:underline"
         >
           this guy
         </a>
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

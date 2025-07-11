@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,7 +27,14 @@ export default function AnchorNav({
       <div className={cn(className, "cursor-not-allowed")}>{children}</div>
     );
   return (
-    <Link className={cn(className, "text-muted-foreground hover:text-accent-foreground block duration-150", isMatch && "text-black dark:text-white font-semibold")} {...props}>
+    <Link
+      className={cn(
+        className,
+        "block text-neutral-400 duration-150 hover:text-white",
+        isMatch && "font-semibold text-white",
+      )}
+      {...props}
+    >
       {children}
     </Link>
   );

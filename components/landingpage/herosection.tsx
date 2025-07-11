@@ -21,7 +21,7 @@ const HeroSection = () => {
         >
           <div className="flex lg:flex-[2]">
             <div className="flex flex-col justify-center space-y-5 pl-6 lg:mx-auto lg:max-w-[32rem] xl:pl-2">
-              <motion.h1 className="max-w-lg whitespace-pre-wrap text-balance font-sans text-4xl font-bold tracking-tight md:max-w-2xl md:text-5xl">
+              <motion.h1 className="max-w-lg whitespace-pre-wrap text-balance font-sans text-4xl font-bold tracking-tight text-white md:max-w-2xl md:text-5xl">
                 Unlock Real Insights from Simple Stats
               </motion.h1>
               <motion.p className="max-w-sm text-balance text-[0.95rem] text-neutral-400 sm:max-w-lg md:text-[1.1rem] lg:max-w-md">

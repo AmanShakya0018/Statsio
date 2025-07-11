@@ -4,17 +4,17 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "./theme-provider";
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 const Provider = ({ children }: Props) => {
   return (
     <SessionProvider>
       <ThemeProvider
         attribute="class"
-        forcedTheme="dark"
-        // defaultTheme="dark"
-        // enableSystem
+        // forcedTheme="dark"
+        defaultTheme="dark"
+        enableSystem
         disableTransitionOnChange
       >
         {children}
