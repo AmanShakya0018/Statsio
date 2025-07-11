@@ -17,23 +17,23 @@ function FAQItem({ question, answer }: FAQItemProps) {
   return (
     <motion.div
       className={cn(
-        "group rounded-lg border-[0.5px] border-neutral-200/70 dark:border-neutral-800/60",
+        "group rounded-lg border-[0.5px] border-neutral-800/60",
         "transition-all duration-200 ease-in-out",
         isOpen
-          ? "bg-linear-to-br from-white via-zinc-50/50 to-white dark:from-white/5 dark:via-white/2 dark:to-white/5"
-          : "hover:bg-zinc-50/50 dark:hover:bg-white/[0.02]"
+          ? "bg-linear-to-br via-white/2 from-white/5 via-zinc-50/50 to-white/5"
+          : "hover:bg-white/[0.02]",
       )}
     >
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-2 py-4 flex items-center justify-between gap-4"
+        className="flex w-full items-center justify-between gap-4 px-2 py-4"
       >
         <h3
           className={cn(
-            "text-base font-medium transition-colors duration-200 text-left",
-            "text-zinc-700 dark:text-zinc-300",
-            isOpen && "text-zinc-900 dark:text-white"
+            "text-left text-base font-medium transition-colors duration-200",
+            "text-zinc-300",
+            isOpen && "text-white",
           )}
         >
           {question}
@@ -48,11 +48,9 @@ function FAQItem({ question, answer }: FAQItemProps) {
             ease: "easeInOut",
           }}
           className={cn(
-            "p-0.5 rounded-full shrink-0",
+            "shrink-0 rounded-full p-0.5",
             "transition-colors duration-200",
-            isOpen
-              ? "text-primary"
-              : "text-zinc-400 dark:text-zinc-500"
+            isOpen ? "text-white" : "text-zinc-500",
           )}
         >
           <ChevronDown className="h-4 w-4" />
@@ -99,7 +97,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
                   duration: 0.3,
                   ease: "easeOut",
                 }}
-                className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+                className="text-sm leading-relaxed text-neutral-400"
               >
                 {answer}
               </motion.p>
@@ -146,26 +144,24 @@ function FAQ() {
   ];
 
   return (
-    <section className="py-24 w-full bg-linear-to-b from-transparent via-zinc-50/50 to-transparent dark:from-transparent dark:via-white/[0.02] dark:to-transparent">
+    <section className="bg-linear-to-b w-full from-transparent via-white/[0.02] to-transparent py-24">
       <motion.div
-
-        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="container px-4 mx-auto">
-        <motion.div
-          className="max-w-2xl mx-auto text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-5xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent">
+        className="container mx-auto px-4"
+      >
+        <motion.div className="mx-auto mb-12 max-w-2xl text-center">
+          <h2 className="mb-3 bg-black bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-3xl font-semibold text-transparent md:text-5xl">
             Let&apos;s Answer Your Questions
           </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm text-zinc-400">
             Everything you need to know about our platform
           </p>
         </motion.div>
 
-        <div className="max-w-2xl mx-auto space-y-2">
+        <div className="mx-auto max-w-2xl space-y-2">
           {faqs.map((faq, index) => (
             <FAQItem key={index} {...faq} index={index} />
           ))}

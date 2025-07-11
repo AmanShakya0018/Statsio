@@ -1,17 +1,17 @@
-import Navbar from "./navbar-shrink";
-import HeroSection from "./herosection";
 // import FeaturesSection from "./featuressection";
-// import FAQ from "./faq";
-// import Footer from "./footer";
+import HeroSection from "./herosection";
+import FAQ from "./faq";
+import Navbar from "./navbar-shrink";
+import Footer from "./footer";
 
 const LandingPage = () => {
   return (
     <div className="bg-black">
       <Navbar />
       <HeroSection />
-      {/* <FeaturesSection />
+      {/* <FeaturesSection /> */}
       <FAQ />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 };
