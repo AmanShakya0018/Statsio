@@ -56,12 +56,10 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
 
   return (
     <section>
-      <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow dark:border-zinc-800 dark:bg-black">
-        <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-6 dark:border-zinc-800">
-          <h2 className="text-sm font-semibold text-zinc-900 dark:text-white">
-            Pages
-          </h2>
-          <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+      <div className="overflow-hidden rounded-lg border border-neutral-800 bg-black shadow">
+        <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-6">
+          <h2 className="text-sm font-semibold text-white">Pages</h2>
+          <span className="text-xs font-semibold text-neutral-400">
             PAGE VIEWS
           </span>
         </div>
@@ -76,7 +74,7 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
-            <p className="text-sm text-zinc-400 dark:text-zinc-500">
+            <p className="text-sm text-neutral-500">
               No data found for selected period.
             </p>
           </div>
@@ -89,14 +87,14 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
                   className="relative mx-2 my-2 flex h-8 items-center"
                 >
                   <div
-                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-100 dark:bg-zinc-900"
+                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
                     style={{ width: `${(page.count / maxCount) * 100}%` }}
                   />
                   <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="truncate text-sm text-zinc-900 dark:text-white">
+                    <div className="truncate text-sm text-white">
                       {page.pathname}
                     </div>
-                    <div className="text-sm font-semibold text-zinc-900 dark:text-white">
+                    <div className="text-sm font-semibold text-white">
                       {page.count}
                     </div>
                   </div>
@@ -113,23 +111,23 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
                 ),
               )}
               <>
-                <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 bg-gradient-to-t from-white to-transparent dark:from-black" />
-                <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 bg-gradient-to-t from-black to-transparent" />
+                <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-neutral-400">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center space-x-2 rounded-2xl border border-neutral-300 px-2 py-1 text-xs text-black dark:border-neutral-800 dark:text-white"
+                    className="flex items-center space-x-2 rounded-2xl border border-neutral-800 px-2 py-1 text-xs text-white"
                   >
                     <p>View All</p>
                     <Maximize2 className="h-3 w-3" />
                   </button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="items-center space-x-2 rounded-2xl border border-neutral-300 px-1 text-black dark:border-neutral-800 dark:text-white">
+                      <button className="items-center space-x-2 rounded-2xl border border-neutral-800 px-1 text-white">
                         <PiDotsThreeBold className="h-6 w-6" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      className="bg-white dark:bg-black"
+                      className="border border-neutral-800 bg-black text-white"
                       align="end"
                     >
                       <DropdownMenuItem asChild>
@@ -150,18 +148,16 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-black dark:text-white sm:max-w-[600px]">
+        <DialogContent className="border-neutral-800 bg-black text-white sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle></DialogTitle>
-            <div className="sticky top-0 flex items-center justify-between border-b border-zinc-200 bg-white py-3 pl-2 pr-4 dark:border-zinc-800 dark:bg-black">
-              <h2 className="text-[1rem] font-semibold text-zinc-900 dark:text-white">
-                Pages
-              </h2>
+            <div className="sticky top-0 flex items-center justify-between border-b border-neutral-800 bg-black py-3 pl-2 pr-4">
+              <h2 className="text-[1rem] font-semibold text-white">Pages</h2>
               <div className="flex items-center justify-center gap-4">
-                <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                <span className="text-xs font-semibold text-neutral-400">
                   PAGE VIEWS
                 </span>
-                <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                <span className="text-xs font-semibold text-neutral-400">
                   VISITORS
                 </span>
               </div>
@@ -175,17 +171,17 @@ export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
                   className="relative my-2 mr-2 flex h-8 items-center"
                 >
                   <div
-                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-100 dark:bg-zinc-900"
+                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
                     style={{ width: `${(page.count / maxCount) * 100}%` }}
                   />
                   <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="max-w-[75%] truncate text-sm text-zinc-900 dark:text-white">
+                    <div className="max-w-[75%] truncate text-sm text-white">
                       {page.pathname}
                     </div>
-                    <div className="absolute right-24 text-sm font-semibold text-zinc-900 dark:text-white">
+                    <div className="absolute right-24 text-sm font-semibold text-white">
                       {page.count}
                     </div>
-                    <div className="absolute right-3 text-sm font-semibold text-zinc-900 dark:text-white">
+                    <div className="absolute right-3 text-sm font-semibold text-white">
                       {page.visitors}
                     </div>
                   </div>

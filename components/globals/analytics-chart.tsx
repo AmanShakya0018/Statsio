@@ -64,13 +64,13 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
     if (hasEnoughData) {
       if (current7Sum > previous7Sum) {
         return (
-          <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+          <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
             <ArrowUp className="h-4 w-4" />
           </span>
         );
       } else if (current7Sum < previous7Sum) {
         return (
-          <span className="flex items-center rounded bg-red-200 px-2 py-1 text-red-500 dark:bg-red-950">
+          <span className="flex items-center rounded bg-red-950 px-2 py-1 text-red-500">
             <ArrowDown className="h-4 w-4" />
           </span>
         );
@@ -79,7 +79,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
 
     if (activeData.length >= 7 && previous7Sum === 0 && current7Sum > 0) {
       return (
-        <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+        <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
           <ArrowUp className="h-4 w-4" />
         </span>
       );
@@ -95,15 +95,15 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
   }: AnalyticsCustomTooltipProps) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-          <div className="flex items-center gap-2 font-medium text-zinc-700 dark:text-zinc-500">
+        <div className="rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
+          <div className="flex items-center gap-2 font-medium text-zinc-500">
             <span className="h-2 w-2 rounded-full bg-[#5b98ff]"></span>
-            <p className="text-sm capitalize text-zinc-900 dark:text-zinc-200">
+            <p className="text-sm capitalize text-zinc-200">
               {activeMetric === "visitors" ? "Visitors" : "Page Views"}
             </p>
-            <p className="text-black dark:text-white">{payload[0].value}</p>
+            <p className="text-white">{payload[0].value}</p>
           </div>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-zinc-400">
             {label ? formatDate(label) : "N/A Date"}
           </p>
         </div>
@@ -113,22 +113,19 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-zinc-800 dark:bg-black">
-      <div className="grid grid-cols-1 divide-y divide-neutral-200 dark:divide-zinc-800">
-        <div className="border-b-px flex flex-col items-start justify-between md:flex-row">
+    <div className="w-full overflow-hidden rounded-xl border border-zinc-800 bg-black">
+      <div className="grid grid-cols-1 divide-y divide-zinc-800">
+        <div className="border-b-px flex flex-col items-start justify-between border-neutral-800 md:flex-row">
           <div className="flex">
             {["pageviews", "visitors"].map((metric) => (
-              <div
-                key={metric}
-                className="border-r border-neutral-200 pt-6 dark:border-zinc-800"
-              >
+              <div key={metric} className="border-r border-neutral-800 pt-6">
                 <button
                   onClick={() =>
                     setActiveMetric(metric as "visitors" | "pageviews")
                   }
                   className={`flex w-48 flex-col items-start border-b-2 ${
                     activeMetric === metric
-                      ? "border-zinc-800 dark:border-zinc-300"
+                      ? "border-zinc-300"
                       : "border-transparent"
                   }`}
                 >
@@ -137,17 +134,17 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
                       activeMetric === metric ? "opacity-100" : "opacity-70"
                     }`}
                   >
-                    <p className="flex text-sm font-semibold capitalize text-zinc-500 dark:text-zinc-400">
+                    <p className="flex text-sm font-semibold capitalize text-zinc-400">
                       {metric === "visitors" ? "Visitors" : "Page Views"}
                     </p>
                     <div className="mt-1 flex items-center space-x-4">
-                      <p className="text-4xl font-semibold text-black dark:text-white">
+                      <p className="text-4xl font-semibold text-white">
                         {metric === "visitors" ? visitorsTotal : pageViewsTotal}
                       </p>
                       {range === "7d" ? (
                         renderArrow()
                       ) : (
-                        <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+                        <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                           <ArrowUp className="h-4 w-4" />
                         </span>
                       )}
@@ -172,7 +169,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
                 strokeDasharray="3 3"
                 vertical={false}
                 stroke="#e5e7eb"
-                className="dark:stroke-[#2a2a2a]"
+                className="stroke-[#2a2a2a]"
               />
 
               <defs>

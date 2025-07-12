@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import Link from "next/link";
+import React, { ReactNode } from "react";
 
 interface ContentNavigationProps {
   children: ReactNode;
@@ -7,8 +7,10 @@ interface ContentNavigationProps {
 
 const ContentNavigation = ({ children }: ContentNavigationProps) => {
   return (
-    <div className="flex ml-1 mb-1 items-center space-x-1 text-sm leading-none text-neutral-500 dark:text-zinc-400">
-      <Link href={"/dashboard/sites"} className="truncate">Sites</Link>
+    <div className="mb-1 ml-1 flex items-center space-x-1 text-sm leading-none text-zinc-400">
+      <Link href={"/dashboard/sites"} className="truncate">
+        Sites
+      </Link>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -23,7 +25,7 @@ const ContentNavigation = ({ children }: ContentNavigationProps) => {
       >
         <path d="m9 18 6-6-6-6"></path>
       </svg>
-      <div className="text-foreground">{children}</div>
+      <div className="text-neutral-200">{children}</div>
     </div>
   );
 };

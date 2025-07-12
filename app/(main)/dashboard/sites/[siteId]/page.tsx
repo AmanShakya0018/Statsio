@@ -9,7 +9,6 @@ import SiteAnalyticsGrid from "@/components/project/site-analytics-grid";
 import Navbar from "@/components/landingpage/navbar-shrink";
 import { useSession } from "next-auth/react";
 
-
 export default function SiteVisitsPage() {
   useRequireAuth();
   const { status } = useSession();
@@ -18,7 +17,7 @@ export default function SiteVisitsPage() {
   const searchParams = useSearchParams();
 
   const analyticsParam = searchParams.get("analytics") === "true";
-  const resolvedSiteid = Array.isArray(siteId) ? siteId[0] : siteId ?? "";
+  const resolvedSiteid = Array.isArray(siteId) ? siteId[0] : (siteId ?? "");
 
   const handleAnalyticsToggle = (value: boolean) => {
     const params = new URLSearchParams(searchParams);
@@ -33,13 +32,14 @@ export default function SiteVisitsPage() {
   if (status !== "authenticated") return null;
 
   return (
-    <>
+    <div className="bg-black">
       <Navbar />
-      <div className="flex flex-col gap-3 max-w-7xl mx-auto px-4 pb-4 pt-24">
-        <SiteHeader
-          siteId={resolvedSiteid}
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 pb-4 pt-24">
+        <SiteHeader siteId={resolvedSiteid} />
+        <ToggleButtonGroup
+          analytics={analyticsParam}
+          setAnalytics={handleAnalyticsToggle}
         />
-        <ToggleButtonGroup analytics={analyticsParam} setAnalytics={handleAnalyticsToggle} />
         {!analyticsParam ? (
           <Trackingscript siteId={resolvedSiteid} />
         ) : (
@@ -47,6 +47,6 @@ export default function SiteVisitsPage() {
         )}
       </div>
       <Footer2 />
-    </>
+    </div>
   );
 }

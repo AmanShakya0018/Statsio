@@ -82,23 +82,23 @@ export default function BrowsersAndDevicesAnalytics({
 
   return (
     <section>
-      <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow dark:border-zinc-800 dark:bg-black">
-        <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-5 dark:border-zinc-800">
+      <div className="overflow-hidden rounded-lg border border-neutral-800 bg-black shadow">
+        <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-5">
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setActiveTab("browsers")}
-              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "browsers" ? "bg-neutral-200 text-zinc-900 dark:bg-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-400"}`}
+              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "browsers" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
             >
               Browsers
             </button>
             <button
               onClick={() => setActiveTab("devices")}
-              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "devices" ? "bg-neutral-200 text-zinc-900 dark:bg-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-400"}`}
+              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "devices" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
             >
               Devices
             </button>
           </div>
-          <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+          <span className="text-xs font-semibold text-neutral-400">
             PAGE VIEWS
           </span>
         </div>
@@ -113,7 +113,7 @@ export default function BrowsersAndDevicesAnalytics({
             <div className="mb-2">
               <GoGraph className="h-5 w-5 text-neutral-500" />
             </div>
-            <p className="text-sm text-zinc-400 dark:text-zinc-500">
+            <p className="text-sm text-neutral-500">
               No data found for selected period.
             </p>
           </div>
@@ -130,16 +130,16 @@ export default function BrowsersAndDevicesAnalytics({
                   className="relative mx-2 my-2 flex h-8 items-center"
                 >
                   <div
-                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-100 dark:bg-zinc-900"
+                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
                     style={{ width: `${(item.count / maxCount) * 100}%` }}
                   />
                   <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="truncate text-sm text-zinc-900 dark:text-white">
+                    <div className="truncate text-sm text-white">
                       {activeTab === "browsers"
                         ? (item as Browser).browser
                         : (item as Device).device}
                     </div>
-                    <div className="text-sm text-zinc-900 dark:text-white">
+                    <div className="text-sm text-white">
                       <span className="font-semibold">
                         {((item.count / totalCount) * 100).toFixed(0)}
                       </span>
@@ -159,23 +159,23 @@ export default function BrowsersAndDevicesAnalytics({
                 ),
               )}
               <>
-                <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 rounded-b-lg bg-gradient-to-t from-white to-transparent dark:from-black" />
-                <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 rounded-b-lg bg-gradient-to-t from-black to-transparent" />
+                <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-neutral-400">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center space-x-2 rounded-2xl border border-neutral-300 px-2 py-1 text-xs text-black dark:border-neutral-800 dark:text-white"
+                    className="flex items-center space-x-2 rounded-2xl border border-neutral-800 px-2 py-1 text-xs text-white"
                   >
                     <p>View All</p>
                     <Maximize2 className="h-3 w-3" />
                   </button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="items-center space-x-2 rounded-2xl border border-neutral-300 px-1 text-black dark:border-neutral-800 dark:text-white">
+                      <button className="items-center space-x-2 rounded-2xl border border-neutral-800 px-1 text-white">
                         <PiDotsThreeBold className="h-6 w-6" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      className="bg-white dark:bg-black"
+                      className="border border-neutral-800 bg-black text-white"
                       align="end"
                     >
                       <DropdownMenuItem asChild>
@@ -201,25 +201,25 @@ export default function BrowsersAndDevicesAnalytics({
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-black dark:text-white sm:max-w-[600px]">
+        <DialogContent className="border-neutral-800 bg-black text-white sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle></DialogTitle>
-            <div className="sticky top-0 flex items-center justify-between border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black">
+            <div className="sticky top-0 flex items-center justify-between border-b border-neutral-800 bg-black">
               <div className="flex space-x-2 py-3 pl-2">
                 <button
                   onClick={() => setActiveTab("browsers")}
-                  className={`rounded-md px-4 py-1 text-[1rem] font-semibold ${activeTab === "browsers" ? "bg-neutral-200 text-zinc-900 dark:bg-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-400"}`}
+                  className={`rounded-md px-4 py-1 text-[1rem] font-semibold ${activeTab === "browsers" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
                 >
                   Browsers
                 </button>
                 <button
                   onClick={() => setActiveTab("devices")}
-                  className={`rounded-md px-4 py-1 text-[1rem] font-semibold ${activeTab === "devices" ? "bg-neutral-200 text-zinc-900 dark:bg-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-400"}`}
+                  className={`rounded-md px-4 py-1 text-[1rem] font-semibold ${activeTab === "devices" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
                 >
                   Devices
                 </button>
               </div>
-              <span className="pr-4 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+              <span className="pr-4 text-xs font-semibold text-neutral-400">
                 PAGE VIEWS
               </span>
             </div>
@@ -236,16 +236,16 @@ export default function BrowsersAndDevicesAnalytics({
                   className="relative my-2 mr-2 flex h-8 items-center"
                 >
                   <div
-                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-100 dark:bg-zinc-900"
+                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
                     style={{ width: `${(item.count / maxCount) * 100}%` }}
                   />
                   <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="truncate text-sm text-zinc-900 dark:text-white">
+                    <div className="truncate text-sm text-white">
                       {activeTab === "browsers"
                         ? (item as Browser).browser
                         : (item as Device).device}
                     </div>
-                    <div className="text-sm text-zinc-900 dark:text-white">
+                    <div className="text-sm text-white">
                       <span className="font-semibold">
                         {((item.count / totalCount) * 100).toFixed(0)}
                       </span>
