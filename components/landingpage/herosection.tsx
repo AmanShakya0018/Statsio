@@ -4,7 +4,7 @@ import { ChevronRightIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-// import AnalyticsPreview from "../demo/analyticspreview";
+import AnalyticsPreview from "../demo/analyticspreview";
 
 const HeroSection = () => {
   return (
@@ -12,12 +12,12 @@ const HeroSection = () => {
       <div
         className={cn(
           "flex h-full min-h-[99.5vh] w-full max-w-[99.5%] justify-center rounded-b-2xl",
-          "bg-[radial-gradient(125%_125%_at_50%_101%,rgba(140,80,240,0.5)_0%,rgba(120,60,220,0.4)_15%,rgba(90,40,200,0.3)_30%,rgba(30,30,30,0.5)_50%,rgba(0,0,0,1)_70%,rgba(0,0,0,1)_100%)]",
+          "bg-[radial-gradient(125%_125%_at_50%_101%,rgba(140,80,240,0.4)_0%,rgba(120,60,220,0.3)_15%,rgba(90,40,200,0.2)_30%,rgba(30,30,30,0.3)_50%,rgba(0,0,0,1)_70%,rgba(0,0,0,1)_100%)]",
         )}
       >
         <div
           className={cn(
-            "mt-16 flex h-full min-h-[99.5vh] w-full flex-col justify-center rounded-b-2xl sm:mt-32 lg:mt-10 lg:flex-row",
+            "mt-16 flex h-full min-h-[99.5vh] w-full flex-col justify-center rounded-b-2xl sm:mt-32 lg:mt-0 lg:flex-row",
           )}
         >
           <div className="flex lg:flex-[2]">
@@ -35,11 +35,12 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="relative hidden items-center overflow-hidden lg:flex lg:flex-[3]">
-            <div className="relative w-[calc(100%+8rem)] max-w-none pl-10">
-              {/* <div className="min-w-[600px] scale-75 rounded-xl">
+            {/* <div className="relative w-[calc(100%+8rem)] max-w-none"> */}
+            <div className="relative w-[calc(100%+8rem)] max-w-none origin-right skew-x-[-0.05rad] skew-y-[-0.02rad]">
+              <div className="min-w-[600px] scale-75 rounded-xl">
                 <AnalyticsPreview />
-              </div> */}
-              <div
+              </div>
+              {/* <div
                 className="relative transform-gpu transition-transform duration-700"
                 style={{
                   perspective: "2000px",
@@ -63,7 +64,7 @@ const HeroSection = () => {
                     className="h-auto w-full min-w-[600px] rounded-xl object-cover shadow-2xl shadow-black"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="mx-auto mt-4 block max-w-7xl overflow-hidden lg:hidden">

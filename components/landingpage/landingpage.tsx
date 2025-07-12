@@ -1,4 +1,4 @@
-import FeaturesSection from "./featuressection";
+// import FeaturesSection from "./featuressection";
 import HeroSection from "./herosection";
 import FAQ from "./faq";
 import Navbar from "./navbar-shrink";
@@ -9,7 +9,7 @@ const LandingPage = () => {
     <div className="bg-black">
       <Navbar />
       <HeroSection />
-      <FeaturesSection />
+      {/* <FeaturesSection /> */}
       <FAQ />
       <Footer />
     </div>
