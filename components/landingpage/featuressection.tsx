@@ -1,35 +1,34 @@
-"use client"
-import React from 'react';
-import { PointerHighlight } from '../ui/pointer-highlight';
-import FeaturesBentoGrid from './features-bento-grid';
-import { motion } from 'framer-motion';
+"use client";
+import React from "react";
+import { PointerHighlight } from "../ui/pointer-highlight";
+import FeaturesBentoGrid from "./features-bento-grid";
+import { motion } from "framer-motion";
 
 const FeaturesSection = () => {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       viewport={{ once: true }}
       id="features"
-      className="w-full mx-auto bg-white dark:bg-neutral-950 py-8 px-4 md:px-8"
+      className="mx-auto w-full px-4 py-8 md:px-8"
     >
-      <div className="relative w-fit mx-auto p-4 flex items-center justify-center">
-        <h2 className="font-sans text-xl text-center md:text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
+      <div className="relative mx-auto flex w-fit items-center justify-center p-4">
+        <h2 className="text-center font-sans text-xl font-bold tracking-tight text-neutral-100 md:text-4xl">
           <PointerHighlight>
-            <span className='text-3xl md:text-5xl font-semibold mb-3 bg-black dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent'>
+            <span className="mb-3 bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-3xl font-semibold text-transparent md:text-5xl">
               Analytics made easy
             </span>
           </PointerHighlight>
         </h2>
       </div>
 
-      <p className="max-w-lg text-sm text-neutral-600 text-center mx-auto mt-4 mb-6 dark:text-neutral-400">
-        From tech stacks to traffic sources—get fast, global insights on who’s visiting and how.
+      <p className="mx-auto mb-6 mt-4 max-w-lg text-center text-sm text-neutral-400">
+        From tech stacks to traffic sources—get fast, global insights on who’s
+        visiting and how.
       </p>
       <FeaturesBentoGrid />
-
-
     </motion.section>
   );
 };

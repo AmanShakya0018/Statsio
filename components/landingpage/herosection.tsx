@@ -4,6 +4,7 @@ import { ChevronRightIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+// import AnalyticsPreview from "../demo/analyticspreview";
 
 const HeroSection = () => {
   return (
@@ -35,10 +36,13 @@ const HeroSection = () => {
           </div>
           <div className="relative hidden items-center overflow-hidden lg:flex lg:flex-[3]">
             <div className="relative w-[calc(100%+8rem)] max-w-none pl-10">
+              {/* <div className="min-w-[600px] scale-75 rounded-xl">
+                <AnalyticsPreview />
+              </div> */}
               <div
                 className="relative transform-gpu transition-transform duration-700"
                 style={{
-                  perspective: "1000px",
+                  perspective: "2000px",
                   transformStyle: "preserve-3d",
                 }}
               >
@@ -89,7 +93,7 @@ const Herobuttons = () => {
   return (
     <div className="mt-4 flex items-center gap-4 sm:gap-3">
       <Link
-        href={"/statsio/hero"}
+        href={"/dashboard/sites"}
         className={cn(
           "group relative flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-sm bg-white px-4 py-1.5 text-[0.9rem] font-semibold text-black no-underline transition-all duration-300 hover:bg-neutral-200 md:h-10 md:px-8 md:py-2 md:text-[1rem]",
         )}

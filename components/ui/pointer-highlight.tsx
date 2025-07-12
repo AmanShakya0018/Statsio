@@ -57,7 +57,7 @@ export function PointerHighlight({
         >
           <motion.div
             className={cn(
-              "absolute -inset-4 border border-neutral-200 dark:border-neutral-800",
+              "absolute -inset-4 border border-neutral-800",
               rectangleClassName,
             )}
             initial={{
@@ -73,10 +73,10 @@ export function PointerHighlight({
               ease: "easeInOut",
             }}
           >
-            <div className="absolute -top-1 -left-1 h-2 w-2 dark:bg-neutral-800 bg-neutral-200" />
-            <div className="absolute -top-1 -right-1 h-2 w-2 dark:bg-neutral-800 bg-neutral-200" />
-            <div className="absolute -bottom-1 -left-1 h-2 w-2 dark:bg-neutral-800 bg-neutral-200" />
-            <div className="absolute -bottom-1 -right-1 h-2 w-2 dark:bg-neutral-800 bg-neutral-200" />
+            <div className="absolute -left-1 -top-1 h-2 w-2 bg-neutral-800" />
+            <div className="absolute -right-1 -top-1 h-2 w-2 bg-neutral-800" />
+            <div className="absolute -bottom-1 -left-1 h-2 w-2 bg-neutral-800" />
+            <div className="absolute -bottom-1 -right-1 h-2 w-2 bg-neutral-800" />
           </motion.div>
           <motion.div
             className="pointer-events-none absolute"
