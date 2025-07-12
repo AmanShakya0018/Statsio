@@ -6,6 +6,7 @@ import Image from "next/image";
 import AnalyticsPreview from "../demo/analyticspreview";
 import Herobuttons from "./hero-buttons";
 import TechStackSection from "./techstacksection";
+import HeroBadge from "./herobadge";
 
 const HeroSection = () => {
   return (
@@ -18,12 +19,12 @@ const HeroSection = () => {
       >
         <div
           className={cn(
-            "mt-16 flex h-full min-h-[99.5vh] w-full flex-col justify-center rounded-b-2xl sm:mt-32 lg:mt-0 lg:flex-row",
+            "mt-tab mt-24 flex h-full min-h-[99.5vh] w-full flex-col justify-center rounded-b-2xl sm:mt-48 md:mt-48 lg:mt-0 lg:flex-row",
           )}
         >
           <div className="flex lg:flex-[2]">
             <div className="flex flex-col justify-center space-y-5 pl-6 lg:mx-auto lg:max-w-[32rem] xl:pl-2">
-              <Badge />
+              <HeroBadge />
               <motion.h1 className="max-w-lg whitespace-pre-wrap text-balance font-sans text-4xl font-bold tracking-tight text-white md:max-w-2xl md:text-5xl">
                 Unlock Real Insights from Simple Stats
               </motion.h1>
@@ -38,7 +39,6 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="relative hidden items-center overflow-hidden lg:flex lg:flex-[3]">
-            {/* <div className="relative w-[calc(100%+8rem)] max-w-none"> */}
             <div className="relative w-[calc(100%+8rem)] max-w-none origin-right skew-x-[-0.05rad] skew-y-[-0.02rad]">
               <div className="min-w-[600px] scale-75 rounded-xl">
                 <AnalyticsPreview />
@@ -67,19 +67,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-const Badge = () => {
-  return (
-    <div className="flex max-w-fit items-center justify-center gap-2 rounded-full border border-neutral-700/80 bg-black px-3 py-1.5">
-      <div className="relative flex h-1 w-1 items-center justify-center rounded-full bg-blue-500/40">
-        <div className="flex h-2 w-2 animate-ping items-center justify-center rounded-full bg-blue-500">
-          <div className="flex h-2 w-2 animate-ping items-center justify-center rounded-full bg-blue-500"></div>
-        </div>
-        <div className="absolute left-1/2 top-1/2 flex h-1 w-1 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-blue-400"></div>
-      </div>
-      <span className="bg-clip-text text-xs font-medium text-zinc-300">
-        Blazingly fast analytics
-      </span>
-    </div>
-  );
-};

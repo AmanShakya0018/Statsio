@@ -8,7 +8,7 @@ import Togglebutton from "./togglebutton";
 
 const AnalyticsPreview = () => {
   return (
-    <div className="mx-auto flex h-auto w-[80rem] items-center justify-center rounded-lg bg-neutral-950 px-6 text-white shadow-2xl shadow-black">
+    <div className="mx-auto flex h-auto w-[80rem] items-center justify-center rounded-lg bg-[#060606] px-6 text-white shadow-2xl shadow-black">
       <div className="flex w-full flex-col space-y-6">
         <SiteHeader />
         <Togglebutton />

@@ -35,7 +35,7 @@ const Navbar = () => {
           className={cn(
             "mx-auto mt-2 max-w-6xl border border-neutral-800/5 px-6 transition-all duration-300 lg:px-12",
             isScrolled &&
-              "max-w-4xl rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-lg lg:px-5",
+              "max-w-4xl rounded-2xl border border-neutral-800/50 bg-neutral-900/50 backdrop-blur-lg lg:px-5",
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-1 lg:gap-0">

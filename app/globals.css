@@ -145,6 +145,14 @@
   }
 }
 
+@layer utilities {
+  @media (min-width: 540px) and (max-width: 640px) {
+    .mt-tab {
+      margin-top: 7rem;
+    }
+  }
+}
+
 @keyframes ping {
   0% {
     transform: scale(1);
