@@ -10,19 +10,17 @@ export default function SiteHeader() {
         <div className="flex flex-col space-y-3">
           <div className="flex flex-row items-center gap-2">
             <MyIcon className="h-[22px] w-[22px] text-white" />
-            <h1 className="text-3xl font-semibold text-black dark:text-white">
-              Forge UI
-            </h1>
+            <h1 className="text-3xl font-semibold text-white">Forge UI</h1>
           </div>
-          <div className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-            <CiGlobe className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
+          <div className="flex items-center space-x-1 text-sm text-gray-400">
+            <CiGlobe className="h-4 w-4 text-neutral-400" />
             <Link
               href={"https://forgeui.in"}
               target="_blank"
-              className="flex flex-row items-center gap-1 font-semibold text-black hover:underline dark:text-white"
+              className="flex flex-row items-center gap-1 font-semibold text-white hover:underline"
             >
               forgeui.in
-              <BiLinkExternal className="mt-1 h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400" />
+              <BiLinkExternal className="mt-1 h-3.5 w-3.5 text-neutral-400" />
             </Link>
           </div>
         </div>

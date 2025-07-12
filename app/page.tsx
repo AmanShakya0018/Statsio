@@ -1,6 +1,6 @@
 // import LandingPage from "@/components/landingpage/landingpage";
 
-import TextShimmer from "@/components/ui/text-shimmer";
+import { TextShimmer } from "@/components/ui/text-shimmer";
 
 export default function Home() {
   return (

@@ -1,23 +1,52 @@
-import React from 'react'
-import Link from 'next/link';
-import { BookOpen, ChevronRight, SquareArrowOutUpRight } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { ChevronRightIcon } from "lucide-react";
 
 const Herobuttons = () => {
   return (
-    <div className='flex items-center gap-4 sm:gap-6 mt-4 sm:mt-6'>
-      <Link href="/dashboard/sites">
-        <div className='no-underline flex gap-3 space-x-2 group cursor-pointer transition duration-400 font-semibold px-4 py-2 bg-black dark:bg-white dark:text-black text-white relative hover:bg-neutral-800 dark:hover:bg-neutral-200 z-20 h-10 w-full items-center justify-center rounded-lg text-sm'>
-          Get Started
-          <SquareArrowOutUpRight className='w-4 h-4 mt-0.5' />
+    <div className="mt-4 flex items-center gap-4 sm:gap-3">
+      <Link
+        href={"/dashboard/sites"}
+        className={cn(
+          "group relative flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-sm bg-white px-4 py-1.5 text-[0.9rem] font-semibold text-black no-underline transition-all duration-300 hover:bg-neutral-200 md:h-10 md:px-8 md:py-2 md:text-[1rem]",
+        )}
+      >
+        <TextGlitch text={"Get Started"} />
+      </Link>
+      <Link
+        href="/docs"
+        className="group flex w-full items-center gap-2 text-nowrap rounded-sm bg-neutral-800/50 py-[10px] pl-3 pr-2 text-[0.9rem] text-sm text-neutral-200 transition-all duration-300 hover:bg-neutral-900/50 hover:text-white"
+      >
+        See How It Works
+        <div className="relative overflow-hidden font-medium">
+          <span className="invisible">
+            <ChevronRightIcon size={14} />
+          </span>
+          <span className="absolute left-0 top-0 text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-full group-hover:text-white">
+            <ChevronRightIcon size={14} />
+          </span>
+          <span className="absolute left-0 top-0 -translate-x-full text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-0 group-hover:text-white">
+            <ChevronRightIcon size={14} />
+          </span>
         </div>
       </Link>
-      <Link href="/docs" className='flex items-center gap-2 text-sm dark:text-white text-black sm:text-base group'>
-        <BookOpen className='w-4 h-4 translate-y-[1px]' />
-        Documentation
-        <ChevronRight className='w-4 h-4 mt-0.5 transition-all group-hover:translate-x-3 duration-200 ease-in-out' />
-      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Herobuttons
+export default Herobuttons;
+
+function TextGlitch({ text }: { text: string }) {
+  return (
+    <div className="relative overflow-hidden">
+      <span className="invisible">{text}</span>
+      <span className="absolute left-0 top-0 font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:-translate-y-full">
+        {text}
+      </span>
+      <span className="absolute left-0 top-0 translate-y-full font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:translate-y-0">
+        {text}
+      </span>
+    </div>
+  );
+}

@@ -1,24 +1,36 @@
-"use client"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { FilePenLine, SquareArrowOutUpRight, Trash } from "lucide-react"
-import { MdOutlineWifiTetheringError } from "react-icons/md"
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { FilePenLine, SquareArrowOutUpRight, Trash } from "lucide-react";
+import { MdOutlineWifiTetheringError } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { siteSchema, SiteFormData } from "@/lib/validation/site";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react"
-import axios from "axios"
+import { useState } from "react";
+import axios from "axios";
 
 interface SiteCardProps {
   site: {
-    id: string
-    name: string
-    domain: string
-  }
+    id: string;
+    name: string;
+    domain: string;
+  };
   onDelete: (id: string) => void;
   onEdit: (id: string, updatedData: { name: string; domain: string }) => void;
 }
@@ -36,28 +48,31 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
     },
   });
 
-
-  const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${site.domain}`
+  const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${site.domain}`;
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/project/delete/${id}`)
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/project/delete/${id}`,
+      );
       if (response.status === 200) {
-        onDelete(id)
+        onDelete(id);
         console.log("post deleted");
       }
-
     } catch (error) {
       console.error("Error deleting project:", error);
     } finally {
       setIsDelete(false);
       setOpenDelete(false);
     }
-  }
+  };
 
   const handleEdit = async (values: SiteFormData) => {
     try {
-      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/project/update/${site.id}`, values);
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/project/update/${site.id}`,
+        values,
+      );
       if (response.status === 200) {
         onEdit(site.id, values);
       }
@@ -69,67 +84,64 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
     }
   };
 
-
   return (
-    <div
-      className="flex items-start gap-2 bg-white dark:bg-black p-3 border border-zinc-200 dark:border-zinc-800 rounded-md w-full h-full cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-900 transition"
-    >
-      <Link className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden"
+    <div className="flex h-full w-full cursor-pointer items-start gap-2 rounded-md border border-zinc-800 bg-black p-3 transition hover:bg-neutral-900">
+      <Link
+        className="flex h-full flex-1 flex-col gap-2 overflow-hidden pr-2"
         href={`/dashboard/sites/${site.id}`}
       >
         <div className="flex flex-col">
-          <div className="flex items-center gap-1"><>
-            {favicon ? (
-              <Image
-                width={24}
-                height={24}
-                src={favicon}
-                alt={`${site.name} favicon`}
-                className="w-6 h-6 rounded-sm"
-              />
-            ) : (
-              <MdOutlineWifiTetheringError className="w-7 h-7 text-neutral-500 dark:text-neutral-400" />
-            )}
-          </>
-            <h2 className="overflow-hidden text-zinc-800 dark:text-white text-xl text-ellipsis whitespace-nowrap">
+          <div className="flex items-center gap-1">
+            <>
+              {favicon ? (
+                <Image
+                  width={24}
+                  height={24}
+                  src={favicon}
+                  alt={`${site.name} favicon`}
+                  className="h-6 w-6 rounded-sm"
+                />
+              ) : (
+                <MdOutlineWifiTetheringError className="h-7 w-7 text-neutral-400" />
+              )}
+            </>
+            <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl text-white">
               {site.name}
             </h2>
-            <div className="bg-emerald-400 p-[2px] rounded-full animate-pulse">
-              <div className="bg-emerald-500 rounded-full size-[5px]" />
+            <div className="animate-pulse rounded-full bg-emerald-400 p-[2px]">
+              <div className="size-[5px] rounded-full bg-emerald-500" />
             </div>
           </div>
-          <p className="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-sm 2xl:text-xs underline">
+          <p className="flex items-center gap-1 text-sm text-zinc-400 underline 2xl:text-xs">
             {site.domain}
             <SquareArrowOutUpRight size={9} />
           </p>
         </div>
       </Link>
 
-      <div className="flex flex-col justify-between gap-2 pl-3 border-l border-zinc-200 dark:border-zinc-800 h-full">
-        <Button
-          className="bg-transparent p-1 rounded-full text-zinc-500 dark:text-zinc-400 transition"
-          size="icon"
-          variant="ghost"
+      <div className="flex h-full flex-col justify-between gap-2 border-l border-zinc-800 pl-3">
+        <button
+          className="rounded-full bg-transparent p-2 text-zinc-400 transition hover:bg-neutral-800"
           onClick={() => setOpenEdit(true)}
         >
           <FilePenLine size={16} />
-        </Button>
-        <Button
-          className="bg-transparent p-1 rounded-full text-red-400 transition"
-          size="icon"
-          variant="ghost"
+        </button>
+        <button
+          className="rounded-full bg-transparent p-2 text-red-400 transition hover:bg-neutral-800"
           onClick={() => {
-            setOpenDelete(true)
+            setOpenDelete(true);
           }}
         >
           <Trash size={16} />
-        </Button>
+        </button>
       </div>
       <Dialog open={openEdit} onOpenChange={setOpenEdit}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="border-neutral-800 bg-black text-neutral-400 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Edit Project</DialogTitle>
-            <DialogDescription>Make changes to your project below.</DialogDescription>
+            <DialogTitle className="text-white">Edit Project</DialogTitle>
+            <DialogDescription className="text-neutral-400">
+              Make changes to your project below.
+            </DialogDescription>
           </DialogHeader>
 
           <Form {...form}>
@@ -169,15 +181,13 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
               />
 
               <div className="flex">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="ml-auto"
+                <button
+                  className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
                   type="submit"
                   disabled={isEdit}
                 >
                   {isEdit ? <p>Updating...</p> : <p>Update</p>}
-                </Button>
+                </button>
               </div>
             </form>
           </Form>
@@ -185,26 +195,28 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
       </Dialog>
 
       <Dialog open={openDelete} onOpenChange={setOpenDelete}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="border-neutral-800 bg-black text-neutral-400 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete Project</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete {site.name}? This action cannot be undone.
+            <DialogTitle className="text-white">Delete Project</DialogTitle>
+            <DialogDescription className="text-neutral-400">
+              Are you sure you want to delete {site.name}? This action cannot be
+              undone.
             </DialogDescription>
           </DialogHeader>
           <div className="flex">
-            <Button size="sm" variant="outline" className="ml-auto"
+            <button
+              className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
               onClick={() => {
-                setIsDelete(true)
-                handleDelete(site.id)
+                setIsDelete(true);
+                handleDelete(site.id);
               }}
               disabled={isDelete}
             >
               {isDelete ? <p>Deleting...</p> : <p>Delete</p>}
-            </Button>
+            </button>
           </div>
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

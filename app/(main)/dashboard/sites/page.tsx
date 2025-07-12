@@ -3,7 +3,6 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { AddSiteModal } from "@/components/globals/site-modal";
 import { EmptyState } from "@/components/globals/empty-state";
 import { LoadingState } from "@/components/globals/loading-state";
@@ -63,16 +62,16 @@ export default function SitesPage() {
   if (status !== "authenticated") return null;
 
   return (
-    <>
+    <div className="bg-black">
       <Navbar />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24">
         <div className="mb-10 flex flex-row items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold text-white">
               Welcome back,
               <br className="block md:hidden" /> {session?.user?.name}!
             </h1>
-            <p className="max-w-xl text-sm text-muted-foreground md:text-[1rem]">
+            <p className="max-w-xl text-sm text-neutral-400 md:text-[1rem]">
               Manage your websites and view privacy-friendly analytics in one
               place.
             </p>
@@ -80,10 +79,10 @@ export default function SitesPage() {
           {sites.length !== 0 && (
             <AddSiteModal
               trigger={
-                <Button variant="outline" size="sm" className="mt-2">
+                <button className="mt-2 flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
                   <Plus size={16} />
                   Add New Site
-                </Button>
+                </button>
               }
               onSiteAdded={handleSiteAdded}
             />
@@ -95,7 +94,7 @@ export default function SitesPage() {
         ) : sites.length === 0 ? (
           <EmptyState onSiteAdded={handleSiteAdded} />
         ) : (
-          <div className="flex min-h-[400px] flex-col justify-between space-y-8 rounded-lg border border-dashed border-neutral-300 dark:border-neutral-800">
+          <div className="flex min-h-[400px] flex-col justify-between space-y-8 rounded-lg border border-dashed border-neutral-800">
             <div className="grid gap-3 p-3 sm:grid-cols-1 md:grid-cols-2 md:p-6">
               {sites.map((site) => (
                 <SiteCard
@@ -107,16 +106,16 @@ export default function SitesPage() {
               ))}
             </div>
 
-            <div className="mt-4 border-t border-dashed border-neutral-300 p-4 dark:border-neutral-800">
-              <p className="mb-3 text-xs text-zinc-600 dark:text-zinc-400 sm:text-sm">
+            <div className="mt-4 border-t border-dashed border-neutral-800 p-4">
+              <p className="mb-3 text-xs text-zinc-400 sm:text-sm">
                 Need help setting up tracking on your website?
               </p>
               <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                 <Link href="/docs" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm">
+                  <button className="flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
                     <BookOpen className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
                     View documentation
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -124,6 +123,6 @@ export default function SitesPage() {
         )}
       </div>
       <Footer2 />
-    </>
+    </div>
   );
 }

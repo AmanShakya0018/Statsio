@@ -28,21 +28,19 @@ export default function StaticAnalyticsChart() {
   const july8DataPoint = chartData.find((d) => d.date === "Jul 8");
 
   return (
-    <div className="pointer-events-none w-full overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-zinc-800 dark:bg-black">
-      <div className="grid grid-cols-1 divide-y divide-neutral-200 dark:divide-zinc-800">
+    <div className="pointer-events-none w-full overflow-hidden rounded-xl border border-neutral-800 bg-black">
+      <div className="grid grid-cols-1 divide-y divide-zinc-800">
         <div className="flex flex-row items-start justify-between">
           <div className="flex">
-            <div className="border-r border-neutral-200 pt-6 dark:border-zinc-800">
+            <div className="border-r border-zinc-800 pt-6">
               <div className="flex w-48 flex-col items-start border-b-2 border-transparent">
                 <div className="ml-4 pb-3 opacity-70">
-                  <p className="flex text-sm font-medium capitalize text-zinc-500 dark:text-zinc-400">
+                  <p className="flex text-sm font-medium capitalize text-zinc-400">
                     Page Views
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-black dark:text-white">
-                      3993
-                    </p>
-                    <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+                    <p className="text-4xl font-semibold text-white">3993</p>
+                    <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
                   </div>
@@ -50,17 +48,15 @@ export default function StaticAnalyticsChart() {
               </div>
             </div>
 
-            <div className="border-r border-neutral-200 pt-6 dark:border-zinc-800">
+            <div className="border-r border-zinc-800 pt-6">
               <div className="flex w-48 flex-col items-start border-b-2 border-zinc-300">
                 <div className="ml-4 pb-3">
-                  <p className="flex text-sm font-medium capitalize text-zinc-500 dark:text-zinc-400">
+                  <p className="flex text-sm font-medium capitalize text-zinc-400">
                     Visitors
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-black dark:text-white">
-                      497
-                    </p>
-                    <span className="flex items-center rounded bg-green-200 px-2 py-1 text-green-500 dark:bg-green-950">
+                    <p className="text-4xl font-semibold text-white">497</p>
+                    <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
                   </div>
@@ -150,17 +146,13 @@ export default function StaticAnalyticsChart() {
               )}
             </LineChart>
           </ResponsiveContainer>
-          <div className="absolute right-[17.5rem] top-24 rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-            <div className="flex items-center gap-2 font-medium text-zinc-700 dark:text-zinc-500">
+          <div className="absolute right-[17.5rem] top-24 rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
+            <div className="flex items-center gap-2 font-medium text-zinc-500">
               <span className="h-2 w-2 rounded-full bg-[#5b98ff]"></span>
-              <p className="text-sm capitalize text-zinc-900 dark:text-zinc-200">
-                Visitors
-              </p>
-              <p className="text-black dark:text-white">155</p>
+              <p className="text-sm capitalize text-zinc-200">Visitors</p>
+              <p className="text-white">155</p>
             </div>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-              Jul 8
-            </p>
+            <p className="mt-1 text-sm text-zinc-400">Jul 8</p>
           </div>
         </div>
       </div>

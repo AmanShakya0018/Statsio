@@ -1,10 +1,11 @@
 "use client";
+
 import { cn } from "@/lib/utils";
-import { ChevronRightIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 import AnalyticsPreview from "../demo/analyticspreview";
+import Herobuttons from "./hero-buttons";
+import TechStackSection from "./techstacksection";
 
 const HeroSection = () => {
   return (
@@ -12,7 +13,7 @@ const HeroSection = () => {
       <div
         className={cn(
           "flex h-full min-h-[99.5vh] w-full max-w-[99.5%] justify-center rounded-b-2xl",
-          "bg-[radial-gradient(125%_125%_at_50%_101%,rgba(140,80,240,0.4)_0%,rgba(120,60,220,0.3)_15%,rgba(90,40,200,0.2)_30%,rgba(30,30,30,0.3)_50%,rgba(0,0,0,1)_70%,rgba(0,0,0,1)_100%)]",
+          "bg-[radial-gradient(125%_125%_at_50%_101%,rgba(80,140,240,0.7)_0%,rgba(60,120,220,0.6)_15%,rgba(40,90,200,0.5)_30%,rgba(0,0,0,0.5)_50%,rgba(0,0,0,1)_70%,rgba(0,0,0,1)_100%)]",
         )}
       >
         <div
@@ -22,6 +23,7 @@ const HeroSection = () => {
         >
           <div className="flex lg:flex-[2]">
             <div className="flex flex-col justify-center space-y-5 pl-6 lg:mx-auto lg:max-w-[32rem] xl:pl-2">
+              <Badge />
               <motion.h1 className="max-w-lg whitespace-pre-wrap text-balance font-sans text-4xl font-bold tracking-tight text-white md:max-w-2xl md:text-5xl">
                 Unlock Real Insights from Simple Stats
               </motion.h1>
@@ -32,6 +34,7 @@ const HeroSection = () => {
               <motion.div className="flex items-start">
                 <Herobuttons />
               </motion.div>
+              <TechStackSection />
             </div>
           </div>
           <div className="relative hidden items-center overflow-hidden lg:flex lg:flex-[3]">
@@ -40,31 +43,6 @@ const HeroSection = () => {
               <div className="min-w-[600px] scale-75 rounded-xl">
                 <AnalyticsPreview />
               </div>
-              {/* <div
-                className="relative transform-gpu transition-transform duration-700"
-                style={{
-                  perspective: "2000px",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <div
-                  className="relative transform-gpu transition-all duration-500"
-                  style={{
-                    transform: "rotateY(-15deg) rotateX(5deg) translateZ(50px)",
-                    transformOrigin: "center center",
-                  }}
-                >
-                  <Image
-                    src="/forgeui-statsio.png"
-                    alt="Hero Image"
-                    width={2000}
-                    height={2000}
-                    priority
-                    quality={99}
-                    className="h-auto w-full min-w-[600px] rounded-xl object-cover shadow-2xl shadow-black"
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="mx-auto mt-4 block max-w-7xl overflow-hidden lg:hidden">
@@ -90,48 +68,18 @@ const HeroSection = () => {
 
 export default HeroSection;
 
-const Herobuttons = () => {
+const Badge = () => {
   return (
-    <div className="mt-4 flex items-center gap-4 sm:gap-3">
-      <Link
-        href={"/dashboard/sites"}
-        className={cn(
-          "group relative flex h-9 w-full cursor-pointer items-center justify-center gap-1 rounded-sm bg-white px-4 py-1.5 text-[0.9rem] font-semibold text-black no-underline transition-all duration-300 hover:bg-neutral-200 md:h-10 md:px-8 md:py-2 md:text-[1rem]",
-        )}
-      >
-        <TextGlitch text={"Get Started"} />
-      </Link>
-      <Link
-        href="/docs"
-        className="group flex w-full items-center gap-2 text-nowrap rounded-sm bg-neutral-900/90 py-[9.75px] pl-3 pr-2 text-[0.9rem] text-sm text-neutral-200 transition-all duration-300 hover:bg-neutral-900 hover:text-white"
-      >
-        See How It Works
-        <div className="relative overflow-hidden font-medium">
-          <span className="invisible">
-            <ChevronRightIcon size={14} />
-          </span>
-          <span className="absolute left-0 top-0 text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-full group-hover:text-white">
-            <ChevronRightIcon size={14} />
-          </span>
-          <span className="absolute left-0 top-0 -translate-x-full text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-0 group-hover:text-white">
-            <ChevronRightIcon size={14} />
-          </span>
+    <div className="flex max-w-fit items-center justify-center gap-2 rounded-full border border-neutral-700/80 bg-black px-3 py-1.5">
+      <div className="relative flex h-1 w-1 items-center justify-center rounded-full bg-blue-500/40">
+        <div className="flex h-2 w-2 animate-ping items-center justify-center rounded-full bg-blue-500">
+          <div className="flex h-2 w-2 animate-ping items-center justify-center rounded-full bg-blue-500"></div>
         </div>
-      </Link>
+        <div className="absolute left-1/2 top-1/2 flex h-1 w-1 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-blue-400"></div>
+      </div>
+      <span className="bg-clip-text text-xs font-medium text-zinc-300">
+        Blazingly fast analytics
+      </span>
     </div>
   );
 };
-
-function TextGlitch({ text }: { text: string }) {
-  return (
-    <div className="relative overflow-hidden">
-      <span className="invisible">{text}</span>
-      <span className="absolute left-0 top-0 font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:-translate-y-full">
-        {text}
-      </span>
-      <span className="absolute left-0 top-0 translate-y-full font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:translate-y-0">
-        {text}
-      </span>
-    </div>
-  );
-}

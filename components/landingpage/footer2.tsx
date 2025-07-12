@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
@@ -6,7 +7,7 @@ import { CiHeart } from "react-icons/ci";
 const Footer = () => {
   return (
     <div className="block border-t border-white/[0.1] px-8 py-12">
-      <div className="mx-auto flex max-w-[80rem] flex-col items-start justify-between px-4 text-sm text-gray-400 sm:flex-row">
+      <div className="mx-auto flex max-w-[80rem] flex-col items-start justify-between px-4 text-sm text-neutral-400 sm:flex-row">
         <div>
           <div className="mb-2 flex">
             <Link href="/" className="flex items-center">
@@ -65,9 +66,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="-mb-6 mt-12 w-full text-center text-sm text-neutral-400">
+      <p className="-mb-6 mt-12 w-full text-center text-sm text-neutral-300">
         Made with{" "}
-        <CiHeart className="inline-block h-5 w-5 pb-0.5 align-middle text-neutral-200" />{" "}
+        <CiHeart className="inline-block h-5 w-5 pb-0.5 align-middle text-neutral-300" />{" "}
         by{" "}
         <a
           href="https://amanshakya.in"

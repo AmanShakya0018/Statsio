@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -76,10 +75,10 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="border-neutral-800 bg-black text-neutral-400 sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add a new site</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-white">Add a new site</DialogTitle>
+          <DialogDescription className="text-neutral-400">
             Enter your website details to start tracking analytics.
           </DialogDescription>
         </DialogHeader>
@@ -115,7 +114,12 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
               )}
             />
             <DialogFooter className="mt-6 px-0 pt-2">
-              <Button type="submit">Add Site</Button>
+              <button
+                className="flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
+                type="submit"
+              >
+                Add Site
+              </button>
             </DialogFooter>
           </form>
         </Form>

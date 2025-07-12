@@ -9,13 +9,26 @@ import {
   ResponsiveContainer,
   Area,
   CartesianGrid,
-  type TooltipProps,
 } from "recharts";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { usePageViews } from "@/hooks/usePageViews";
 import { useUniqueVisitors } from "@/hooks/useUniqueVisitors";
 import { useState } from "react";
 import CustomSelect from "./custom-select";
+
+interface AnalyticsCustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    name: string;
+    dataKey: string;
+    payload: { date: string; count: number };
+    stroke?: string;
+    fill?: string;
+    unit?: string;
+  }>;
+  label?: string;
+}
 
 export default function AnalyticsChart({ siteId }: { siteId: string }) {
   const [range, setRange] = useState<"7d" | "all">("7d");
@@ -79,7 +92,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
     active,
     payload,
     label,
-  }: TooltipProps<number, string>) => {
+  }: AnalyticsCustomTooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-800 dark:bg-neutral-950">
@@ -91,7 +104,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
             <p className="text-black dark:text-white">{payload[0].value}</p>
           </div>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            {formatDate(label)}
+            {label ? formatDate(label) : "N/A Date"}
           </p>
         </div>
       );
@@ -102,7 +115,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
   return (
     <div className="w-full overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-zinc-800 dark:bg-black">
       <div className="grid grid-cols-1 divide-y divide-neutral-200 dark:divide-zinc-800">
-        <div className="flex flex-col items-start justify-between md:flex-row">
+        <div className="border-b-px flex flex-col items-start justify-between md:flex-row">
           <div className="flex">
             {["pageviews", "visitors"].map((metric) => (
               <div
@@ -150,7 +163,7 @@ export default function AnalyticsChart({ siteId }: { siteId: string }) {
         </div>
 
         <div className="h-[400px] w-full p-4">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" className="focus">
             <LineChart
               data={activeData}
               margin={{ top: 40, right: 20, left: 0, bottom: 0 }}
