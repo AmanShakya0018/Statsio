@@ -36,7 +36,7 @@ const items = [
   {
     title: "Effortless Onboarding",
     description:
-      "Visualize every step of setup with real-time feedback — crafted for clarity and trust.",
+      "Visualize every step of setup with real-time feedback - crafted for clarity and trust.",
     header: <OnboardCard />,
     className: "md:col-span-1",
     icon: <MdSpeed className="h-4 w-4 text-neutral-500" />,

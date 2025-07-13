@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import FaqIcon from "../icons/faqicon";
 
 interface FAQItemProps {
   question: string;
@@ -17,7 +18,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
   return (
     <motion.div
       className={cn(
-        "group rounded-lg border-[0.5px] border-neutral-800/60",
+        "group rounded-lg border-[0.5px] border-neutral-800/50",
         "transition-all duration-200 ease-in-out",
         isOpen
           ? "bg-linear-to-br via-white/2 from-white/5 via-zinc-50/50 to-white/5"
@@ -152,11 +153,12 @@ function FAQ() {
         transition={{ duration: 0.8 }}
         className="container mx-auto px-4"
       >
-        <motion.div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="mb-3 bg-black bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-3xl font-semibold text-transparent md:text-5xl">
+        <motion.div className="mx-auto mb-12 max-w-7xl text-center">
+          <FaqIcon />
+          <h2 className="mx-auto mb-2 mt-6 max-w-3xl text-balance bg-gradient-to-br from-neutral-100 via-neutral-100 via-50% to-neutral-100/30 bg-clip-text py-2 text-center text-4xl font-medium leading-[1.1] tracking-tighter text-transparent md:text-5xl">
             Let&apos;s Answer Your Questions
           </h2>
-          <p className="text-sm text-zinc-400">
+          <p className="mb-8 text-balance bg-gradient-to-br from-white/70 via-white/70 to-white/30 bg-clip-text text-center text-[0.8rem] text-transparent sm:text-[0.87rem] lg:text-[1rem]">
             Everything you need to know about our platform
           </p>
         </motion.div>

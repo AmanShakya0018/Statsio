@@ -87,8 +87,8 @@ const OnboardCard = ({
           className={`ml-5 h-1.5 w-[100%] overflow-hidden rounded-full bg-green-500`}
         ></div>
       </div>
-      <div className="absolute top-0 h-[40%] w-full [background-image:linear-gradient(to_bottom,black_20%,transparent_100%)]" />
-      <div className="absolute bottom-0 h-[40%] w-full [background-image:linear-gradient(to_top,black_20%,transparent_100%)]" />
+      <div className="absolute top-0 h-[40%] w-full [background-image:linear-gradient(to_bottom,rgba(10,10,10,1)_20%,transparent_100%)]" />
+      <div className="absolute bottom-0 h-[40%] w-full [background-image:linear-gradient(to_top,rgba(10,10,10,1)_20%,transparent_100%)]" />
     </div>
   );
 };
