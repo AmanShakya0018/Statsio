@@ -3,6 +3,7 @@ import FAQ from "./faq";
 import Navbar from "./navbar-shrink";
 import Footer from "./footer";
 import FeaturesBlock from "../features/features-block";
+import CtaSection from "./ctasection";
 
 const LandingPage = () => {
   return (
@@ -11,6 +12,7 @@ const LandingPage = () => {
       <HeroSection />
       <FeaturesBlock />
       <FAQ />
+      <CtaSection />
       <Footer />
     </div>
   );
