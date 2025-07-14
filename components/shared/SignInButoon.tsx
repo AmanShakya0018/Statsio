@@ -3,24 +3,22 @@ import React from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
-import { Button } from "../ui/button";
 
 type Props = { text: string };
 
 const SignInButton = ({ text }: Props) => {
-
   const { status } = useSession();
 
   return (
-    <Button variant="default" className="min-w-20">
-      <Link href="/signin">
+    <Link href="/signin">
+      <button className="flex h-fit min-h-[33.6px] min-w-20 items-center justify-center rounded-xl border bg-neutral-200 px-3 py-1.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-neutral-300">
         {status === "loading" ? (
-          <Loader2 className="h-2 w-2 animate-spin" />
+          <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
           <>{text}</>
         )}
-      </Link>
-    </Button>
+      </button>
+    </Link>
   );
 };
 

@@ -50,7 +50,7 @@ const HeroSection = () => {
               <div className="relative skew-x-[.10rad] p-6">
                 <Image
                   className="rounded-xl shadow-lg shadow-black"
-                  src="/forgeui-statsio.png"
+                  src="/forge-analytics.png"
                   alt="hero section"
                   width={2000}
                   height={2000}

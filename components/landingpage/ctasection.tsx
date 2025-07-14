@@ -216,8 +216,9 @@ const CtaSection = () => {
         >
           <Link
             href={"/dashboard/sites"}
-            className="group mt-6 flex items-center justify-center gap-2 rounded-xl border border-neutral-600 bg-neutral-950 px-5 py-3 text-sm font-semibold text-white shadow-[inset_0px_0px_7px_1px_#535353] transition-all duration-300 hover:bg-neutral-800/50 md:text-[1.1rem]"
+            className="group mt-6 flex items-center justify-center gap-2 rounded-xl border border-neutral-600 bg-neutral-950 px-5 py-3 text-sm font-semibold text-white shadow-[inset_0px_0px_7px_1px_#535353] transition-all duration-300 hover:bg-neutral-800/50 md:text-[1rem]"
           >
+            {/* Get Started */}
             <TextGlitch text={"Get Started"} />
           </Link>
         </motion.div>
@@ -265,10 +266,10 @@ function TextGlitch({ text }: { text: string }) {
   return (
     <div className="relative overflow-hidden">
       <span className="invisible">{text}</span>
-      <span className="absolute left-0 top-0 font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:-translate-y-full">
+      <span className="absolute left-0 top-0 font-semibold transition-transform duration-500 ease-in-out hover:duration-300 group-hover:-translate-y-full">
         {text}
       </span>
-      <span className="absolute left-0 top-0 translate-y-full font-semibold transition-transform duration-500 ease-in-out [text-shadow:0_0.5px_0_rgb(255,255,255,.48)] hover:duration-300 group-hover:translate-y-0">
+      <span className="absolute left-0 top-0 translate-y-full font-semibold transition-transform duration-500 ease-in-out hover:duration-300 group-hover:translate-y-0">
         {text}
       </span>
     </div>

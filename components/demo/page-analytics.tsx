@@ -2,8 +2,8 @@
 import React from "react";
 
 const pages = [
-  { pathname: "/", count: 1116 },
-  { pathname: "/components/animated-form", count: 629 },
+  { pathname: "/", count: 1547 },
+  { pathname: "/components/animated-form", count: 961 },
 ];
 
 const maxCount = Math.max(...pages.map((p) => p.count));

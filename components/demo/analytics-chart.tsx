@@ -15,13 +15,13 @@ import { ArrowUp, Clock } from "lucide-react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const chartData = [
-  { date: "Jul 4", count: 52 },
-  { date: "Jul 5", count: 19 },
-  { date: "Jul 6", count: 17 },
   { date: "Jul 7", count: 76 },
   { date: "Jul 8", count: 155 },
   { date: "Jul 9", count: 136 },
-  { date: "Jul 10", count: 42 },
+  { date: "Jul 10", count: 89 },
+  { date: "Jul 11", count: 90 },
+  { date: "Jul 12", count: 48 },
+  { date: "Jul 13", count: 127 },
 ];
 
 export default function StaticAnalyticsChart() {
@@ -39,7 +39,7 @@ export default function StaticAnalyticsChart() {
                     Page Views
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-white">3993</p>
+                    <p className="text-4xl font-semibold text-white">6203</p>
                     <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
@@ -55,7 +55,7 @@ export default function StaticAnalyticsChart() {
                     Visitors
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-white">497</p>
+                    <p className="text-4xl font-semibold text-white">721</p>
                     <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
@@ -146,7 +146,7 @@ export default function StaticAnalyticsChart() {
               )}
             </LineChart>
           </ResponsiveContainer>
-          <div className="absolute right-[17.5rem] top-24 rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
+          <div className="absolute left-[17rem] top-24 rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
             <div className="flex items-center gap-2 font-medium text-zinc-500">
               <span className="h-2 w-2 rounded-full bg-[#5b98ff]"></span>
               <p className="text-sm capitalize text-zinc-200">Visitors</p>

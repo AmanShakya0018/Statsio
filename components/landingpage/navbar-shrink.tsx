@@ -92,7 +92,7 @@ const Navbar = () => {
               </div>
               <div
                 className={cn(
-                  "flex flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit",
+                  "flex flex-col items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit",
                   session?.user ? "w-[60%]" : "w-full",
                 )}
               >
@@ -100,7 +100,7 @@ const Navbar = () => {
                 {session?.user ? (
                   <UserAccountNav user={session.user} />
                 ) : (
-                  <SignInButton text={"Sign In"} />
+                  <SignInButton text={"Sign Up"} />
                 )}
               </div>
             </div>

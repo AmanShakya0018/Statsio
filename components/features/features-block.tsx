@@ -9,7 +9,7 @@ import F3 from "./f3";
 
 const FeaturesBlock = () => {
   return (
-    <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center gap-4 py-12 lg:py-24">
+    <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center gap-4 py-12 lg:pb-24 lg:pt-36">
       <FeatureContent />
 
       <div className="mt-5 grid w-full grid-cols-1 gap-4 md:grid-cols-2">

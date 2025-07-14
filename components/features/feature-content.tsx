@@ -46,7 +46,7 @@ const FeatureContent = () => {
         viewport={{ once: true }}
         className="mx-auto mb-2 max-w-3xl text-balance bg-gradient-to-br from-neutral-100 via-neutral-100 via-50% to-neutral-100/30 bg-clip-text py-2 text-center text-4xl font-medium leading-[1.1] tracking-tighter text-transparent md:text-5xl"
       >
-        Analytics made easy
+        Built for Developers Who Value Simplicity and Speed
       </motion.h1>
       <motion.p
         initial={{
@@ -67,8 +67,8 @@ const FeatureContent = () => {
         viewport={{ once: true }}
         className="mb-8 max-w-sm text-balance bg-gradient-to-br from-white/70 via-white/70 to-white/30 bg-clip-text text-center text-[0.8rem] text-transparent sm:max-w-[32rem] sm:text-[0.87rem] lg:text-[1rem]"
       >
-        Track page views and visitors with Statsio, a minimal analytics tool for
-        developers who prefer simplicity.
+        Statsio provides fast, flexible analytics with a minimal footprint
+        delivering clarity without clutter and only meaningful insights
       </motion.p>
     </>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaWandMagicSparkles } from "react-icons/fa6";
+import { RiStackLine } from "react-icons/ri";
 
 const FeatureIcon = () => {
   return (
@@ -9,7 +9,7 @@ const FeatureIcon = () => {
         style={{ transform: "rotateX(25deg)", transformOrigin: "center" }}
       >
         <div className="relative z-20 flex h-full w-full items-center justify-center overflow-hidden rounded-[5px] bg-black">
-          <FaWandMagicSparkles className="h-6 w-6 text-cyan-500" />
+          <RiStackLine className="h-6 w-6 text-cyan-500" />
         </div>
 
         <div className="absolute inset-x-0 bottom-0 z-30 mx-auto h-4 w-full rounded-full bg-neutral-600 opacity-50 blur-lg" />

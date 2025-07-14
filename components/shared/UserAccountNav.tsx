@@ -23,40 +23,44 @@ const UserAccountNav = ({ user }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <UserAvatar
-          className="w-9 h-9"
+          className="h-9 w-9"
           user={{
             name: user.name || null,
             image: user.image || null,
           }}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white dark:bg-black" align="end">
+      <DropdownMenuContent className="border-neutral-800 bg-black" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
-            {user.name && <p className="font-medium text-zinc-700 dark:text-zinc-300">{user.name}</p>}
+            {user.name && (
+              <p className="font-medium text-zinc-300">{user.name}</p>
+            )}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-zinc-300">
+              <p className="w-[200px] truncate text-sm text-zinc-300">
                 {user.email}
               </p>
             )}
           </div>
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-neutral-800" />
         <DropdownMenuItem asChild>
-          <Link href="/" className="text-zinc-700 dark:text-zinc-300">Home</Link>
+          <Link href="/" className="bg-neutral-950 text-zinc-300">
+            Home
+          </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-neutral-800" />
 
         <DropdownMenuItem
           onSelect={(event) => {
             event.preventDefault();
-            signOut()
+            signOut();
           }}
-          className="text-red-600 cursor-pointer"
+          className="cursor-pointer text-red-600"
         >
           Sign out
-          <LogOut className="w-4 h-4 ml-1 " />
+          <LogOut className="ml-1 h-4 w-4" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
