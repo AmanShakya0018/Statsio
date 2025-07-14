@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 import TrackingScriptInstructions from "@/components/globals/trackingscript";
-import Footer from "@/components/landingpage/footer2";
+import Footer from "@/components/landingpage/footer";
 import { BiLinkExternal } from "react-icons/bi";
 import Navbar from "@/components/landingpage/navbar-shrink";
 

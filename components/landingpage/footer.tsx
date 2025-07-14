@@ -23,7 +23,7 @@ const Footer = () => {
               <span className="text-lg font-medium text-white">Statsio</span>
             </Link>
           </div>
-          <p className="ml-3 text-sm text-zinc-400">
+          <p className="ml-3 text-sm text-neutral-400">
             © {new Date().getFullYear()} Statsio. All rights reserved.
           </p>
         </div>
@@ -66,11 +66,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4 hidden w-full items-center justify-center md:flex">
-        <h1 className="select-none bg-gradient-to-b from-neutral-700 to-neutral-900 bg-clip-text text-center text-3xl font-bold text-transparent md:text-5xl lg:text-[10rem]">
-          STATSIO
-        </h1>
-      </div>
       <p className="-mb-6 mt-12 w-full text-center text-sm text-neutral-300">
         Made with{" "}
         <CiHeart className="inline-block h-5 w-5 pb-0.5 align-middle text-neutral-300" />{" "}
@@ -79,7 +74,7 @@ const Footer = () => {
           href="https://amanshakya.in"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-zinc-500 hover:underline"
+          className="text-neutral-500 hover:underline"
         >
           this guy
         </a>

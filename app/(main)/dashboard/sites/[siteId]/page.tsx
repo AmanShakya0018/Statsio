@@ -2,7 +2,7 @@
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import SiteHeader from "@/components/globals/site-header";
 import useRequireAuth from "@/hooks/useRequireAuth";
-import Footer2 from "@/components/landingpage/footer2";
+import Footer from "@/components/landingpage/footer";
 import ToggleButtonGroup from "@/components/globals/togglebutton";
 import Trackingscript from "@/components/globals/trackingscript";
 import SiteAnalyticsGrid from "@/components/project/site-analytics-grid";
@@ -46,7 +46,7 @@ export default function SiteVisitsPage() {
           <SiteAnalyticsGrid siteId={resolvedSiteid} />
         )}
       </div>
-      <Footer2 />
+      <Footer />
     </div>
   );
 }

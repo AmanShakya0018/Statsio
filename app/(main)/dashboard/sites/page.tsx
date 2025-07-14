@@ -9,7 +9,7 @@ import { LoadingState } from "@/components/globals/loading-state";
 import { SiteCard } from "@/components/globals/site-card";
 import { useSession } from "next-auth/react";
 import useRequireAuth from "@/hooks/useRequireAuth";
-import Footer2 from "@/components/landingpage/footer2";
+import Footer from "@/components/landingpage/footer";
 import { BookOpen, Plus } from "lucide-react";
 import Navbar from "@/components/landingpage/navbar-shrink";
 
@@ -122,7 +122,7 @@ export default function SitesPage() {
           </div>
         )}
       </div>
-      <Footer2 />
+      <Footer />
     </div>
   );
 }
