@@ -125,7 +125,7 @@ function FAQ() {
     {
       question: "What kind of data does Statsio track?",
       answer:
-        "Statsio tracks page views, unique visitors, and device types (mobile or desktop). It's built to give you just the insights you actually need.",
+        "Statsio tracks page views, unique visitors, referrers, countries, operating systems, device types (mobile or desktop) and browsers. It’s built to give you just the insights you actually need.",
     },
     {
       question: "Is Statsio free to use?",

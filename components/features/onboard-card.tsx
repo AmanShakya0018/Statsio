@@ -38,7 +38,7 @@ const OnboardCard = ({
     <div
       className={cn(
         "relative",
-        "flex flex-col items-center justify-center gap-1 p-1",
+        "mt-4 flex flex-col items-center justify-center gap-1 p-1",
       )}
     >
       <div className="flex w-full max-w-[250px] scale-[0.9] flex-col justify-center gap-2 rounded-md border border-neutral-800 bg-gradient-to-br from-neutral-800 to-neutral-950 py-2 pl-3 pr-16 opacity-80">
@@ -64,7 +64,7 @@ const OnboardCard = ({
         >
           <motion.div
             key={animateKey}
-            className="h-full bg-green-500"
+            className="h-full bg-cyan-500"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: duration / 1000, ease: "easeInOut" }}
@@ -75,7 +75,7 @@ const OnboardCard = ({
         <div className="flex items-center justify-start text-xs text-white">
           <div className="relative">
             <svg width="20" height="20">
-              <circle cx="10" cy="10" r="5" fill="#22c55e" />
+              <circle cx="10" cy="10" r="5" fill="#06b6d4" />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center text-neutral-900">
               <IoMdCheckmark className="size-2" />
@@ -84,7 +84,7 @@ const OnboardCard = ({
           <div>{step1}</div>
         </div>
         <div
-          className={`ml-5 h-1.5 w-[100%] overflow-hidden rounded-full bg-green-500`}
+          className={`ml-5 h-1.5 w-[100%] overflow-hidden rounded-full bg-cyan-500`}
         ></div>
       </div>
       <div className="absolute top-0 h-[40%] w-full [background-image:linear-gradient(to_bottom,rgba(10,10,10,1)_20%,transparent_100%)]" />

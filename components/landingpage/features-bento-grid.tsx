@@ -6,7 +6,7 @@ import { Earth } from "lucide-react";
 import WorldMap from "./world-map";
 import FeatureTechstack from "./features-techstack";
 import FeaturesVisitorInsights from "./features-insights";
-import OnboardCard from "./onboard-card";
+import OnboardCard from "../features/onboard-card";
 
 export default function FeaturesBentoGrid() {
   return (
