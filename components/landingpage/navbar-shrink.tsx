@@ -9,7 +9,6 @@ import SignInButton from "../shared/SignInButoon";
 import UserAccountNav from "../shared/UserAccountNav";
 import { useSession } from "next-auth/react";
 import AnchorNav from "../shared/anchor-nav";
-import { Themetoggle } from "../shared/ThemeToggle";
 
 const Navbar = () => {
   const [menuState, setMenuState] = useState(false);
@@ -96,7 +95,6 @@ const Navbar = () => {
                   session?.user ? "w-[60%]" : "w-full",
                 )}
               >
-                <Themetoggle />
                 {session?.user ? (
                   <UserAccountNav user={session.user} />
                 ) : (

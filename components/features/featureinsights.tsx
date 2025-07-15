@@ -13,7 +13,7 @@ const FeatureInsights = () => {
   return (
     <div
       className={cn(
-        "relative",
+        "group relative",
         "flex flex-col justify-between",
         "h-[20rem] space-y-4",
         "rounded-md border border-neutral-800/50 bg-neutral-950",
@@ -27,7 +27,7 @@ const FeatureInsights = () => {
           "h-[14.7rem] w-full",
         )}
       >
-        <div className="absolute bottom-0 left-4 h-[8rem] w-[14rem] rotate-[-2deg] rounded-t-md bg-gradient-to-br from-neutral-800/40 to-neutral-800/70 px-4 py-3">
+        <div className="absolute bottom-0 left-4 h-[8rem] w-[14rem] rotate-[-2deg] rounded-t-md bg-gradient-to-br from-neutral-800/40 to-neutral-800/70 px-4 py-3 transition-all duration-300 group-hover:bottom-1">
           <div className="flex h-full w-full flex-col justify-between gap-2">
             <div className="flex flex-col items-start gap-1.5">
               <div className="flex items-center text-sm text-neutral-400">
@@ -35,7 +35,7 @@ const FeatureInsights = () => {
               </div>
               <div className="flex items-end gap-2">
                 <div className="flex items-center gap-1 text-[0.95rem] text-white">
-                  <p>9234</p>
+                  <p>6203</p>
                   <IoIosTrendingUp className="text-sm text-green-600" />
                 </div>
               </div>
@@ -46,14 +46,14 @@ const FeatureInsights = () => {
               </div>
               <div className="flex items-end gap-2">
                 <div className="flex items-center gap-1 text-[0.95rem] text-white">
-                  <p>1037</p>
+                  <p>721</p>
                   <IoIosTrendingUp className="text-sm text-green-600" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="absolute left-[31.6rem] top-[4.4rem] h-[12.5rem] w-[20.3rem] rotate-[2deg] rounded-t-md bg-gradient-to-br from-neutral-800/40 to-neutral-900/80">
+        <div className="absolute left-[31.6rem] top-[4.4rem] h-[12.5rem] w-[20.3rem] rotate-[2deg] rounded-t-md bg-gradient-to-br from-neutral-800/40 to-neutral-900/80 transition-all duration-300 group-hover:top-[3.4rem]">
           <div className="flex h-full w-full flex-col gap-2.5">
             <div className="flex w-full items-center px-3 pt-2 text-sm text-neutral-400">
               Countries
@@ -141,8 +141,8 @@ const FeatureInsights = () => {
       <div className="px-4 pb-4">
         <div className="text-sm font-semibold text-white">Visitor Insights</div>
         <div className="mt-2 text-xs text-neutral-400">
-          Get a clear breakdown of your traffic with real-time data on unique
-          visitors, device types, browsers, and operating systems.
+          Track where your visitors come from with real-time data on referrers,
+          countries, devices, browsers, and operating systems.
         </div>
       </div>
     </div>

@@ -115,6 +115,8 @@ const FrameworkCard = () => {
             <HTML5Icon className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
           </div>
         </div>
+
+        <div className="absolute bottom-0 left-0 h-3 w-full bg-gradient-to-t from-neutral-950 to-transparent" />
       </div>
       <style>
         {`    

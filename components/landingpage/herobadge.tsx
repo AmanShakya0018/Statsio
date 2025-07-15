@@ -1,7 +1,28 @@
+"use client";
+import { motion } from "motion/react";
+
 const HeroBadge = () => {
   return (
     <>
-      <div className="relative flex max-w-fit items-center justify-center gap-3 rounded-full border border-neutral-700/80 bg-black px-3 py-1.5">
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 8,
+          filter: "blur(10px)",
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+        }}
+        transition={{
+          duration: 0.3,
+          delay: 0.1,
+          ease: "easeInOut",
+        }}
+        viewport={{ once: true }}
+        className="relative flex max-w-fit items-center justify-center gap-3 rounded-full border border-neutral-700/80 bg-black px-3 py-1.5"
+      >
         <div className="absolute inset-x-0 bottom-full h-20 w-[165px]">
           <svg
             className="h-full w-full"
@@ -47,7 +68,7 @@ const HeroBadge = () => {
         <span className="bg-clip-text text-xs font-medium text-zinc-300">
           Blazingly fast analytics
         </span>
-      </div>
+      </motion.div>
       <style>
         {`    
 .multiline {
