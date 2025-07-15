@@ -1,10 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { RiNextjsFill } from "react-icons/ri";
-import { IoLogoReact } from "react-icons/io5";
-import { FaHtml5 } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import ReactIcon from "../icons/reacticon";
+import NextjsIcon from "../icons/nextjsicon";
+import HTML5Icon from "../icons/htmlicon";
 
 const FrameworkCard = () => {
   const [nextJsTransform, setNextJsTransform] = useState("none");
@@ -106,13 +106,13 @@ const FrameworkCard = () => {
           )}
         >
           <div className={cardClasses} style={{ transform: reactTransform }}>
-            <IoLogoReact className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
+            <ReactIcon className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
           </div>
           <div className={cardClasses} style={{ transform: nextJsTransform }}>
-            <RiNextjsFill className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
+            <NextjsIcon className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
           </div>
           <div className={cardClasses} style={{ transform: htmlTransform }}>
-            <FaHtml5 className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
+            <HTML5Icon className="size-6 text-neutral-100 [@media(min-width:500px)]:size-9" />
           </div>
         </div>
       </div>
