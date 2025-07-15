@@ -118,7 +118,7 @@ const FeatureVaultLock = () => {
         variants={vaultVariant}
         className={cn(
           "absolute inset-x-0 mx-auto",
-          "top-[80px] h-[8rem] w-[95%] max-w-[20rem] p-6",
+          "top-[80px] h-[8rem] w-[98%] max-w-[20rem] p-6",
           "border-t border-neutral-700/70 bg-gradient-to-b from-neutral-800 to-neutral-950 text-white shadow-lg",
         )}
         style={{
@@ -167,7 +167,7 @@ const FeatureVaultLock = () => {
         variants={inputVariant}
         className={cn(
           "absolute inset-x-0 mx-auto",
-          "top-[135px] flex w-[95%] max-w-[240px] items-center justify-between",
+          "top-[135px] flex w-full max-w-[230px] items-center justify-between lg:max-w-[240px]",
           "rounded-md border border-neutral-900 bg-neutral-800/90 p-2",
           "drop-shadow-[0_2px_5px_rgba(15,15,15,0.50)] transition-all duration-300",
           "group-hover:border-cyan-500 group-hover:[box-shadow:inset_0_0_5px_#06b6d4] group-hover:[filter:drop-shadow(0_0_2px_#06b6d4)]",
