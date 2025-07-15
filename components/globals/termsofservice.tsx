@@ -12,19 +12,19 @@ import Footer from "../landingpage/footer";
 
 const TermsOfServicePage = () => {
   return (
-    <>
+    <div className="bg-black">
       <Navbar />
       <div className="container mx-auto max-w-[88rem] p-6 pt-12">
         <PageHeader>
-          <PageHeaderHeading className="bg-black bg-clip-text py-2 pr-2 text-transparent dark:bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)]">
+          <PageHeaderHeading className="bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text py-2 pr-2 text-transparent">
             Terms of Service
           </PageHeaderHeading>
-          <PageHeaderDescription>
+          <PageHeaderDescription className="text-neutral-100">
             These terms govern your use of our website and outline the
             guidelines to ensure a safe and fair experience for all users.
           </PageHeaderDescription>
         </PageHeader>
-        <Card className="mt-6 border-zinc-300 bg-transparent p-4 dark:border-zinc-800">
+        <Card className="mt-6 border-zinc-800 bg-transparent p-4 text-neutral-200">
           <CardContent>
             <h2 className="mb-4 text-xl font-semibold">Introduction</h2>
             <p className="mb-4">
@@ -80,7 +80,7 @@ const TermsOfServicePage = () => {
         </Card>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

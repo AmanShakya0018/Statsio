@@ -115,7 +115,23 @@ const HeroSection = () => {
           </div>
           <div className="mx-auto mt-4 block max-w-7xl overflow-hidden lg:hidden">
             <div className="-mr-16 pl-2">
-              <div className="relative skew-x-[.10rad] p-6">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  filter: "blur(10px)",
+                }}
+                whileInView={{
+                  opacity: 1,
+                  filter: "blur(0px)",
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.1,
+                  ease: "easeInOut",
+                }}
+                viewport={{ once: true }}
+                className="relative skew-x-[.10rad] p-6"
+              >
                 <Image
                   className="rounded-xl shadow-lg shadow-black"
                   src="/forge-analytics.png"
@@ -125,7 +141,7 @@ const HeroSection = () => {
                   priority
                   quality={100}
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
