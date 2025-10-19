@@ -15,17 +15,18 @@ import { ArrowUp, Clock } from "lucide-react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const chartData = [
-  { date: "Jul 7", count: 76 },
-  { date: "Jul 8", count: 155 },
-  { date: "Jul 9", count: 136 },
-  { date: "Jul 10", count: 89 },
-  { date: "Jul 11", count: 90 },
-  { date: "Jul 12", count: 48 },
-  { date: "Jul 13", count: 127 },
+  { date: "Sep 9", count: 80 },
+  { date: "Sep 10", count: 110 },
+  { date: "Sep 11", count: 255 },
+  { date: "Sep 12", count: 1011 },
+  { date: "Sep 13", count: 765 },
+  { date: "Sep 14", count: 620 },
+  { date: "Sep 15", count: 330 },
+  { date: "Sep 16", count: 300 },
 ];
 
 export default function StaticAnalyticsChart() {
-  const july8DataPoint = chartData.find((d) => d.date === "Jul 8");
+  const sept12DataPoint = chartData.find((d) => d.date === "Sep 12");
 
   return (
     <div className="pointer-events-none w-full overflow-hidden rounded-xl border border-neutral-800 bg-black">
@@ -39,7 +40,7 @@ export default function StaticAnalyticsChart() {
                     Page Views
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-white">6203</p>
+                    <p className="text-4xl font-semibold text-white">24,932</p>
                     <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
@@ -55,7 +56,7 @@ export default function StaticAnalyticsChart() {
                     Visitors
                   </p>
                   <div className="mt-1 flex items-center space-x-4">
-                    <p className="text-4xl font-semibold text-white">721</p>
+                    <p className="text-4xl font-semibold text-white">3471</p>
                     <span className="flex items-center rounded bg-green-950 px-2 py-1 text-green-500">
                       <ArrowUp className="h-4 w-4" />
                     </span>
@@ -131,12 +132,12 @@ export default function StaticAnalyticsChart() {
                 }}
                 isAnimationActive={false}
               />
-              {july8DataPoint && (
+              {sept12DataPoint && (
                 <>
-                  <ReferenceLine x={july8DataPoint.date} stroke="#a3a3a3" />
+                  <ReferenceLine x={sept12DataPoint.date} stroke="#a3a3a3" />
                   <ReferenceDot
-                    x={july8DataPoint.date}
-                    y={july8DataPoint.count}
+                    x={sept12DataPoint.date}
+                    y={sept12DataPoint.count}
                     r={6}
                     fill="#5b98ff"
                     stroke="#fff"
@@ -146,13 +147,13 @@ export default function StaticAnalyticsChart() {
               )}
             </LineChart>
           </ResponsiveContainer>
-          <div className="absolute left-[17rem] top-24 rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
+          <div className="absolute left-[36rem] top-24 rounded-md border border-neutral-800 bg-neutral-950 p-3 shadow-md">
             <div className="flex items-center gap-2 font-medium text-zinc-500">
               <span className="h-2 w-2 rounded-full bg-[#5b98ff]"></span>
               <p className="text-sm capitalize text-zinc-200">Visitors</p>
-              <p className="text-white">155</p>
+              <p className="text-white">1011</p>
             </div>
-            <p className="mt-1 text-sm text-zinc-400">Jul 8</p>
+            <p className="mt-1 text-sm text-zinc-400">Sep 12</p>
           </div>
         </div>
       </div>

@@ -2,8 +2,8 @@
 import React from "react";
 
 const pages = [
-  { pathname: "Direct", count: 3553 },
-  { pathname: "https://peerlist.io/", count: 3116 },
+  { pathname: "Direct", count: 16212 },
+  { pathname: "google.com", count: 12464 },
 ];
 
 const maxCount = Math.max(...pages.map((p) => p.count));
