@@ -6,7 +6,7 @@ import { CiHeart } from "react-icons/ci";
 
 const Footer = () => {
   return (
-    <div className="block border-t border-white/[0.1] px-8 py-12">
+    <div className="block border-t border-white/[0.1] px-3 py-12 sm:px-8">
       <div className="mx-auto flex max-w-[80rem] flex-col items-start justify-between px-4 text-sm text-neutral-400 sm:flex-row">
         <div>
           <div className="mb-2 flex">
