@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { AddSiteModal } from "@/components/globals/site-modal";
 import { EmptyState } from "@/components/globals/empty-state";
 import { LoadingState } from "@/components/globals/loading-state";
@@ -12,6 +11,7 @@ import useRequireAuth from "@/hooks/useRequireAuth";
 import Footer from "@/components/landingpage/footer";
 import { BookOpen, Plus } from "lucide-react";
 import Navbar from "@/components/landingpage/navbar-shrink";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Site {
   id: string;
@@ -19,46 +19,35 @@ interface Site {
   domain: string;
 }
 
+const getSites = async (): Promise<Site[]> => {
+  const res = await axios.get("/api/sites");
+  return res.data;
+};
+
 export default function SitesPage() {
   useRequireAuth();
   const { data: session, status } = useSession();
-  const [isLoading, setIsLoading] = useState(true);
-  const [sites, setSites] = useState<Site[]>([]);
 
-  useEffect(() => {
-    const fetchSites = async () => {
-      if (status !== "authenticated") return;
-      try {
-        const res = await axios.get("/api/sites");
-        setSites(res.data);
-      } catch (error) {
-        console.error("Error fetching sites:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const queryClient = useQueryClient();
 
-    fetchSites();
-  }, [status]);
+  const {
+    data: sites = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["sites"],
+    queryFn: getSites,
+    enabled: status === "authenticated",
+  });
 
-  const handleSiteAdded = (newSite: Site) => {
-    setSites((prev) => [newSite, ...prev]);
+  const refreshData = () => {
+    queryClient.invalidateQueries({ queryKey: ["sites"] });
   };
 
-  const handleSiteDeleted = (deletedSiteId: string) => {
-    setSites((prev) => prev.filter((site) => site.id !== deletedSiteId));
-  };
+  const handleSiteAdded = () => refreshData();
+  const handleSiteDeleted = () => refreshData();
+  const handleSiteEdited = () => refreshData();
 
-  const handleSiteEdited = (
-    editedSiteId: string,
-    updatedData: { name: string; domain: string },
-  ) => {
-    setSites((prev) =>
-      prev.map((site) =>
-        site.id === editedSiteId ? { ...site, ...updatedData } : site,
-      ),
-    );
-  };
   if (status !== "authenticated") return null;
 
   return (
@@ -91,6 +80,10 @@ export default function SitesPage() {
 
         {isLoading ? (
           <LoadingState />
+        ) : isError ? (
+          <div className="flex min-h-[400px] items-center justify-center rounded-lg border border-dashed border-red-900/50 bg-red-900/10 p-8 text-red-400">
+            <p>Failed to load sites. Please try refreshing the page.</p>
+          </div>
         ) : sites.length === 0 ? (
           <EmptyState onSiteAdded={handleSiteAdded} />
         ) : (

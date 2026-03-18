@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -24,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface SiteCardProps {
   site: {
@@ -31,15 +33,16 @@ interface SiteCardProps {
     name: string;
     domain: string;
   };
-  onDelete: (id: string) => void;
-  onEdit: (id: string, updatedData: { name: string; domain: string }) => void;
+  onDelete?: (id: string) => void;
+  onEdit?: (id: string, updatedData: { name: string; domain: string }) => void;
 }
 
 export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
   const [openDelete, setOpenDelete] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [faviconError, setFaviconError] = useState(false);
+  const queryClient = useQueryClient();
+
   const form = useForm<SiteFormData>({
     resolver: zodResolver(siteSchema),
     defaultValues: {
@@ -50,39 +53,39 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
 
   const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${site.domain}`;
 
-  const handleDelete = async (id: string) => {
-    try {
-      const response = await axios.delete(
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/api/project/delete/${id}`,
       );
-      if (response.status === 200) {
-        onDelete(id);
-        console.log("post deleted");
-      }
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    } finally {
-      setIsDelete(false);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sites"] });
+      if (onDelete) onDelete(site.id);
       setOpenDelete(false);
-    }
-  };
+    },
+    onError: (error) => {
+      console.error("Error deleting project:", error);
+    },
+  });
 
-  const handleEdit = async (values: SiteFormData) => {
-    try {
+  const editMutation = useMutation({
+    mutationFn: async (values: SiteFormData) => {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/api/project/update/${site.id}`,
         values,
       );
-      if (response.status === 200) {
-        onEdit(site.id, values);
-      }
-    } catch (error) {
-      console.error("Error updating project:", error);
-    } finally {
-      setIsEdit(false);
+      return response.data;
+    },
+    onSuccess: (data, values) => {
+      queryClient.invalidateQueries({ queryKey: ["sites"] });
+      if (onEdit) onEdit(site.id, values);
       setOpenEdit(false);
-    }
-  };
+    },
+    onError: (error) => {
+      console.error("Error updating project:", error);
+    },
+  });
 
   return (
     <div className="flex h-full w-full cursor-pointer items-start gap-2 rounded-md border border-zinc-800 bg-black p-3 transition hover:bg-neutral-900">
@@ -92,19 +95,18 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
       >
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
-            <>
-              {favicon ? (
-                <Image
-                  width={24}
-                  height={24}
-                  src={favicon}
-                  alt={`${site.name} favicon`}
-                  className="h-6 w-6 rounded-sm"
-                />
-              ) : (
-                <MdOutlineWifiTetheringError className="h-7 w-7 text-neutral-400" />
-              )}
-            </>
+            {!faviconError ? (
+              <Image
+                width={24}
+                height={24}
+                src={favicon}
+                alt={`${site.name} favicon`}
+                className="h-6 w-6 rounded-sm"
+                onError={() => setFaviconError(true)}
+              />
+            ) : (
+              <MdOutlineWifiTetheringError className="h-6 w-6 text-neutral-400" />
+            )}
             <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl text-white">
               {site.name}
             </h2>
@@ -128,13 +130,12 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
         </button>
         <button
           className="rounded-full bg-transparent p-2 text-red-400 transition hover:bg-neutral-800"
-          onClick={() => {
-            setOpenDelete(true);
-          }}
+          onClick={() => setOpenDelete(true)}
         >
           <Trash size={16} />
         </button>
       </div>
+
       <Dialog open={openEdit} onOpenChange={setOpenEdit}>
         <DialogContent className="border-neutral-800 bg-black text-neutral-400 sm:max-w-md">
           <DialogHeader>
@@ -146,10 +147,9 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
 
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((values) => {
-                setIsEdit(true);
-                handleEdit(values);
-              })}
+              onSubmit={form.handleSubmit((values) =>
+                editMutation.mutate(values),
+              )}
               className="space-y-4 py-2"
             >
               <FormField
@@ -159,7 +159,11 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="My Project" {...field} />
+                      <Input
+                        placeholder="My Project"
+                        disabled={editMutation.isPending}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -173,7 +177,11 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
                   <FormItem>
                     <FormLabel>Domain</FormLabel>
                     <FormControl>
-                      <Input placeholder="example.com" {...field} />
+                      <Input
+                        placeholder="example.com"
+                        disabled={editMutation.isPending}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -182,11 +190,11 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
 
               <div className="flex">
                 <button
-                  className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
+                  className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800 disabled:opacity-50"
                   type="submit"
-                  disabled={isEdit}
+                  disabled={editMutation.isPending}
                 >
-                  {isEdit ? <p>Updating...</p> : <p>Update</p>}
+                  {editMutation.isPending ? "Updating..." : "Update"}
                 </button>
               </div>
             </form>
@@ -205,14 +213,11 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
           </DialogHeader>
           <div className="flex">
             <button
-              className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
-              onClick={() => {
-                setIsDelete(true);
-                handleDelete(site.id);
-              }}
-              disabled={isDelete}
+              className="ml-auto flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800 disabled:opacity-50"
+              onClick={() => deleteMutation.mutate(site.id)}
+              disabled={deleteMutation.isPending}
             >
-              {isDelete ? <p>Deleting...</p> : <p>Delete</p>}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </button>
           </div>
         </DialogContent>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +40,7 @@ interface AddSiteModalProps {
 export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const form = useForm<SiteFormData>({
     resolver: zodResolver(siteSchema),
@@ -48,28 +50,36 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
     },
   });
 
-  const onSubmit = async (values: SiteFormData) => {
-    try {
+  const { mutate: addSite, isPending } = useMutation({
+    mutationFn: async (values: SiteFormData) => {
       const res = await axios.post("/api/sites", values);
-      const newSite = res.data;
+      return res.data;
+    },
+    onSuccess: (newSite) => {
       toast({
         title: "Site added successfully",
-        description: `${values.name} (${values.domain}) has been added to your account.`,
+        description: `${newSite.name} has been added to your account.`,
       });
+
+      queryClient.invalidateQueries({ queryKey: ["sites"] });
 
       if (onSiteAdded) onSiteAdded(newSite);
 
       form.reset();
-    } catch (error) {
+      setOpen(false);
+    },
+    onError: (error) => {
       console.error("Error adding site:", error);
       toast({
         title: "Error",
         description: "There was a problem adding the site.",
         variant: "destructive",
       });
-    } finally {
-      setOpen(false);
-    }
+    },
+  });
+
+  const onSubmit = (values: SiteFormData) => {
+    addSite(values);
   };
 
   return (
@@ -94,7 +104,11 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
                 <FormItem>
                   <FormLabel>Site Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="My Awesome Website" {...field} />
+                    <Input
+                      placeholder="My Awesome Website"
+                      disabled={isPending}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,7 +121,11 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
                 <FormItem>
                   <FormLabel>Domain</FormLabel>
                   <FormControl>
-                    <Input placeholder="example.com" {...field} />
+                    <Input
+                      placeholder="example.com"
+                      disabled={isPending}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -115,10 +133,11 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
             />
             <DialogFooter className="mt-6 px-0 pt-2">
               <button
-                className="flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800"
+                className="flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50"
                 type="submit"
+                disabled={isPending}
               >
-                Add Site
+                {isPending ? "Adding..." : "Add Site"}
               </button>
             </DialogFooter>
           </form>
