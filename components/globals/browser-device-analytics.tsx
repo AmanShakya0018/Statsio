@@ -61,121 +61,115 @@ export default function BrowsersAndDevicesAnalytics({
 
   return (
     <section>
-      <div className="overflow-hidden rounded-lg border border-neutral-800 bg-black shadow">
-        <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-5">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setActiveTab("browsers")}
-              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "browsers" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
-            >
-              Browsers
-            </button>
-            <button
-              onClick={() => setActiveTab("devices")}
-              className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "devices" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
-            >
-              Devices
-            </button>
-          </div>
-          <span className="text-xs font-semibold text-neutral-400">
-            PAGE VIEWS
-          </span>
-        </div>
-        {isLoading ? (
-          <div className="flex min-h-[13.35rem] flex-col items-center justify-center">
-            <TextShimmer className="text-sm" duration={1}>
-              Loading...
-            </TextShimmer>
-          </div>
-        ) : currentData.length === 0 ? (
-          <div className="flex min-h-[13.35rem] flex-col items-center justify-center">
-            <div className="mb-2">
-              <GoGraph className="h-5 w-5 text-neutral-500" />
+      <div className="relative flex h-[285px] flex-col justify-between overflow-hidden rounded-lg border border-neutral-800 bg-black">
+        <div>
+          <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-5">
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setActiveTab("browsers")}
+                className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "browsers" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
+              >
+                Browsers
+              </button>
+              <button
+                onClick={() => setActiveTab("devices")}
+                className={`rounded-md px-4 py-1 text-sm font-semibold ${activeTab === "devices" ? "bg-neutral-900 text-white" : "text-neutral-400"}`}
+              >
+                Devices
+              </button>
             </div>
-            <p className="text-sm text-neutral-500">
-              No data found for selected period.
-            </p>
+            <span className="text-xs font-semibold text-neutral-400">
+              PAGE VIEWS
+            </span>
           </div>
-        ) : (
-          <div className="relative">
-            <ul>
-              {currentData.slice(0, 4).map((item) => (
-                <li
-                  key={
-                    activeTab === "browsers"
-                      ? (item as Browser).browser
-                      : (item as Device).device
-                  }
-                  className="relative mx-2 my-2 flex h-8 items-center"
-                >
-                  <div
-                    className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
-                    style={{ width: `${(item.count / maxCount) * 100}%` }}
-                  />
-                  <div className="relative z-10 flex w-full items-center justify-between px-4">
-                    <div className="truncate text-sm text-white">
-                      {activeTab === "browsers"
-                        ? (item as Browser).browser
-                        : (item as Device).device}
-                    </div>
-                    <div className="text-sm text-white">
-                      <span className="font-semibold">
-                        {((item.count / totalCount) * 100).toFixed(0)}
-                      </span>
-                      <span className="font-normal">%</span>
-                    </div>
-                  </div>
-                </li>
-              ))}
-              {Array.from({ length: 4 - currentData.slice(0, 4).length }).map(
-                (_, idx) => (
+          {isLoading ? (
+            <div className="flex min-h-[13.35rem] flex-col items-center justify-center">
+              <TextShimmer className="text-sm" duration={1}>
+                Loading...
+              </TextShimmer>
+            </div>
+          ) : currentData.length === 0 ? (
+            <div className="flex min-h-[13.35rem] flex-col items-center justify-center">
+              <div className="mb-2">
+                <GoGraph className="h-5 w-5 text-neutral-500" />
+              </div>
+              <p className="text-sm text-neutral-500">
+                No data found for selected period.
+              </p>
+            </div>
+          ) : (
+            <div className="relative">
+              <ul>
+                {currentData.slice(0, 4).map((item) => (
                   <li
-                    key={`empty-${idx}`}
-                    className="pointer-events-none relative mx-2 my-2 flex h-8 items-center opacity-0"
+                    key={
+                      activeTab === "browsers"
+                        ? (item as Browser).browser
+                        : (item as Device).device
+                    }
+                    className="relative mx-2 my-2 flex h-8 items-center"
                   >
-                    <div className="h-full w-full" />
+                    <div
+                      className="absolute left-0 top-0 h-full rounded-md bg-neutral-900"
+                      style={{ width: `${(item.count / maxCount) * 100}%` }}
+                    />
+                    <div className="relative z-10 flex w-full items-center justify-between px-4">
+                      <div className="truncate text-sm text-white">
+                        {activeTab === "browsers"
+                          ? (item as Browser).browser
+                          : (item as Device).device}
+                      </div>
+                      <div className="text-sm text-white">
+                        <span className="font-semibold">
+                          {((item.count / totalCount) * 100).toFixed(0)}
+                        </span>
+                        <span className="font-normal">%</span>
+                      </div>
+                    </div>
                   </li>
-                ),
-              )}
-              <>
-                <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 rounded-b-lg bg-gradient-to-t from-black to-transparent" />
-                <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-neutral-400">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="flex items-center space-x-2 rounded-2xl border border-neutral-800 px-2 py-1 text-xs text-white"
-                  >
-                    <p>View All</p>
-                    <Maximize2 className="h-3 w-3" />
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        {currentData.length !== 0 && (
+          <>
+            <div className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 h-8 bg-gradient-to-t from-black to-transparent" />
+            <div className="flex w-full flex-row items-center justify-center gap-2 px-4 pb-3 pt-2 text-sm text-neutral-400">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center space-x-2 rounded-2xl border border-neutral-800 px-2 py-1 text-xs text-white"
+              >
+                <p>View All</p>
+                <Maximize2 className="h-3 w-3" />
+              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="items-center space-x-2 rounded-2xl border border-neutral-800 px-1 text-white">
+                    <PiDotsThreeBold className="h-6 w-6" />
                   </button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="items-center space-x-2 rounded-2xl border border-neutral-800 px-1 text-white">
-                        <PiDotsThreeBold className="h-6 w-6" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="border border-neutral-800 bg-black text-white"
-                      align="end"
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="border border-neutral-800 bg-black text-white"
+                  align="end"
+                >
+                  <DropdownMenuItem asChild>
+                    <button
+                      onClick={() =>
+                        exportToCSV(
+                          activeTab === "browsers" ? browsers : devices,
+                          `${activeTab}-analytics`,
+                        )
+                      }
+                      className="w-full"
                     >
-                      <DropdownMenuItem asChild>
-                        <button
-                          onClick={() =>
-                            exportToCSV(
-                              activeTab === "browsers" ? browsers : devices,
-                              `${activeTab}-analytics`,
-                            )
-                          }
-                          className="w-full"
-                        >
-                          <FiDownload /> Export CSV
-                        </button>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </>
-            </ul>
-          </div>
+                      <FiDownload /> Export CSV
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </>
         )}
       </div>
 

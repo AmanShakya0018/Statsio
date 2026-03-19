@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SiteFormData } from "./validation/site";
 
-// ============= Types =============
 export interface Site {
   id: string;
   name: string;
@@ -50,7 +49,6 @@ export interface Os {
   count: number;
 }
 
-// ============= Sites API =============
 export const fetchSites = async (): Promise<Site[]> => {
   const res = await axios.get("/api/sites");
   return res.data;
@@ -83,7 +81,6 @@ export const deleteSite = async (siteId: string): Promise<void> => {
   );
 };
 
-// ============= Analytics API =============
 export const fetchPageViews = async (siteId: string): Promise<PageView[]> => {
   const res = await axios.get(`/api/sites/${siteId}/analytics/timeseries`);
   return res.data;
