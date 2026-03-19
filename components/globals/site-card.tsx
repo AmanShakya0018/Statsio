@@ -33,11 +33,9 @@ interface SiteCardProps {
     name: string;
     domain: string;
   };
-  onDelete?: (id: string) => void;
-  onEdit?: (id: string, updatedData: { name: string; domain: string }) => void;
 }
 
-export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
+export function SiteCard({ site }: SiteCardProps) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [faviconError, setFaviconError] = useState(false);
@@ -61,7 +59,6 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sites"] });
-      if (onDelete) onDelete(site.id);
       setOpenDelete(false);
     },
     onError: (error) => {
@@ -77,9 +74,8 @@ export function SiteCard({ site, onDelete, onEdit }: SiteCardProps) {
       );
       return response.data;
     },
-    onSuccess: (data, values) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sites"] });
-      if (onEdit) onEdit(site.id, values);
       setOpenEdit(false);
     },
     onError: (error) => {

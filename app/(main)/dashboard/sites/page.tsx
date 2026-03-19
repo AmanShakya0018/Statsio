@@ -11,7 +11,7 @@ import useRequireAuth from "@/hooks/useRequireAuth";
 import Footer from "@/components/landingpage/footer";
 import { BookOpen, Plus } from "lucide-react";
 import Navbar from "@/components/landingpage/navbar-shrink";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface Site {
   id: string;
@@ -28,8 +28,6 @@ export default function SitesPage() {
   useRequireAuth();
   const { data: session, status } = useSession();
 
-  const queryClient = useQueryClient();
-
   const {
     data: sites = [],
     isLoading,
@@ -39,14 +37,6 @@ export default function SitesPage() {
     queryFn: getSites,
     enabled: status === "authenticated",
   });
-
-  const refreshData = () => {
-    queryClient.invalidateQueries({ queryKey: ["sites"] });
-  };
-
-  const handleSiteAdded = () => refreshData();
-  const handleSiteDeleted = () => refreshData();
-  const handleSiteEdited = () => refreshData();
 
   if (status !== "authenticated") return null;
 
@@ -73,7 +63,6 @@ export default function SitesPage() {
                   Add New Site
                 </button>
               }
-              onSiteAdded={handleSiteAdded}
             />
           )}
         </div>
@@ -85,17 +74,12 @@ export default function SitesPage() {
             <p>Failed to load sites. Please try refreshing the page.</p>
           </div>
         ) : sites.length === 0 ? (
-          <EmptyState onSiteAdded={handleSiteAdded} />
+          <EmptyState />
         ) : (
           <div className="flex min-h-[400px] flex-col justify-between space-y-8 rounded-lg border border-dashed border-neutral-800">
             <div className="grid gap-3 p-3 sm:grid-cols-1 md:grid-cols-2 md:p-6">
               {sites.map((site) => (
-                <SiteCard
-                  key={site.id}
-                  site={site}
-                  onDelete={handleSiteDeleted}
-                  onEdit={handleSiteEdited}
-                />
+                <SiteCard key={site.id} site={site} />
               ))}
             </div>
 
