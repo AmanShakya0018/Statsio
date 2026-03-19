@@ -29,7 +29,7 @@ const TrackingScriptInstructions = ({ siteId }: TrackingScriptProps) => {
   <head>
     <!-- Other meta tags -->
 
-    <!-- ✅ Paste this inside the <head> -->
+    <!-- Paste this inside the <head> -->
     <script
       defer
       data-site="${siteId}"

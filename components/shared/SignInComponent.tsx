@@ -1,45 +1,48 @@
-"use client"
-import Image from "next/image"
-import { signIn } from "next-auth/react"
-import Link from "next/link"
-import { BarChart3, Globe, Download, Loader2 } from "lucide-react"
-import { useState } from "react"
+"use client";
+import Image from "next/image";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useState } from "react";
+import { FaChartGantt } from "react-icons/fa6";
+import { IoIosAnalytics } from "react-icons/io";
+import { BiSolidFileExport } from "react-icons/bi";
+import { Loader } from "../ui/loader";
 
 export default function SignInPage() {
-  const [signinLoading, setSigninLoading] = useState(false)
-  const [createAccount, setCreateAccount] = useState(false)
+  const [signinLoading, setSigninLoading] = useState(false);
+  const [createAccount, setCreateAccount] = useState(false);
 
   const handleSignIn = async () => {
-    setSigninLoading(true)
+    setSigninLoading(true);
     try {
-      await signIn("google", { callbackUrl: "/dashboard/sites" })
+      await signIn("google", { callbackUrl: "/dashboard/sites" });
     } catch (error) {
-      console.error("Failed to sign in:", error)
-      setSigninLoading(false)
+      console.error("Failed to sign in:", error);
+      setSigninLoading(false);
     }
-  }
+  };
 
   const handleCreateAccount = async () => {
-    setCreateAccount(true)
+    setCreateAccount(true);
     try {
-      await signIn("google", { callbackUrl: "/dashboard/sites" })
+      await signIn("google", { callbackUrl: "/dashboard/sites" });
     } catch (error) {
-      console.error("Failed to sign in:", error)
-      setCreateAccount(false)
+      console.error("Failed to sign in:", error);
+      setCreateAccount(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-black">
       <div className="flex min-h-screen">
-        <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black items-center justify-center p-8 relative overflow-hidden">
+        <div className="relative hidden items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-black p-8 md:flex md:w-1/2">
           <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-20 left-20 w-32 h-32 border border-white/10 rounded-full"></div>
-            <div className="absolute bottom-32 right-16 w-24 h-24 border border-white/10 rounded-full"></div>
-            <div className="absolute top-1/2 right-32 w-16 h-16 border border-white/10 rounded-full"></div>
+            <div className="absolute left-20 top-20 h-32 w-32 rounded-full border border-white/10"></div>
+            <div className="absolute bottom-32 right-16 h-24 w-24 rounded-full border border-white/10"></div>
+            <div className="absolute right-32 top-1/2 h-16 w-16 rounded-full border border-white/10"></div>
           </div>
 
-          <div className="space-y-8 relative z-10">
+          <div className="relative z-10 space-y-8">
             <div className="space-y-4">
               <h1 className="text-5xl font-bold leading-tight">
                 <span className="bg-gradient-to-r from-white via-neutral-300 to-white bg-clip-text text-transparent">
@@ -49,68 +52,89 @@ export default function SignInPage() {
                   Optimize
                 </span>
               </h1>
-              <p className="text-lg text-neutral-400 max-w-md">
-                Get powerful insights into your website performance with real-time analytics
+              <p className="max-w-md text-lg text-neutral-400">
+                Get powerful insights into your website performance with
+                real-time analytics
               </p>
             </div>
 
             <div className="space-y-6">
-              <div className="flex items-center space-x-4 text-white group">
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg group-hover:bg-white/10 transition-colors">
-                  <BarChart3 className="h-6 w-6" />
+              <div className="group flex items-center space-x-4 text-white">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 transition-colors group-hover:bg-white/10">
+                  <FaChartGantt className="h-6 w-6" />
                 </div>
                 <div>
-                  <span className="text-lg font-medium block text-white">Real-time Analytics</span>
-                  <span className="text-neutral-400 text-sm">Monitor your website traffic instantly</span>
+                  <span className="block text-lg font-medium text-white">
+                    Real-time Analytics
+                  </span>
+                  <span className="text-sm text-neutral-400">
+                    Monitor your website traffic instantly
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4 text-white group">
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg group-hover:bg-white/10 transition-colors">
-                  <Globe className="h-6 w-6" />
+              <div className="group flex items-center space-x-4 text-white">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 transition-colors group-hover:bg-white/10">
+                  <IoIosAnalytics className="h-6 w-6" />
                 </div>
                 <div>
-                  <span className="text-lg font-medium block text-white">Detailed Analytics</span>
-                  <span className="text-neutral-400 text-sm">Track country, device, OS, and browser data</span>
+                  <span className="block text-lg font-medium text-white">
+                    Detailed Analytics
+                  </span>
+                  <span className="text-sm text-neutral-400">
+                    Track country, device, OS, and browser data
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4 text-white group">
-                <div className="p-3 bg-white/5 border border-white/10 rounded-lg group-hover:bg-white/10 transition-colors">
-                  <Download className="h-6 w-6" />
+              <div className="group flex items-center space-x-4 text-white">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 transition-colors group-hover:bg-white/10">
+                  <BiSolidFileExport className="h-6 w-6" />
                 </div>
                 <div>
-                  <span className="text-lg font-medium block text-white">Export Data</span>
-                  <span className="text-neutral-400 text-sm">Download your analytics as CSV files</span>
+                  <span className="block text-lg font-medium text-white">
+                    Export Data
+                  </span>
+                  <span className="text-sm text-neutral-400">
+                    Download your analytics as CSV files
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 flex items-center justify-center p-8 bg-black">
+        <div className="flex w-full items-center justify-center bg-black p-8 md:w-1/2">
           <div className="w-full max-w-md space-y-8">
             <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <Image src="/logo.png" width={500} height={500} alt="logo" className="h-12 w-12" />
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="/logo.png"
+                  width={500}
+                  height={500}
+                  alt="logo"
+                  className="h-12 w-12"
+                />
               </div>
-              <h2 className="text-4xl font-bold tracking-tight bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-transparent">
+              <h2 className="bg-[radial-gradient(61.17%_178.53%_at_38.83%_-13.54%,#3B3B3B_0%,#888787_12.61%,#FFFFFF_50%,#888787_80%,#3B3B3B_100%)] bg-clip-text text-4xl font-bold tracking-tight text-transparent">
                 Welcome to Statsio
               </h2>
-              <p className="mt-3 text-sm text-neutral-400">Start tracking your website analytics today</p>
+              <p className="mt-3 text-sm text-neutral-400">
+                Start tracking your website analytics today
+              </p>
             </div>
 
             <div className="space-y-4">
               <button
-                className="relative inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-neutral-800 to-neutral-900 text-white border border-neutral-700 shadow-lg hover:shadow-xl hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-800 h-12 rounded-xl px-8 w-full overflow-hidden group"
+                className="group relative inline-flex h-12 w-full items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-xl border border-neutral-700 bg-gradient-to-r from-neutral-800 to-neutral-900 px-8 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:from-neutral-700 hover:to-neutral-800 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50"
                 onClick={handleCreateAccount}
                 disabled={createAccount}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-neutral-700 to-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-neutral-700 to-neutral-800 opacity-0 transition-opacity group-hover:opacity-100"></div>
                 <div className="relative z-10 flex items-center gap-2">
                   {createAccount ? (
                     <>
-                      <Loader2 className="animate-spin w-4 h-4" />
+                      <Loader />
                       Creating Account...
                     </>
                   ) : (
@@ -124,23 +148,25 @@ export default function SignInPage() {
                   <span className="w-full border-t border-neutral-800"></span>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-black px-4 text-neutral-500 font-medium">Or continue with</span>
+                  <span className="bg-black px-4 font-medium text-neutral-500">
+                    Or continue with
+                  </span>
                 </div>
               </div>
 
               <button
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50 text-white border-2 border-neutral-800 bg-neutral-900/50 shadow-sm hover:bg-neutral-800/50 hover:border-neutral-700 hover:shadow-md h-12 rounded-xl px-8 w-full"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl border-2 border-neutral-800 bg-neutral-900/50 px-8 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:border-neutral-700 hover:bg-neutral-800/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:pointer-events-none disabled:opacity-50"
                 onClick={handleSignIn}
                 disabled={signinLoading}
               >
                 {signinLoading ? (
                   <>
-                    <Loader2 className="animate-spin w-4 h-4" />
+                    <Loader />
                     Signing in...
                   </>
                 ) : (
                   <>
-                    <svg className="w-4 h-4" viewBox="0 0 24 24">
+                    <svg className="h-4 w-4" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
                         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -164,13 +190,19 @@ export default function SignInPage() {
               </button>
             </div>
 
-            <p className="text-sm text-neutral-500 text-center leading-relaxed">
+            <p className="text-center text-sm leading-relaxed text-neutral-500">
               By signing up, you agree to our{" "}
-              <Link className="underline hover:text-neutral-300 transition-colors" href="/termsofservice">
+              <Link
+                className="underline transition-colors hover:text-neutral-300"
+                href="/termsofservice"
+              >
                 Terms of Service
               </Link>{" "}
               and{" "}
-              <Link className="underline hover:text-neutral-300 transition-colors" href="/privacypolicy">
+              <Link
+                className="underline transition-colors hover:text-neutral-300"
+                href="/privacypolicy"
+              >
                 Privacy Policy
               </Link>
             </p>
@@ -178,5 +210,5 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

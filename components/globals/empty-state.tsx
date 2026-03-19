@@ -1,7 +1,7 @@
 import { BarChart2, BookOpen, Plus } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { AddSiteModal } from "./site-modal";
+import { cn } from "@/lib/utils";
 
 export function EmptyState() {
   return (
@@ -17,10 +17,15 @@ export function EmptyState() {
         </p>
         <AddSiteModal
           trigger={
-            <Button variant="outline" size="sm" className="mt-2">
+            <button
+              className={cn(
+                "group mt-4 flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+              )}
+            >
               <Plus size={16} />
               Add New Site
-            </Button>
+            </button>
           }
         />
       </div>
@@ -30,10 +35,15 @@ export function EmptyState() {
         </p>
         <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
           <Link href="/docs" target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm">
+            <button
+              className={cn(
+                "group flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+              )}
+            >
               <BookOpen className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
               View documentation
-            </Button>
+            </button>
           </Link>
         </div>
       </div>

@@ -23,10 +23,10 @@ const Herobuttons = () => {
           <span className="invisible">
             <ChevronRightIcon size={14} />
           </span>
-          <span className="absolute left-0 top-0.5 text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-full group-hover:text-white">
+          <span className="absolute left-0 top-[1px] text-neutral-200 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-full group-hover:text-white">
             <ChevronRightIcon size={14} />
           </span>
-          <span className="absolute left-0 top-0.5 -translate-x-full text-neutral-100 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-0 group-hover:text-white">
+          <span className="absolute left-0 top-[1px] -translate-x-full text-neutral-100 transition-transform duration-300 ease-in-out hover:duration-150 group-hover:translate-x-0 group-hover:text-white">
             <ChevronRightIcon size={14} />
           </span>
         </div>

@@ -12,6 +12,7 @@ import { BookOpen, Plus } from "lucide-react";
 import Navbar from "@/components/landingpage/navbar-shrink";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSites } from "@/lib/api";
+import { cn } from "@/lib/utils";
 
 export default function SitesPage() {
   useRequireAuth();
@@ -33,13 +34,13 @@ export default function SitesPage() {
     <div className="bg-black">
       <Navbar />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24">
-        <div className="mb-10 flex flex-row items-center justify-between">
+        <div className="mb-10 flex flex-col items-start justify-between sm:flex-row">
           <div>
             <h1 className="text-3xl font-bold text-white">
               Welcome back,
               <br className="block md:hidden" /> {session?.user?.name}!
             </h1>
-            <p className="max-w-xl text-sm text-neutral-400 md:text-[1rem]">
+            <p className="mt-2 max-w-sm text-balance text-sm text-neutral-400 md:max-w-xl md:text-[1rem]">
               Manage your websites and view privacy-friendly analytics in one
               place.
             </p>
@@ -47,7 +48,12 @@ export default function SitesPage() {
           {sites.length !== 0 && (
             <AddSiteModal
               trigger={
-                <button className="mt-2 flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
+                <button
+                  className={cn(
+                    "group mt-4 flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                    "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+                  )}
+                >
                   <Plus size={16} />
                   Add New Site
                 </button>
@@ -78,7 +84,12 @@ export default function SitesPage() {
               </p>
               <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                 <Link href="/docs" target="_blank" rel="noopener noreferrer">
-                  <button className="flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-[0.75rem] font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
+                  <button
+                    className={cn(
+                      "group flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                      "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+                    )}
+                  >
                     <BookOpen className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
                     View documentation
                   </button>

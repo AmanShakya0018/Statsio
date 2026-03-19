@@ -89,7 +89,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
               },
             }}
           >
-            <div className="px-6 pb-4 pt-2">
+            <div className="px-2 pb-4 pt-2">
               <motion.p
                 initial={{ y: -8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

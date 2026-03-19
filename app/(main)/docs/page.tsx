@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
-import { CheckCircle } from "lucide-react";
 import TrackingScriptInstructions from "@/components/globals/trackingscript";
 import Footer from "@/components/landingpage/footer";
-import { BiLinkExternal } from "react-icons/bi";
 import Navbar from "@/components/landingpage/navbar-shrink";
+import { cn } from "@/lib/utils";
 
 const DocumentationPage = () => {
   return (
@@ -27,7 +26,7 @@ const DocumentationPage = () => {
             <h1 className="bg-gradient-stop mb-4 bg-gradient-to-br from-white via-white via-30% to-white/30 bg-clip-text text-5xl font-medium text-neutral-800 text-transparent">
               Quick Start Guide
             </h1>
-            <p className="mx-auto max-w-2xl text-[1rem] leading-relaxed text-neutral-400">
+            <p className="mx-auto max-w-2xl text-balance text-[1rem] leading-relaxed text-neutral-400">
               Follow these simple steps to add Statsio analytics to your website
               and start tracking visitor data in minutes.
             </p>
@@ -46,9 +45,13 @@ const DocumentationPage = () => {
                 It&apos;s free to get started and no credit card is required.
               </p>
               <Link href="/signin">
-                <button className="group mt-2 flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
+                <button
+                  className={cn(
+                    "group mt-4 flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                    "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+                  )}
+                >
                   Create Account
-                  <CheckCircle className="h-4 w-4 transition-colors group-hover:text-green-500" />
                 </button>
               </Link>
             </div>
@@ -74,9 +77,13 @@ const DocumentationPage = () => {
                 for your site.
               </p>
               <Link href="/dashboard/sites">
-                <button className="group mt-2 flex items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800">
+                <button
+                  className={cn(
+                    "group mt-4 flex items-center justify-center gap-2 rounded-md bg-neutral-950 px-3 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800",
+                    "shadow-[0px_32px_64px_-16px_#0000004c,0px_16px_32px_-8px_#0000004c,0px_8px_16px_-4px_#0000003d,0px_4px_8px_-2px_#0000003d,0px_-8px_16px_-1px_#00000029,0px_2px_4px_-1px_#0000003d,0px_0px_0px_1px_#000000,inset_0px_0px_0px_1px_#ffffff14,inset_0px_1px_0px_#ffffff33]",
+                  )}
+                >
                   Go to Dashboard
-                  <BiLinkExternal className="h-4 w-4" />
                 </button>
               </Link>
             </div>
