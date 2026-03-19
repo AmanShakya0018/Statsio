@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
+import { useQuery } from "@tanstack/react-query";
 
 interface Referrer {
   referrer: string;
@@ -31,28 +32,21 @@ interface ReferrersAnalyticsProps {
   siteId: string;
 }
 
+const fetchReferrers = async (siteId: string): Promise<Referrer[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/referrers`);
+  return response.data;
+};
+
 export default function ReferrersAnalytics({
   siteId,
 }: ReferrersAnalyticsProps) {
-  const [referrers, setReferrers] = useState<Referrer[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchReferres = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/referrers`,
-        );
-        setReferrers(response.data);
-      } catch (error) {
-        console.error("Error fetching referrers" + error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchReferres();
-  }, [siteId]);
+  const { data: referrers = [], isLoading } = useQuery({
+    queryKey: ["referrers", siteId],
+    queryFn: () => fetchReferrers(siteId),
+    enabled: !!siteId,
+  });
 
   const maxCount = Math.max(...referrers.map((referrer) => referrer.count));
 

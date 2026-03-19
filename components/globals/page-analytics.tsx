@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
+import { useQuery } from "@tanstack/react-query";
 
 interface Page {
   pathname: string;
@@ -31,26 +32,19 @@ interface PagesAnalyticsProps {
   siteId: string;
 }
 
+const fetchPages = async (siteId: string): Promise<Page[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/pages`);
+  return response.data;
+};
+
 export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
-  const [pages, setpages] = useState<Page[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchPages = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/pages`,
-        );
-        setpages(response.data);
-      } catch (error) {
-        console.error("Failed to fetch pages:" + error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchPages();
-  }, [siteId]);
+  const { data: pages = [], isLoading } = useQuery({
+    queryKey: ["pages", siteId],
+    queryFn: () => fetchPages(siteId),
+    enabled: !!siteId,
+  });
 
   const maxCount = Math.max(...pages.map((page) => page.count), 0);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
+import { useQuery } from "@tanstack/react-query";
 
 interface Browser {
   browser: string;
@@ -35,39 +36,37 @@ interface BrowsersAndDevicesAnalyticsProps {
   siteId: string;
 }
 
+const fetchBrowsers = async (siteId: string): Promise<Browser[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/browser`);
+  return response.data;
+};
+
+const fetchDevices = async (siteId: string): Promise<Device[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/devices`);
+  return response.data;
+};
+
 export default function BrowsersAndDevicesAnalytics({
   siteId,
 }: BrowsersAndDevicesAnalyticsProps) {
-  const [browsers, setBrowsers] = useState<Browser[]>([]);
-  const [devices, setDevices] = useState<Device[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"browsers" | "devices">(
     "browsers",
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [browsersResponse, devicesResponse] = await Promise.all([
-          axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/browser`,
-          ),
-          axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/devices`,
-          ),
-        ]);
-        setBrowsers(browsersResponse.data);
-        setDevices(devicesResponse.data);
-      } catch (error) {
-        console.error("Error fetching analytics data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const { data: browsers = [], isLoading: isLoadingBrowsers } = useQuery({
+    queryKey: ["browsers", siteId],
+    queryFn: () => fetchBrowsers(siteId),
+    enabled: !!siteId,
+  });
 
-    fetchData();
-  }, [siteId]);
+  const { data: devices = [], isLoading: isLoadingDevices } = useQuery({
+    queryKey: ["devices", siteId],
+    queryFn: () => fetchDevices(siteId),
+    enabled: !!siteId,
+  });
+
+  const isLoading = isLoadingBrowsers || isLoadingDevices;
 
   const browserMaxCount = Math.max(...browsers.map((browser) => browser.count));
   const browserTotalCount = browsers.reduce((acc, curr) => acc + curr.count, 0);

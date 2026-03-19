@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
+import { useQuery } from "@tanstack/react-query";
 
 interface Country {
   country: string;
@@ -32,26 +33,21 @@ interface Country {
 interface CountrysAnalyticsProps {
   siteId: string;
 }
+
+const fetchCountries = async (siteId: string): Promise<Country[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/countries`);
+  return response.data;
+};
+
 const CountrysAnalytics = ({ siteId }: CountrysAnalyticsProps) => {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/sites/${siteId}/analytics/countries`,
-        );
-        setCountries(response.data);
-      } catch (error) {
-        console.error("Error fetching countries" + error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCountries();
-  }, [siteId]);
+  const { data: countries = [], isLoading } = useQuery({
+    queryKey: ["countries", siteId],
+    queryFn: () => fetchCountries(siteId),
+    enabled: !!siteId,
+  });
+
   const maxCount =
     countries.length > 0 ? Math.max(...countries.map((page) => page.count)) : 0;
   const totalCount =

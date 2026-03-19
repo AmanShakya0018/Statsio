@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import {
   Dialog,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
+import { useQuery } from "@tanstack/react-query";
 
 interface Os {
   os: string;
@@ -30,25 +31,19 @@ interface OssAnalyticsProps {
   siteId: string;
 }
 
+const fetchOs = async (siteId: string): Promise<Os[]> => {
+  const response = await axios.get(`/api/sites/${siteId}/analytics/os`);
+  return response.data;
+};
+
 export default function OssAnalytics({ siteId }: OssAnalyticsProps) {
-  const [oses, setOses] = useState<Os[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchOses = async () => {
-      try {
-        const response = await axios.get(`/api/sites/${siteId}/analytics/os`);
-        setOses(response.data);
-      } catch (error) {
-        console.error("Failed to fetch OS analytics:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchOses();
-  }, [siteId]);
+  const { data: oses = [], isLoading } = useQuery({
+    queryKey: ["os", siteId],
+    queryFn: () => fetchOs(siteId),
+    enabled: !!siteId,
+  });
 
   const maxCount = Math.max(...oses.map((page) => page.count), 0);
   const totalCount = oses.reduce((acc, curr) => acc + curr.count, 0);
