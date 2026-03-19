@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
@@ -25,12 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { SiteFormData, siteSchema } from "@/lib/validation/site";
-
-interface Site {
-  id: string;
-  name: string;
-  domain: string;
-}
+import { createSite, Site } from "@/lib/api";
 
 interface AddSiteModalProps {
   trigger: React.ReactNode;
@@ -51,10 +45,7 @@ export function AddSiteModal({ trigger, onSiteAdded }: AddSiteModalProps) {
   });
 
   const { mutate: addSite, isPending } = useMutation({
-    mutationFn: async (values: SiteFormData) => {
-      const res = await axios.post("/api/sites", values);
-      return res.data;
-    },
+    mutationFn: createSite,
     onSuccess: (newSite) => {
       toast({
         title: "Site added successfully",

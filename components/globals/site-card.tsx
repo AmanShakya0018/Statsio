@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteSite, updateSite } from "@/lib/api";
 
 interface SiteCardProps {
   site: {
@@ -52,11 +52,7 @@ export function SiteCard({ site }: SiteCardProps) {
   const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=https://${site.domain}`;
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: string) => {
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/project/delete/${id}`,
-      );
-    },
+    mutationFn: deleteSite,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sites"] });
       setOpenDelete(false);
@@ -67,13 +63,7 @@ export function SiteCard({ site }: SiteCardProps) {
   });
 
   const editMutation = useMutation({
-    mutationFn: async (values: SiteFormData) => {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/project/update/${site.id}`,
-        values,
-      );
-      return response.data;
-    },
+    mutationFn: (values: SiteFormData) => updateSite(site.id, values),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sites"] });
       setOpenEdit(false);

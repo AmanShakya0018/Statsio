@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Maximize2 } from "lucide-react";
 import { GoGraph } from "react-icons/go";
-import axios from "axios";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { FiDownload } from "react-icons/fi";
 import {
@@ -21,30 +20,11 @@ import {
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
-
-interface Browser {
-  browser: string;
-  count: number;
-}
-
-interface Device {
-  device: string;
-  count: number;
-}
+import { fetchBrowsers, fetchDevices, Browser, Device } from "@/lib/api";
 
 interface BrowsersAndDevicesAnalyticsProps {
   siteId: string;
 }
-
-const fetchBrowsers = async (siteId: string): Promise<Browser[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/browser`);
-  return response.data;
-};
-
-const fetchDevices = async (siteId: string): Promise<Device[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/devices`);
-  return response.data;
-};
 
 export default function BrowsersAndDevicesAnalytics({
   siteId,

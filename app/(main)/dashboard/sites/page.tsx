@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
 import { AddSiteModal } from "@/components/globals/site-modal";
 import { EmptyState } from "@/components/globals/empty-state";
@@ -12,17 +11,7 @@ import Footer from "@/components/landingpage/footer";
 import { BookOpen, Plus } from "lucide-react";
 import Navbar from "@/components/landingpage/navbar-shrink";
 import { useQuery } from "@tanstack/react-query";
-
-interface Site {
-  id: string;
-  name: string;
-  domain: string;
-}
-
-const getSites = async (): Promise<Site[]> => {
-  const res = await axios.get("/api/sites");
-  return res.data;
-};
+import { fetchSites } from "@/lib/api";
 
 export default function SitesPage() {
   useRequireAuth();
@@ -34,7 +23,7 @@ export default function SitesPage() {
     isError,
   } = useQuery({
     queryKey: ["sites"],
-    queryFn: getSites,
+    queryFn: fetchSites,
     enabled: status === "authenticated",
   });
 

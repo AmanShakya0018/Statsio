@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Maximize2 } from "lucide-react";
 import { GoGraph } from "react-icons/go";
-import axios from "axios";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { FiDownload } from "react-icons/fi";
 import {
@@ -21,21 +20,11 @@ import {
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
-
-interface Page {
-  pathname: string;
-  count: number;
-  visitors: number;
-}
+import { fetchPages } from "@/lib/api";
 
 interface PagesAnalyticsProps {
   siteId: string;
 }
-
-const fetchPages = async (siteId: string): Promise<Page[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/pages`);
-  return response.data;
-};
 
 export default function PagesAnalytics({ siteId }: PagesAnalyticsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
 import {
   Dialog,
   DialogContent,
@@ -21,20 +20,11 @@ import {
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
-
-interface Os {
-  os: string;
-  count: number;
-}
+import { fetchOs } from "@/lib/api";
 
 interface OssAnalyticsProps {
   siteId: string;
 }
-
-const fetchOs = async (siteId: string): Promise<Os[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/os`);
-  return response.data;
-};
 
 export default function OssAnalytics({ siteId }: OssAnalyticsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

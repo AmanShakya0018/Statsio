@@ -5,31 +5,21 @@ import { BiLinkExternal } from "react-icons/bi";
 import Link from "next/link";
 import { useState } from "react";
 import { MdOutlineWifiTetheringError } from "react-icons/md";
-import axios from "axios";
 import ContentNavigation from "../shared/content-navigation";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
+import { fetchSiteData } from "@/lib/api";
 
 interface SiteInterfaceProps {
   siteId: string;
 }
-
-interface Site {
-  name: string;
-  domain: string;
-}
-
-const getSiteData = async (siteId: string): Promise<Site> => {
-  const res = await axios.get(`/api/sites/${siteId}/data`);
-  return res.data;
-};
 
 export default function SiteHeader({ siteId }: SiteInterfaceProps) {
   const [faviconError, setFaviconError] = useState(false);
 
   const { data: site, isLoading } = useQuery({
     queryKey: ["site", siteId],
-    queryFn: () => getSiteData(siteId),
+    queryFn: () => fetchSiteData(siteId),
     enabled: !!siteId,
   });
 

@@ -1,15 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-interface PageView {
-  date: string;
-  count: number;
-}
-
-const fetchPageViews = async (siteId: string): Promise<PageView[]> => {
-  const res = await axios.get(`/api/sites/${siteId}/analytics/timeseries`);
-  return res.data;
-};
+import { fetchPageViews, PageView } from "@/lib/api";
 
 const processPageViews = (data: PageView[], range: "7d" | "all") => {
   if (range === "7d") {

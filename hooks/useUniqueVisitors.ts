@@ -1,15 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-interface Visitor {
-  date: string;
-  count: number;
-}
-
-const fetchUniqueVisitors = async (siteId: string): Promise<Visitor[]> => {
-  const res = await axios.get(`/api/sites/${siteId}/analytics/uniques`);
-  return res.data;
-};
+import { fetchUniqueVisitors, Visitor } from "@/lib/api";
 
 const processUniqueVisitors = (data: Visitor[], range: "7d" | "all") => {
   if (range === "7d") {

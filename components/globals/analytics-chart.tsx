@@ -31,7 +31,7 @@ interface AnalyticsCustomTooltipProps {
 }
 
 export default function AnalyticsChart({ siteId }: { siteId: string }) {
-  const [range, setRange] = useState<"7d" | "all">("7d");
+  const [range, setRange] = useState<"7d" | "all">("all");
 
   const { data: pageViewsData, total: pageViewsTotal } = usePageViews(
     siteId,

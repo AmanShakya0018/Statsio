@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Maximize2 } from "lucide-react";
 import { GoGraph } from "react-icons/go";
-import axios from "axios";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { FiDownload } from "react-icons/fi";
 import {
@@ -21,21 +20,11 @@ import {
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
-
-interface Referrer {
-  referrer: string;
-  count: number;
-  visitors: number;
-}
+import { fetchReferrers } from "@/lib/api";
 
 interface ReferrersAnalyticsProps {
   siteId: string;
 }
-
-const fetchReferrers = async (siteId: string): Promise<Referrer[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/referrers`);
-  return response.data;
-};
 
 export default function ReferrersAnalytics({
   siteId,

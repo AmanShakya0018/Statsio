@@ -12,7 +12,6 @@ import { Maximize2 } from "lucide-react";
 import { GoGraph } from "react-icons/go";
 import Image from "next/image";
 import { getFlagURL } from "@/lib/country-flag";
-import axios from "axios";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { FiDownload } from "react-icons/fi";
 import {
@@ -24,20 +23,11 @@ import {
 import { exportToCSV } from "@/lib/export-csv";
 import { TextShimmer } from "../ui/text-shimmer";
 import { useQuery } from "@tanstack/react-query";
-
-interface Country {
-  country: string;
-  count: number;
-}
+import { fetchCountries } from "@/lib/api";
 
 interface CountrysAnalyticsProps {
   siteId: string;
 }
-
-const fetchCountries = async (siteId: string): Promise<Country[]> => {
-  const response = await axios.get(`/api/sites/${siteId}/analytics/countries`);
-  return response.data;
-};
 
 const CountrysAnalytics = ({ siteId }: CountrysAnalyticsProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
